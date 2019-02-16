@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://code.alibabatech.com/schema/dubbo
+    http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+
+    <dubbo:application name="${dubbo.application.name}">
+        <dubbo:parameter key="qos.enable" value="true" />
+        <dubbo:parameter key="qos.accept.foreign.ip" value="false" />
+        <dubbo:parameter key="qos.port" value="44444" />
+    </dubbo:application>
+
+
+    <!-- 使用注册中心暴露服务地址 -->
+    <dubbo:registry address="${dubbo.registry.address}" register="false" />
+
+    <!-- 用dubbo协议在20880端口暴露服务 -->
+    <dubbo:protocol name="${dubbo.protocol.name}" port="${dubbo.protocol.port}" />
+
+    <!-- 声明需要暴露的服务接口 -->
+    <dubbo:service interface="com.yuntian.poeticlife.service.DemoService" ref="demoService"   version="${dubbo.provider.version}"/>
+    <dubbo:service interface="com.yuntian.poeticlife.service.HelloService" ref="helloService"   version="${dubbo.provider.version}"/>
+
+
+</beans>
+
