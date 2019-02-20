@@ -1,0 +1,8 @@
+
+# 针对内置tomcat生效
+server:
+  port: 9092
+  # 配置次路径后，所有的资源访问路径都会加上/spring前缀
+  servlet.context-path: /yuntian
+
+

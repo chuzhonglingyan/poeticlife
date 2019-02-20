@@ -1,8 +1,8 @@
 package com.yuntian.poeticlife.service.impl;
 
 
+import com.yuntian.poeticlife.core.AbstractService;
 import com.yuntian.poeticlife.service.HelloService;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -13,12 +13,13 @@ import org.springframework.stereotype.Service;
  * @ Description：${description}
  */
 @Service("helloService")
-public class HelloServiceImpl implements HelloService {
+public class HelloServiceImpl extends AbstractService implements HelloService {
 
-    private Logger logger=LoggerFactory.getLogger(getClass());
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
     public void say(String msg) {
         logger.info(msg);
     }
+
 }

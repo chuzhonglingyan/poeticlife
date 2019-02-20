@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * @ Description：${hello}
  */
 @Controller
-public class HelloController {
+public class HelloController  extends BaseController{
 
     @Resource
     private HelloService helloService;

@@ -13,15 +13,17 @@
     </dubbo:application>
 
     <!-- 采用直连，不使用注册中心 -->
+    <!--<dubbo:registry address="N/A"  />-->
+
     <dubbo:registry address="N/A" />
     <!--<dubbo:registry address="${dubbo.registry.address}" />-->
+
     <dubbo:protocol name="${dubbo.protocol.name}" port="${dubbo.protocol.port}" />
 
     <dubbo:reference id="demoService" interface="com.yuntian.poeticlife.service.DemoService"
-        version="${dubbo.consumer.version}" />
+        version="${dubbo.consumer.version}"  url="dubbo://localhost:${dubbo.protocol.port}"/>
 
     <dubbo:reference id="helloService" interface="com.yuntian.poeticlife.service.HelloService"
-        version="${dubbo.consumer.version}" />
-
+        version="${dubbo.consumer.version}" url="dubbo://localhost:${dubbo.protocol.port}"  />
 
 </beans>

@@ -1,0 +1,68 @@
+
+# 针对内置tomcat生效
+server:
+  port: 9090
+  # 配置次路径后，所有的资源访问路径都会加上/spring前缀
+  servlet.context-path: /yuntian
+
+spring:
+    datasource:
+        name: mysql_poeticlife
+        type: com.alibaba.druid.pool.DruidDataSource
+        #druid相关配置
+        druid:
+          # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙，此处是filter修改的地方
+          filters: stat,wall,slf4j
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          #基本属性
+          url: jdbc:mysql://127.0.0.1:3306/poeticlife?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+          username: root
+          password: 123456
+         #配置初始化大小/最小/最大
+          initial-size: 1
+          min-idle: 1
+          max-active: 20
+          #获取连接等待超时时间
+          max-wait: 60000
+         #间隔多久进行一次检测，检测需要关闭的空闲连接
+          time-between-eviction-runs-millis: 60000
+         #一个连接在池中最小生存的时间
+          min-evictable-idle-time-millis: 300000
+          validation-query: SELECT 'x'
+          test-while-idle: true
+          test-on-borrow: false
+          test-on-return: false
+          #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
+          pool-prepared-statements: false
+          max-pool-prepared-statement-per-connection-size: 20
+          # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+          connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+          # 合并多个DruidDataSource的监控数据
+          useGlobalDataSourceStat: true
+
+    redis:
+      host: localhost
+      port: 6379
+      timeout: 10000
+      database: 0
+      jedis:
+        pool:
+          max-active: 8 # 连接池最大连接数（使用负值表示没有限制） 默认 8
+          max-wait: -1
+          max-idle: 8 # 连接池中的最大空闲连接 默认 8
+          min-idle: 0
+      password:
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.yuntian.poeticlife.model
+
+#pagehelper
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count:countSql
+
+
