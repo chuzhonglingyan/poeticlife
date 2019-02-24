@@ -2,12 +2,10 @@ package com.yuntian.basecommon.util;
 
 import com.ibatis.common.beans.Probe;
 import com.ibatis.common.beans.ProbeFactory;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -41,12 +39,14 @@ import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.imageio.ImageIO;
+
 import static org.apache.commons.collections.CollectionUtils.EMPTY_COLLECTION;
 
 @SuppressWarnings({"deprecation"})
 public class CommonUtil {
 
-    private static final Log log = LogFactory.getLog(CommonUtil.class);
 
     private static final Probe PROBE = ProbeFactory.getProbe();
     @SuppressWarnings("rawtypes")
@@ -69,7 +69,7 @@ public class CommonUtil {
                 sb.append("\r\n");
             }
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            e.printStackTrace();
         }
         return sb.toString();
     }
@@ -123,7 +123,7 @@ public class CommonUtil {
             os.write(content);
             sign = true;
         } catch (Exception e) {
-            log.error("::", e);
+            e.printStackTrace();
             sign = false;
         } finally {
             try {
@@ -164,7 +164,7 @@ public class CommonUtil {
             _file.setLastModified(lastModified);
             sign = true;
         } catch (Exception e) {
-            log.error("::", e);
+            e.printStackTrace();
             sign = false;
         } finally {
             try {
@@ -202,7 +202,7 @@ public class CommonUtil {
             in.close();
             fips.close();
         } catch (Exception e) {
-            log.error("::", e);
+            e.printStackTrace();
             return "";
         } finally {
             try {

@@ -53,12 +53,12 @@ public class CodeGenerator {
     public static final String BACKEND_CONTROL_PATH = PROJECT_PATH + BACKEND_PATH+ JAVA_PATH;
 
 
-    public static final String TEMPLATE_FILE_PATH = PROJECT_PATH + SERVICE_PROVIDER_PATH + "/src/test/resources/generator/template";//模板位置
+    public static final String TEMPLATE_FILE_PATH = PROJECT_PATH + SERVICE_PROVIDER_PATH + "/src/login/resources/generator/template";//模板位置
 
 
 
     public static void main(String[] args) {
-        genCode("user");
+        genCode("backend_operater");
         //genCodeByCustomModelName("输入表名","输入自定义Model名称");
     }
 

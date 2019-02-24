@@ -91,9 +91,9 @@ public class PasswordUtil {
     }
 
     public static void main(String[] args) {
-        String password = md5HexWithSalt("admin");
+        String password = md5HexWithSalt("123456");
         System.out.println(password);
-        System.out.println(verify("admin", password));
+        System.out.println(verify("123456", password));
 
     }
 }

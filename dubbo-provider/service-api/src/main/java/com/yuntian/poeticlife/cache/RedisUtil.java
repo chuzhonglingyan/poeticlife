@@ -25,13 +25,14 @@ public class RedisUtil {
 
     @Resource
     private RedisTemplate redisTemplate;
+
     /**
      * 写入缓存
      * @param key
      * @param value
      * @return
      */
-    public boolean set(final String key, Object value) {
+    public  boolean set(final String key, Object value) {
         boolean result = false;
         try {
             ValueOperations<Serializable, Object> operations = redisTemplate.opsForValue();
@@ -101,9 +102,9 @@ public class RedisUtil {
      * @param key
      * @return
      */
-    public Object get(final String key) {
-        Object result = null;
-        ValueOperations<Serializable, Object> operations = redisTemplate.opsForValue();
+    public <T> T get(final String key) {
+        T result = null;
+        ValueOperations<Serializable, T> operations = redisTemplate.opsForValue();
         result = operations.get(key);
         return result;
     }
@@ -124,8 +125,8 @@ public class RedisUtil {
      * @param hashKey
      * @return
      */
-    public Object hmGet(String key, Object hashKey){
-        HashOperations<String, Object, Object> hash = redisTemplate.opsForHash();
+    public <T> T hmGet(String key, Object hashKey){
+        HashOperations<String, T, T> hash = redisTemplate.opsForHash();
         return hash.get(key,hashKey);
     }
 
@@ -146,8 +147,8 @@ public class RedisUtil {
      * @param l1
      * @return
      */
-    public List<Object> lRange(String k, long l, long l1){
-        ListOperations<String, Object> list = redisTemplate.opsForList();
+    public <T> List<T> lRange(String k, long l, long l1){
+        ListOperations<String, T> list = redisTemplate.opsForList();
         return list.range(k,l,l1);
     }
 
@@ -166,8 +167,8 @@ public class RedisUtil {
      * @param key
      * @return
      */
-    public Set<Object> setMembers(String key){
-        SetOperations<String, Object> set = redisTemplate.opsForSet();
+    public <T> Set<T> setMembers(String key){
+        SetOperations<String, T> set = redisTemplate.opsForSet();
         return set.members(key);
     }
 
@@ -189,8 +190,8 @@ public class RedisUtil {
      * @param scoure1
      * @return
      */
-    public Set<Object> rangeByScore(String key,double scoure,double scoure1){
-        ZSetOperations<String, Object> zset = redisTemplate.opsForZSet();
+    public <T> Set<T> rangeByScore(String key,double scoure,double scoure1){
+        ZSetOperations<String, T> zset = redisTemplate.opsForZSet();
         return zset.rangeByScore(key, scoure, scoure1);
     }
 }

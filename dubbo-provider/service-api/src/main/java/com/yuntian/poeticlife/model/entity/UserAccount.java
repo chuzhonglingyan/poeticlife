@@ -13,6 +13,7 @@ import java.util.Date;
 public class UserAccount implements Serializable {
 
 
+    private static final long serialVersionUID = 3569118323817679622L;
     private long id;
     private String userName;
     private String realName;

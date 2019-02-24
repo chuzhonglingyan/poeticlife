@@ -2,9 +2,6 @@ package com.yuntian.basecommon.util.encrypt.use;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -16,7 +13,6 @@ import java.security.NoSuchAlgorithmException;
  */
 public class MD5Util {
 
-    protected static final Logger logger = LoggerFactory.getLogger(MD5Util.class);
     static MessageDigest messageDigest = null;
 
     /**
@@ -56,7 +52,7 @@ public class MD5Util {
             byte[] md = mdTemp.digest();
             return Hex.encodeHexString(md);
         } catch (Exception e) {
-            logger.error("md5加密出错：" + source, e);
+            e.printStackTrace();
             return null;
         }
     }
@@ -68,11 +64,8 @@ public class MD5Util {
                 messageDigest = MessageDigest.getInstance("MD5");
             messageDigest.reset();
             messageDigest.update(str.getBytes("UTF-8"));
-        } catch (NoSuchAlgorithmException e) {
-            logger.error("NoSuchAlgorithmException caught!", e);
-
-        } catch (UnsupportedEncodingException e) {
-            logger.error("UnsupportedEncodingException error!", e);
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
         if (messageDigest == null)
             return "";

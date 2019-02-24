@@ -30,7 +30,7 @@ public class RSATester {
     public static void main(String[] args) throws Exception {
         System.err.println("公钥: \n\r" + publicKey);
         System.err.println("私钥： \n\r" + privateKey);
-      //  test();
+      //  login();
 //        testSign();
         testHttpSign();
     }

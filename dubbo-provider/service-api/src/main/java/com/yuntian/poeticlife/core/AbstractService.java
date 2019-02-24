@@ -1,11 +1,13 @@
 package com.yuntian.poeticlife.core;
 
+
 import com.yuntian.basecommon.exception.BusinessException;
 import org.apache.ibatis.exceptions.TooManyResultsException;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
-import javax.annotation.Resource;
 
 import tk.mybatis.mapper.entity.Condition;
 
@@ -14,7 +16,7 @@ import tk.mybatis.mapper.entity.Condition;
  */
 public abstract class AbstractService<T> implements Service<T> {
 
-    @Resource
+    @Autowired
     protected Mapper<T> mapper;
 
     private Class<T> modelClass;    // 当前泛型真实类型的Class
@@ -32,7 +34,7 @@ public abstract class AbstractService<T> implements Service<T> {
         mapper.insertList(models);
     }
 
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         mapper.deleteByPrimaryKey(id);
     }
 
@@ -40,11 +42,16 @@ public abstract class AbstractService<T> implements Service<T> {
         mapper.deleteByIds(ids);
     }
 
+    @Override
+    public void deleteByIds(List<Long> ids) {
+        deleteByIds(getIds(ids));
+    }
+
     public void update(T model) {
         mapper.updateByPrimaryKeySelective(model);
     }
 
-    public T findById(Integer id) {
+    public T findById(Long id) {
         return mapper.selectByPrimaryKey(id);
     }
 
@@ -61,9 +68,27 @@ public abstract class AbstractService<T> implements Service<T> {
         }
     }
 
+    @Override
+    public List<T> findByIds(List<Long> ids) {
+        return findByIds(getIds(ids));
+    }
+
+
+    private String  getIds(List<Long> ids){
+        StringBuilder stringBuilder=new StringBuilder();
+        for (int i = 0; i < ids.size(); i++) {
+            stringBuilder.append(ids.get(i));
+            if (i<ids.size()-1){
+                stringBuilder.append(",");
+            }
+        }
+        return  stringBuilder.toString();
+    }
+
     public List<T> findByIds(String ids) {
         return mapper.selectByIds(ids);
     }
+
 
     public List<T> findByCondition(Condition condition) {
         return mapper.selectByCondition(condition);

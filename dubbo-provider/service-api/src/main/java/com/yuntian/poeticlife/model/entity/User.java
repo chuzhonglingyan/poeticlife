@@ -1,15 +1,22 @@
 package com.yuntian.poeticlife.model.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = -844455022943052594L;
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String username;
 
     private String password;
+
+    private String role;
 
     @Column(name = "nick_name")
     private String nickName;
@@ -59,6 +66,20 @@ public class User {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    /**
+     * @return role
+     */
+    public String getRole() {
+        return role;
+    }
+
+    /**
+     * @param role
+     */
+    public void setRole(String role) {
+        this.role = role;
     }
 
     /**

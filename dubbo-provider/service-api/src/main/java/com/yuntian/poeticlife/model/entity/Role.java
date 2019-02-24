@@ -4,35 +4,17 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
-@Table(name = "backend_operater")
-public class BackendOperater implements Serializable {
+public class Role implements Serializable {
 
-
-    private static final long serialVersionUID = -8515315107809661780L;
-
+    private static final long serialVersionUID = 3485883388786466921L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
-     * 账号
+     * 角色名
      */
-    @Column(name = "account_name")
-    private String accountName;
-
-    /**
-     * 用户名
-     */
-    @Column(name = "user_name")
-    private String userName;
-
-    @Column(name = "pass_word")
-    private String passWord;
-
-    /**
-     * 邮箱
-     */
-    private String email;
+    private String role;
 
     /**
      * 创建人
@@ -59,18 +41,6 @@ public class BackendOperater implements Serializable {
     private Date updateTime;
 
     /**
-     * 是否超级管理员，0-否，1-是，默认为0
-     */
-    @Column(name = "is_supper")
-    private Byte isSupper;
-
-    /**
-     * 是否启用，0-禁用，1-启用，默认为0
-     */
-    @Column(name = "is_enable")
-    private Byte isEnable;
-
-    /**
      * 是否删除，0-未删除，1-删除，默认为0
      */
     @Column(name = "is_delete")
@@ -91,71 +61,21 @@ public class BackendOperater implements Serializable {
     }
 
     /**
-     * 获取账号
+     * 获取角色名
      *
-     * @return account_name - 账号
+     * @return role - 角色名
      */
-    public String getAccountName() {
-        return accountName;
+    public String getRole() {
+        return role;
     }
 
     /**
-     * 设置账号
+     * 设置角色名
      *
-     * @param accountName 账号
+     * @param role 角色名
      */
-    public void setAccountName(String accountName) {
-        this.accountName = accountName;
-    }
-
-    /**
-     * 获取用户名
-     *
-     * @return user_name - 用户名
-     */
-    public String getUserName() {
-        return userName;
-    }
-
-    /**
-     * 设置用户名
-     *
-     * @param userName 用户名
-     */
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    /**
-     * @return pass_word
-     */
-    public String getPassWord() {
-        return passWord;
-    }
-
-    /**
-     * @param passWord
-     */
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
-    }
-
-    /**
-     * 获取邮箱
-     *
-     * @return email - 邮箱
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * 设置邮箱
-     *
-     * @param email 邮箱
-     */
-    public void setEmail(String email) {
-        this.email = email;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     /**
@@ -228,42 +148,6 @@ public class BackendOperater implements Serializable {
      */
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    /**
-     * 获取是否超级管理员，0-否，1-是，默认为0
-     *
-     * @return is_supper - 是否超级管理员，0-否，1-是，默认为0
-     */
-    public Byte getIsSupper() {
-        return isSupper;
-    }
-
-    /**
-     * 设置是否超级管理员，0-否，1-是，默认为0
-     *
-     * @param isSupper 是否超级管理员，0-否，1-是，默认为0
-     */
-    public void setIsSupper(Byte isSupper) {
-        this.isSupper = isSupper;
-    }
-
-    /**
-     * 获取是否启用，0-禁用，1-启用，默认为0
-     *
-     * @return is_enable - 是否启用，0-禁用，1-启用，默认为0
-     */
-    public Byte getIsEnable() {
-        return isEnable;
-    }
-
-    /**
-     * 设置是否启用，0-禁用，1-启用，默认为0
-     *
-     * @param isEnable 是否启用，0-禁用，1-启用，默认为0
-     */
-    public void setIsEnable(Byte isEnable) {
-        this.isEnable = isEnable;
     }
 
     /**

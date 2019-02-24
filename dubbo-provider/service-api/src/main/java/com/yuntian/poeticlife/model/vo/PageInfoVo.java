@@ -18,9 +18,9 @@ public class PageInfoVo<T> {
     private List<T> list;
 
     @JSONField(serialize = false) //忽略该字段显示
-    private PageInfo pageInfo;
+    private PageInfo<T> pageInfo;
 
-    public PageInfoVo(PageInfo pageInfo) {
+    public PageInfoVo(PageInfo<T> pageInfo) {
         this.pageInfo = pageInfo;
     }
 
