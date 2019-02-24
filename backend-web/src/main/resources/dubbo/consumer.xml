@@ -26,4 +26,16 @@
     <dubbo:reference id="helloService" interface="com.yuntian.poeticlife.service.HelloService"
         version="${dubbo.consumer.version}" url="dubbo://localhost:${dubbo.protocol.port}"  />
 
+    <dubbo:reference id="backendOperaterService" interface="com.yuntian.poeticlife.service.BackendOperaterService"
+        version="${dubbo.consumer.version}" url="dubbo://localhost:${dubbo.protocol.port}"  />
+
+    <dubbo:reference id="userService" interface="com.yuntian.poeticlife.service.UserService"
+        version="${dubbo.consumer.version}" url="dubbo://localhost:${dubbo.protocol.port}"  />
+
+    <dubbo:reference id="roleService" interface="com.yuntian.poeticlife.service.RoleService"
+        version="${dubbo.consumer.version}" url="dubbo://localhost:${dubbo.protocol.port}"  />
+
+    <dubbo:reference id="operaterRoleService" interface="com.yuntian.poeticlife.service.OperaterRoleService"
+        version="${dubbo.consumer.version}" url="dubbo://localhost:${dubbo.protocol.port}"  />
+
 </beans>

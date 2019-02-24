@@ -1,9 +1,10 @@
 package com.yuntian.poeticlife.controller;
 import com.yuntian.poeticlife.core.Result;
 import com.yuntian.poeticlife.core.ResultGenerator;
-import com.yuntian.poeticlife.model.entity.User;
-import com.yuntian.poeticlife.service.UserService;
+import com.yuntian.poeticlife.model.entity.OperaterRole;
+import com.yuntian.poeticlife.service.OperaterRoleService;
 import com.github.pagehelper.PageHelper;
+import com.yuntian.poeticlife.model.vo.PageInfoVo;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,43 +15,44 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
-* Created by CodeGenerator on 2019/02/19.
+* Created by CodeGenerator on 2019/02/23.
 */
 @RestController
-@RequestMapping("/user")
-public class UserController extends BaseController{
+@RequestMapping("/operater/role")
+public class OperaterRoleController extends BaseController{
+
     @Resource
-    private UserService userService;
+    private OperaterRoleService operaterRoleService;
 
     @PostMapping("/add")
-    public Result add(User user) {
-        userService.save(user);
+    public Result add(OperaterRole operaterRole) {
+        operaterRoleService.save(operaterRole);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/delete")
-    public Result delete(@RequestParam Integer id) {
-        userService.deleteById(id);
+    public Result delete(@RequestParam Long id) {
+        operaterRoleService.deleteById(id);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/update")
-    public Result update(User user) {
-       userService.update(user);
+    public Result update(OperaterRole operaterRole) {
+        operaterRoleService.update(operaterRole);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/detail")
-    public Result detail(@RequestParam Integer id) {
-       User user = userService.findById(id);
-        return ResultGenerator.genSuccessResult(user);
+    public Result detail(@RequestParam Long id) {
+        OperaterRole operaterRole = operaterRoleService.findById(id);
+        return ResultGenerator.genSuccessResult(operaterRole);
     }
 
     @PostMapping("/list")
     public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
-        List<User> list = userService.findAll();
-        PageInfo pageInfo = new PageInfo(list);
+        List<OperaterRole> list = operaterRoleService.findAll();
+        PageInfoVo<OperaterRole> pageInfo = new PageInfoVo<>(new PageInfo<>(list));
         return ResultGenerator.genSuccessResult(pageInfo);
     }
 }
