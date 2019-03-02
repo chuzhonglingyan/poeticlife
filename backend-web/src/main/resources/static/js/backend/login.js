@@ -22,17 +22,18 @@ new Vue({
         },
         login: function () {
             if (!this.userName) {
-                swal("userName required.");
+                alert("userName required.");
                 return
             }
             if (!this.passWord) {
-                swal("passWord required.");
+                alert("passWord required.");
                 return
             }
 
             var params = {userName: this.userName, passWord: this.passWord};
             postForm(this.loginUrl, params, function (data) {
-
+                console.debug("登录成功了");
+                gotoPage("/index");
             });
         }
     }

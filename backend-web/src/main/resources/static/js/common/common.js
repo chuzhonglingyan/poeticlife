@@ -1,6 +1,6 @@
 var rootPath = "";
 
-var baseURL = "../../";
+var baseURL = "/backend";
 
 
 /**
@@ -23,7 +23,13 @@ var getFormFull = function (url, successCallback, failureCallback) {
         contentType: "application/x-www-form-urlencoded; charset=UTF-8"
     }).success(function (data) {
         console.debug(data);
-        successCallback(data);
+        if (data.success) {
+            successCallback(data.data);
+        }else {
+            if (failureCallback != null) {
+                failureCallback(data.message);
+            }
+        }
     }).error(function (msg) {
         if (failureCallback != null) {
             failureCallback(msg);
@@ -44,12 +50,18 @@ var postFormFull = function (url, requestBody, successCallback, failureCallback)
         contentType: "application/x-www-form-urlencoded; charset=UTF-8"
     }).success(function (data) {
         console.debug(data);
-        successCallback(data);
-    }).error(function (msg) {
-        if (failureCallback != null) {
-            failureCallback(msg);
+        if (data.success) {
+            successCallback(data.data);
+        }else {
+            if (failureCallback != null) {
+                failureCallback(data.message);
+            }
         }
-        console.error("request failed:" + msg);
+    }).error(function (xhr) {
+        if (failureCallback != null) {
+            failureCallback(xhr.statusText);
+        }
+        console.debug("request failed： " + xhr.status + " " + xhr.statusText);
     });
 };
 
@@ -66,7 +78,13 @@ var postJsonFull = function (url, requestBody, successCallback, failureCallback)
         contentType: 'application/json'
     }).success(function (data) {
         console.debug(data);
-        successCallback(data);
+        if (data.success) {
+            successCallback(data);
+        }else {
+            if (failureCallback != null) {
+                failureCallback(data.message);
+            }
+        }
     }).error(function (msg) {
         if (failureCallback != null) {
             failureCallback(msg);
@@ -96,3 +114,10 @@ var swalWarning = function (text) {
 
 };
 
+/**
+ * 重定向页面
+ * @param path
+ */
+function gotoPage(path) {
+    window.location.href=baseURL+path;
+}
