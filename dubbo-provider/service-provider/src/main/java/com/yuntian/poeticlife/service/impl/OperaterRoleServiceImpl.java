@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 
 
 /**
- * Created by CodeGenerator on 2019/02/23.
+ * Created by CodeGenerator on 2019/02/26.
  */
 @Service("operaterRoleService")
 public class OperaterRoleServiceImpl extends AbstractService<OperaterRole> implements OperaterRoleService {

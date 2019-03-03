@@ -3,6 +3,7 @@ package com.yuntian.poeticlife.model.vo;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.github.pagehelper.PageInfo;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,12 +11,15 @@ import java.util.List;
  * @Date: 2018/8/20 22:30
  * @Description:
  */
-public class PageInfoVo<T> {
+public class PageInfoVo<T> implements Serializable {
+
+
+    private static final long serialVersionUID = -2291321936784760449L;
 
     private int pageNum;
     private int pageSize;
     private long total;
-    private List<T> list;
+    private List<T> rows;
 
     @JSONField(serialize = false) //忽略该字段显示
     private PageInfo<T> pageInfo;
@@ -40,12 +44,12 @@ public class PageInfoVo<T> {
         this.pageSize = pageSize;
     }
 
-    public List<T> getList() {
+    public List<T> getRows() {
         return pageInfo.getList();
     }
 
-    public void setList(List<T> list) {
-        this.list = list;
+    public void setRows(List<T> rows) {
+        this.rows = rows;
     }
 
     public long getTotal() {

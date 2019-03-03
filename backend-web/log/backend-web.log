@@ -1,723 +1,93 @@
-2019-02-23 23:15:14.314  WARN 17016 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, try to find an extension (bean) of type java.lang.String, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:15:14.315  WARN 17016 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, type:java.lang.String found, stop get bean., dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:15:14.580  WARN 17016 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:15:14.616  WARN 17016 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:15:14.616  WARN 17016 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:15:15.023  WARN 17016 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'shirFilter' defined in class path resource [com/yuntian/poeticlife/config/ShiroConfig.class]: Unsatisfied dependency expressed through method 'shirFilter' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'securityManager' defined in class path resource [com/yuntian/poeticlife/config/ShiroConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.shiro.mgt.SecurityManager]: Factory method 'securityManager' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'customRealm': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.UserService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-2019-02-23 23:15:15.142 ERROR 17016 --- [main] o.s.boot.SpringApplication               : Application run failed
-
-org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'shirFilter' defined in class path resource [com/yuntian/poeticlife/config/ShiroConfig.class]: Unsatisfied dependency expressed through method 'shirFilter' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'securityManager' defined in class path resource [com/yuntian/poeticlife/config/ShiroConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.shiro.mgt.SecurityManager]: Factory method 'securityManager' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'customRealm': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.UserService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:769) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:509) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1288) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1127) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:538) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:498) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.support.PostProcessorRegistrationDelegate.registerBeanPostProcessors(PostProcessorRegistrationDelegate.java:240) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.support.AbstractApplicationContext.registerBeanPostProcessors(AbstractApplicationContext.java:707) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:531) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:127) [spring-boot-test-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:99) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:117) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:108) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:190) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:132) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:246) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:227) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:246) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:97) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:363) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:190) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.runner.JUnitCore.run(JUnitCore.java:137) [junit-4.12.jar:4.12]
-	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:68) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:47) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:242) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:70) [junit-rt.jar:na]
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'securityManager' defined in class path resource [com/yuntian/poeticlife/config/ShiroConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.shiro.mgt.SecurityManager]: Factory method 'securityManager' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'customRealm': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.UserService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:627) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:456) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1288) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1127) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:538) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:498) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:273) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1237) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1164) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:857) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:760) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	... 42 common frames omitted
-Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.shiro.mgt.SecurityManager]: Factory method 'securityManager' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'customRealm': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.UserService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:185) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:622) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	... 56 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'customRealm': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.UserService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:324) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1378) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:575) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:498) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.resolveBeanReference(ConfigurationClassEnhancer.java:394) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:366) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at com.yuntian.poeticlife.config.ShiroConfig$$EnhancerBySpringCGLIB$$1a3e03e1.customRealm(<generated>) ~[classes/:na]
-	at com.yuntian.poeticlife.config.ShiroConfig.securityManager(ShiroConfig.java:52) ~[classes/:na]
-	at com.yuntian.poeticlife.config.ShiroConfig$$EnhancerBySpringCGLIB$$1a3e03e1.CGLIB$securityManager$0(<generated>) ~[classes/:na]
-	at com.yuntian.poeticlife.config.ShiroConfig$$EnhancerBySpringCGLIB$$1a3e03e1$$FastClassBySpringCGLIB$$6d774e80.invoke(<generated>) ~[classes/:na]
-	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:244) ~[spring-core-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:363) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at com.yuntian.poeticlife.config.ShiroConfig$$EnhancerBySpringCGLIB$$1a3e03e1.securityManager(<generated>) ~[classes/:na]
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_91]
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_91]
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_91]
-	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_91]
-	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:154) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	... 57 common frames omitted
-Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.UserService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoMatchingBeanFound(DefaultListableBeanFactory.java:1644) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1203) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1164) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:518) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:496) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:630) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:180) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:90) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:321) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	... 78 common frames omitted
-
-2019-02-23 23:15:15.150 ERROR 17016 --- [main] o.s.test.context.TestContextManager      : Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@6c80d78a] to prepare test instance [com.yuntian.poeticlife.BackendOperaterServiceTest@5a237731]
-
-java.lang.IllegalStateException: Failed to load ApplicationContext
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:125) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:108) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:190) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:132) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:246) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:227) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:246) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:97) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:363) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:190) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.runner.JUnitCore.run(JUnitCore.java:137) [junit-4.12.jar:4.12]
-	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:68) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:47) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:242) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:70) [junit-rt.jar:na]
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'shirFilter' defined in class path resource [com/yuntian/poeticlife/config/ShiroConfig.class]: Unsatisfied dependency expressed through method 'shirFilter' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'securityManager' defined in class path resource [com/yuntian/poeticlife/config/ShiroConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.shiro.mgt.SecurityManager]: Factory method 'securityManager' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'customRealm': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.UserService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:769) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:509) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1288) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1127) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:538) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:498) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.support.PostProcessorRegistrationDelegate.registerBeanPostProcessors(PostProcessorRegistrationDelegate.java:240) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.support.AbstractApplicationContext.registerBeanPostProcessors(AbstractApplicationContext.java:707) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:531) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:127) ~[spring-boot-test-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:99) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:117) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	... 24 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'securityManager' defined in class path resource [com/yuntian/poeticlife/config/ShiroConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.shiro.mgt.SecurityManager]: Factory method 'securityManager' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'customRealm': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.UserService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:627) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:456) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1288) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1127) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:538) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:498) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:273) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1237) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1164) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:857) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:760) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	... 42 common frames omitted
-Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.shiro.mgt.SecurityManager]: Factory method 'securityManager' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'customRealm': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.UserService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:185) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:622) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	... 56 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'customRealm': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.UserService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:324) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1378) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:575) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:498) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.resolveBeanReference(ConfigurationClassEnhancer.java:394) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:366) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at com.yuntian.poeticlife.config.ShiroConfig$$EnhancerBySpringCGLIB$$1a3e03e1.customRealm(<generated>) ~[classes/:na]
-	at com.yuntian.poeticlife.config.ShiroConfig.securityManager(ShiroConfig.java:52) ~[classes/:na]
-	at com.yuntian.poeticlife.config.ShiroConfig$$EnhancerBySpringCGLIB$$1a3e03e1.CGLIB$securityManager$0(<generated>) ~[classes/:na]
-	at com.yuntian.poeticlife.config.ShiroConfig$$EnhancerBySpringCGLIB$$1a3e03e1$$FastClassBySpringCGLIB$$6d774e80.invoke(<generated>) ~[classes/:na]
-	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:244) ~[spring-core-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:363) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at com.yuntian.poeticlife.config.ShiroConfig$$EnhancerBySpringCGLIB$$1a3e03e1.securityManager(<generated>) ~[classes/:na]
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_91]
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_91]
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_91]
-	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_91]
-	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:154) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	... 57 common frames omitted
-Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.UserService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoMatchingBeanFound(DefaultListableBeanFactory.java:1644) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1203) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1164) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:518) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:496) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:630) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:180) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:90) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:321) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	... 78 common frames omitted
-
-2019-02-23 23:18:57.140  WARN 14072 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, try to find an extension (bean) of type java.lang.String, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:18:57.141  WARN 14072 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, type:java.lang.String found, stop get bean., dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:18:57.586  WARN 14072 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:18:57.586  WARN 14072 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:18:57.586  WARN 14072 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:18:57.978  WARN 14072 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'shirFilter' defined in class path resource [com/yuntian/poeticlife/config/ShiroConfig.class]: Unsatisfied dependency expressed through method 'shirFilter' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'securityManager' defined in class path resource [com/yuntian/poeticlife/config/ShiroConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.shiro.mgt.SecurityManager]: Factory method 'securityManager' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'customRealm': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.UserService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-2019-02-23 23:18:58.114 ERROR 14072 --- [main] o.s.boot.SpringApplication               : Application run failed
-
-org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'shirFilter' defined in class path resource [com/yuntian/poeticlife/config/ShiroConfig.class]: Unsatisfied dependency expressed through method 'shirFilter' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'securityManager' defined in class path resource [com/yuntian/poeticlife/config/ShiroConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.shiro.mgt.SecurityManager]: Factory method 'securityManager' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'customRealm': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.UserService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:769) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:509) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1288) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1127) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:538) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:498) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.support.PostProcessorRegistrationDelegate.registerBeanPostProcessors(PostProcessorRegistrationDelegate.java:240) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.support.AbstractApplicationContext.registerBeanPostProcessors(AbstractApplicationContext.java:707) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:531) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:127) [spring-boot-test-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:99) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:117) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:108) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:190) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:132) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:246) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:227) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:246) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:97) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:363) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:190) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.runner.JUnitCore.run(JUnitCore.java:137) [junit-4.12.jar:4.12]
-	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:68) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:47) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:242) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:70) [junit-rt.jar:na]
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'securityManager' defined in class path resource [com/yuntian/poeticlife/config/ShiroConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.shiro.mgt.SecurityManager]: Factory method 'securityManager' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'customRealm': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.UserService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:627) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:456) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1288) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1127) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:538) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:498) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:273) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1237) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1164) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:857) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:760) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	... 42 common frames omitted
-Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.shiro.mgt.SecurityManager]: Factory method 'securityManager' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'customRealm': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.UserService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:185) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:622) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	... 56 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'customRealm': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.UserService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:324) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1378) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:575) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:498) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.resolveBeanReference(ConfigurationClassEnhancer.java:394) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:366) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at com.yuntian.poeticlife.config.ShiroConfig$$EnhancerBySpringCGLIB$$2cdf705b.customRealm(<generated>) ~[classes/:na]
-	at com.yuntian.poeticlife.config.ShiroConfig.securityManager(ShiroConfig.java:52) ~[classes/:na]
-	at com.yuntian.poeticlife.config.ShiroConfig$$EnhancerBySpringCGLIB$$2cdf705b.CGLIB$securityManager$0(<generated>) ~[classes/:na]
-	at com.yuntian.poeticlife.config.ShiroConfig$$EnhancerBySpringCGLIB$$2cdf705b$$FastClassBySpringCGLIB$$92d39d88.invoke(<generated>) ~[classes/:na]
-	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:244) ~[spring-core-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:363) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at com.yuntian.poeticlife.config.ShiroConfig$$EnhancerBySpringCGLIB$$2cdf705b.securityManager(<generated>) ~[classes/:na]
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_91]
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_91]
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_91]
-	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_91]
-	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:154) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	... 57 common frames omitted
-Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.UserService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoMatchingBeanFound(DefaultListableBeanFactory.java:1644) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1203) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1164) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:518) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:496) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:630) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:180) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:90) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:321) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	... 78 common frames omitted
-
-2019-02-23 23:18:58.119 ERROR 14072 --- [main] o.s.test.context.TestContextManager      : Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@7857fe2] to prepare test instance [com.yuntian.poeticlife.BackendOperaterServiceTest@27b337bb]
-
-java.lang.IllegalStateException: Failed to load ApplicationContext
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:125) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:108) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:190) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:132) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:246) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:227) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:246) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:97) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:363) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:190) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.runner.JUnitCore.run(JUnitCore.java:137) [junit-4.12.jar:4.12]
-	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:68) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:47) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:242) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:70) [junit-rt.jar:na]
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'shirFilter' defined in class path resource [com/yuntian/poeticlife/config/ShiroConfig.class]: Unsatisfied dependency expressed through method 'shirFilter' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'securityManager' defined in class path resource [com/yuntian/poeticlife/config/ShiroConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.shiro.mgt.SecurityManager]: Factory method 'securityManager' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'customRealm': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.UserService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:769) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:509) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1288) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1127) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:538) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:498) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.support.PostProcessorRegistrationDelegate.registerBeanPostProcessors(PostProcessorRegistrationDelegate.java:240) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.support.AbstractApplicationContext.registerBeanPostProcessors(AbstractApplicationContext.java:707) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:531) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:127) ~[spring-boot-test-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:99) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:117) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	... 24 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'securityManager' defined in class path resource [com/yuntian/poeticlife/config/ShiroConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.shiro.mgt.SecurityManager]: Factory method 'securityManager' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'customRealm': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.UserService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:627) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:456) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1288) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1127) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:538) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:498) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:273) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1237) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1164) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:857) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:760) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	... 42 common frames omitted
-Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.shiro.mgt.SecurityManager]: Factory method 'securityManager' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'customRealm': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.UserService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:185) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:622) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	... 56 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'customRealm': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.UserService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:324) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1378) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:575) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:498) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.resolveBeanReference(ConfigurationClassEnhancer.java:394) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:366) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at com.yuntian.poeticlife.config.ShiroConfig$$EnhancerBySpringCGLIB$$2cdf705b.customRealm(<generated>) ~[classes/:na]
-	at com.yuntian.poeticlife.config.ShiroConfig.securityManager(ShiroConfig.java:52) ~[classes/:na]
-	at com.yuntian.poeticlife.config.ShiroConfig$$EnhancerBySpringCGLIB$$2cdf705b.CGLIB$securityManager$0(<generated>) ~[classes/:na]
-	at com.yuntian.poeticlife.config.ShiroConfig$$EnhancerBySpringCGLIB$$2cdf705b$$FastClassBySpringCGLIB$$92d39d88.invoke(<generated>) ~[classes/:na]
-	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:244) ~[spring-core-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:363) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at com.yuntian.poeticlife.config.ShiroConfig$$EnhancerBySpringCGLIB$$2cdf705b.securityManager(<generated>) ~[classes/:na]
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_91]
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_91]
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_91]
-	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_91]
-	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:154) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	... 57 common frames omitted
-Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.UserService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoMatchingBeanFound(DefaultListableBeanFactory.java:1644) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1203) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1164) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:518) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:496) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:630) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:180) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:90) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:321) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	... 78 common frames omitted
-
-2019-02-23 23:20:28.383  WARN 13396 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, try to find an extension (bean) of type java.lang.String, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:20:28.385  WARN 13396 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, type:java.lang.String found, stop get bean., dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:20:28.625  WARN 13396 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:20:28.625  WARN 13396 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:20:28.625  WARN 13396 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:20:28.625  WARN 13396 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:20:34.089  WARN 13396 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'operaterRoleController': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.OperaterRoleService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-2019-02-23 23:20:34.239 ERROR 13396 --- [main] o.s.boot.SpringApplication               : Application run failed
-
-org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'operaterRoleController': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.OperaterRoleService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:324) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1378) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:575) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:498) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:846) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:863) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:546) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:127) [spring-boot-test-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:99) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:117) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:108) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:190) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:132) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:246) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:227) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:246) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:97) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:363) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:190) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.runner.JUnitCore.run(JUnitCore.java:137) [junit-4.12.jar:4.12]
-	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:68) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:47) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:242) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:70) [junit-rt.jar:na]
-Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.OperaterRoleService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoMatchingBeanFound(DefaultListableBeanFactory.java:1644) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1203) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1164) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:518) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:496) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:630) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:180) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:90) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:321) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	... 40 common frames omitted
-
-2019-02-23 23:20:34.242 ERROR 13396 --- [main] o.s.test.context.TestContextManager      : Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@7857fe2] to prepare test instance [com.yuntian.poeticlife.BackendOperaterServiceTest@48f2054d]
-
-java.lang.IllegalStateException: Failed to load ApplicationContext
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:125) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:108) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:190) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:132) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:246) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:227) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:246) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:97) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:363) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:190) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.runner.JUnitCore.run(JUnitCore.java:137) [junit-4.12.jar:4.12]
-	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:68) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:47) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:242) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:70) [junit-rt.jar:na]
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'operaterRoleController': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.OperaterRoleService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:324) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1378) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:575) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:498) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:846) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:863) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:546) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:127) ~[spring-boot-test-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:99) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:117) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	... 24 common frames omitted
-Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.OperaterRoleService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoMatchingBeanFound(DefaultListableBeanFactory.java:1644) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1203) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1164) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:518) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:496) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:630) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:180) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:90) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:321) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	... 40 common frames omitted
-
-2019-02-23 23:20:41.955  WARN 8388 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, try to find an extension (bean) of type java.lang.String, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:20:41.956  WARN 8388 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, type:java.lang.String found, stop get bean., dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:20:42.195  WARN 8388 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:20:42.196  WARN 8388 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:20:42.196  WARN 8388 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:20:42.197  WARN 8388 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:20:43.881  WARN 8388 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'operaterRoleController': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.OperaterRoleService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-2019-02-23 23:20:44.150 ERROR 8388 --- [main] o.s.boot.SpringApplication               : Application run failed
-
-org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'operaterRoleController': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.OperaterRoleService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:324) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1378) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:575) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:498) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:846) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:863) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:546) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:127) [spring-boot-test-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:99) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:117) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:108) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:190) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:132) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:246) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:227) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:246) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:97) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:363) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:190) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.runner.JUnitCore.run(JUnitCore.java:137) [junit-4.12.jar:4.12]
-	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:68) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:47) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:242) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:70) [junit-rt.jar:na]
-Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.OperaterRoleService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoMatchingBeanFound(DefaultListableBeanFactory.java:1644) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1203) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1164) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:518) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:496) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:630) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:180) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:90) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:321) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	... 40 common frames omitted
-
-2019-02-23 23:20:44.154 ERROR 8388 --- [main] o.s.test.context.TestContextManager      : Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@7857fe2] to prepare test instance [com.yuntian.poeticlife.BackendOperaterServiceTest@1785d194]
-
-java.lang.IllegalStateException: Failed to load ApplicationContext
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:125) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:108) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:190) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:132) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:246) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:227) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:246) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:97) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:363) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:190) [spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.junit.runner.JUnitCore.run(JUnitCore.java:137) [junit-4.12.jar:4.12]
-	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:68) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:47) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:242) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:70) [junit-rt.jar:na]
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'operaterRoleController': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.OperaterRoleService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:324) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1378) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:575) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:498) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:846) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:863) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:546) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) ~[spring-boot-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:127) ~[spring-boot-test-2.1.1.RELEASE.jar:2.1.1.RELEASE]
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:99) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:117) ~[spring-test-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	... 24 common frames omitted
-Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuntian.poeticlife.service.OperaterRoleService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoMatchingBeanFound(DefaultListableBeanFactory.java:1644) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1203) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1164) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:518) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:496) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:630) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:180) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:90) ~[spring-beans-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:321) ~[spring-context-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-	... 40 common frames omitted
-
-2019-02-23 23:22:32.098  WARN 15668 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, try to find an extension (bean) of type java.lang.String, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:22:32.099  WARN 15668 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, type:java.lang.String found, stop get bean., dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:22:32.353  WARN 15668 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:22:32.353  WARN 15668 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:22:32.353  WARN 15668 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:22:32.353  WARN 15668 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:22:32.353  WARN 15668 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:22:32.353  WARN 15668 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:22:34.426  WARN 15668 --- [main] org.thymeleaf.templatemode.TemplateMode  : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
-2019-02-23 23:24:32.708  WARN 12632 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, try to find an extension (bean) of type java.lang.String, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:24:32.709  WARN 12632 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, type:java.lang.String found, stop get bean., dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:24:32.938  WARN 12632 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:24:32.938  WARN 12632 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:24:32.938  WARN 12632 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:24:32.938  WARN 12632 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:24:32.939  WARN 12632 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:24:32.939  WARN 12632 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:24:35.458  WARN 12632 --- [main] org.thymeleaf.templatemode.TemplateMode  : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
-2019-02-23 23:26:04.074  WARN 17096 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, try to find an extension (bean) of type java.lang.String, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:26:04.076  WARN 17096 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, type:java.lang.String found, stop get bean., dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:26:04.292  WARN 17096 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:26:04.292  WARN 17096 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:26:04.292  WARN 17096 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:26:04.293  WARN 17096 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:26:04.293  WARN 17096 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:26:04.293  WARN 17096 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:26:06.428  WARN 17096 --- [main] org.thymeleaf.templatemode.TemplateMode  : [THYMELEAF][main] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.
-2019-02-23 23:26:07.937 ERROR 17096 --- [main] c.y.p.BackendOperaterServiceTest         : {"accountName":"admin","createBy":1,"createTime":1550788052000,"email":"944610721@qq.com","id":1,"isDelete":0,"isEnable":0,"isSupper":0,"passWord":"123456","updateBy":1,"updateTime":1550788052000,"userName":"管理员"}
-2019-02-23 23:26:07.938 ERROR 17096 --- [main] c.y.p.BackendOperaterServiceTest         : [{"accountName":"admin","createBy":1,"createTime":1550788052000,"email":"944610721@qq.com","id":1,"isDelete":0,"isEnable":0,"isSupper":0,"passWord":"123456","updateBy":1,"updateTime":1550788052000,"userName":"管理员"}]
-2019-02-23 23:26:35.227  WARN 2336 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, try to find an extension (bean) of type java.lang.String, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:26:35.229  WARN 2336 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, type:java.lang.String found, stop get bean., dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:26:35.439  WARN 2336 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:26:35.439  WARN 2336 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:26:35.439  WARN 2336 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:26:35.439  WARN 2336 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:26:35.439  WARN 2336 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:26:35.439  WARN 2336 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:26:38.779 ERROR 2336 --- [main] c.y.p.BackendOperaterServiceTest         : {"accountName":"admin","createBy":1,"createTime":1550788052000,"email":"944610721@qq.com","id":1,"isDelete":0,"isEnable":0,"isSupper":0,"passWord":"123456","updateBy":1,"updateTime":1550788052000,"userName":"管理员"}
-2019-02-23 23:26:38.781 ERROR 2336 --- [main] c.y.p.BackendOperaterServiceTest         : [{"accountName":"admin","createBy":1,"createTime":1550788052000,"email":"944610721@qq.com","id":1,"isDelete":0,"isEnable":0,"isSupper":0,"passWord":"123456","updateBy":1,"updateTime":1550788052000,"userName":"管理员"}]
-2019-02-23 23:26:47.661  WARN 16052 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, try to find an extension (bean) of type java.lang.String, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:26:47.662  WARN 16052 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, type:java.lang.String found, stop get bean., dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:26:47.845  WARN 16052 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:26:47.845  WARN 16052 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:26:47.845  WARN 16052 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:26:47.845  WARN 16052 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:26:47.845  WARN 16052 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:26:47.845  WARN 16052 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
-2019-02-23 23:26:50.848 ERROR 16052 --- [main] c.y.p.BackendOperaterServiceTest         : {"accountName":"admin","createBy":1,"createTime":1550788052000,"email":"944610721@qq.com","id":1,"isDelete":0,"isEnable":0,"isSupper":0,"passWord":"123456","updateBy":1,"updateTime":1550788052000,"userName":"管理员"}
-2019-02-23 23:26:50.849 ERROR 16052 --- [main] c.y.p.BackendOperaterServiceTest         : [{"accountName":"admin","createBy":1,"createTime":1550788052000,"email":"944610721@qq.com","id":1,"isDelete":0,"isEnable":0,"isSupper":0,"passWord":"123456","updateBy":1,"updateTime":1550788052000,"userName":"管理员"}]
+2019-02-26 22:11:51.221  WARN 3764 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, try to find an extension (bean) of type java.lang.String, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:11:51.231  WARN 3764 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, type:java.lang.String found, stop get bean., dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:11:51.931  WARN 3764 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:11:51.933  WARN 3764 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:11:51.933  WARN 3764 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:11:51.933  WARN 3764 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:11:51.934  WARN 3764 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:11:51.934  WARN 3764 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:11:57.485 ERROR 3764 --- [main] c.y.p.BackendOperaterServiceTest         : 
+2019-02-26 22:12:26.401  WARN 17388 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, try to find an extension (bean) of type java.lang.String, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:12:26.403  WARN 17388 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, type:java.lang.String found, stop get bean., dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:12:26.907  WARN 17388 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:12:26.909  WARN 17388 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:12:26.909  WARN 17388 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:12:26.909  WARN 17388 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:12:26.909  WARN 17388 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:12:26.909  WARN 17388 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:12:32.836 ERROR 17388 --- [main] c.y.p.BackendOperaterServiceTest         : 
+2019-02-26 22:12:45.528  WARN 1148 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, try to find an extension (bean) of type java.lang.String, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:12:45.531  WARN 1148 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, type:java.lang.String found, stop get bean., dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:12:46.099  WARN 1148 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:12:46.100  WARN 1148 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:12:46.100  WARN 1148 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:12:46.100  WARN 1148 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:12:46.100  WARN 1148 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:12:46.101  WARN 1148 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:12:51.836 ERROR 1148 --- [main] c.y.p.BackendOperaterServiceTest         : 
+2019-02-26 22:13:08.291  WARN 5924 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, try to find an extension (bean) of type java.lang.String, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:13:08.293  WARN 5924 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, type:java.lang.String found, stop get bean., dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:13:08.824  WARN 5924 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:13:08.826  WARN 5924 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:13:08.826  WARN 5924 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:13:08.826  WARN 5924 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:13:08.826  WARN 5924 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:13:08.826  WARN 5924 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:13:25.227 ERROR 5924 --- [main] c.y.p.BackendOperaterServiceTest         : 
+2019-02-26 22:15:07.352  WARN 13184 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, try to find an extension (bean) of type java.lang.String, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:15:07.354  WARN 13184 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, type:java.lang.String found, stop get bean., dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:15:07.927  WARN 13184 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:15:07.928  WARN 13184 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:15:07.928  WARN 13184 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:15:07.928  WARN 13184 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:15:07.928  WARN 13184 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:15:07.929  WARN 13184 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:16:00.214  WARN 18780 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, try to find an extension (bean) of type java.lang.String, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:16:00.216  WARN 18780 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, type:java.lang.String found, stop get bean., dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:16:00.821  WARN 18780 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:16:00.821  WARN 18780 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:16:00.822  WARN 18780 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:16:00.822  WARN 18780 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:16:00.822  WARN 18780 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:16:00.822  WARN 18780 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:16:50.100  WARN 15356 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, try to find an extension (bean) of type java.lang.String, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:16:50.104  WARN 15356 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, type:java.lang.String found, stop get bean., dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:16:50.656  WARN 15356 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:16:50.656  WARN 15356 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:16:50.657  WARN 15356 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:16:50.657  WARN 15356 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:16:50.657  WARN 15356 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:16:50.657  WARN 15356 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:17:13.891  WARN 17024 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, try to find an extension (bean) of type java.lang.String, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:17:13.909  WARN 17024 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, type:java.lang.String found, stop get bean., dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:17:14.426  WARN 17024 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:17:14.427  WARN 17024 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:17:14.427  WARN 17024 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:17:14.427  WARN 17024 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:17:14.427  WARN 17024 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:17:14.428  WARN 17024 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:18:37.276  WARN 15932 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, try to find an extension (bean) of type java.lang.String, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:18:37.280  WARN 15932 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, type:java.lang.String found, stop get bean., dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:18:37.883  WARN 15932 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:18:37.883  WARN 15932 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:18:37.884  WARN 15932 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:18:37.884  WARN 15932 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:18:37.884  WARN 15932 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:18:37.884  WARN 15932 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:19:18.590  WARN 17856 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, try to find an extension (bean) of type java.lang.String, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:19:18.593  WARN 17856 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, type:java.lang.String found, stop get bean., dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:19:19.113  WARN 17856 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:19:19.114  WARN 17856 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:19:19.114  WARN 17856 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:19:19.115  WARN 17856 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:19:19.115  WARN 17856 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:19:19.115  WARN 17856 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:19:42.662  WARN 11568 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, try to find an extension (bean) of type java.lang.String, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:19:42.666  WARN 11568 --- [main] c.a.d.c.s.e.SpringExtensionFactory       :  [DUBBO] No spring extension (bean) named:defaultCompiler, type:java.lang.String found, stop get bean., dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:19:43.304  WARN 11568 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:19:43.305  WARN 11568 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:19:43.305  WARN 11568 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:19:43.305  WARN 11568 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:19:43.305  WARN 11568 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:19:43.305  WARN 11568 --- [Finalizer] com.alibaba.dubbo.config.AbstractConfig  :  [DUBBO] ReferenceConfig(dubbo://localhost:${dubbo.protocol.port}) is not DESTROYED when FINALIZE, dubbo version: 2.6.5, current host: 192.168.0.112
+2019-02-26 22:19:49.242 ERROR 11568 --- [main] c.y.p.BackendOperaterServiceTest         : admin

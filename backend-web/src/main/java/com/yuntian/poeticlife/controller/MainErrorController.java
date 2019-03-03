@@ -1,6 +1,6 @@
 package com.yuntian.poeticlife.controller;
 
-import com.yuntian.poeticlife.core.ResultGenerator;
+import com.yuntian.basecommon.exception.BusinessException;
 import com.yuntian.poeticlife.util.AjaxUtil;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
@@ -9,12 +9,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @ Author     ：guangleilei.
  * @ Date       ：Created in 14:10 2018/11/13
  * @ Description：${自定义错误页面}
  */
 @Controller
+@Slf4j
 public class MainErrorController implements ErrorController {
 
 
@@ -26,7 +29,7 @@ public class MainErrorController implements ErrorController {
         Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
         String msg = (String) request.getAttribute(" javax.servlet.error.message");
         if (AjaxUtil.isAjax(request)) {
-            return ResultGenerator.genFailResult(statusCode, msg).toString();
+            throw new BusinessException(statusCode, msg);
         } else {
             if (statusCode == 401) {
                 return "error/401";

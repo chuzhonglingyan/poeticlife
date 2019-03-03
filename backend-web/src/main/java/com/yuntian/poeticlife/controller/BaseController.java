@@ -1,7 +1,6 @@
 package com.yuntian.poeticlife.controller;
 
-import org.apache.shiro.SecurityUtils;
-import org.springframework.stereotype.Controller;
+import com.yuntian.poeticlife.util.ShiroUtil;
 
 /**
  * @Auther: yuntian
@@ -11,8 +10,8 @@ import org.springframework.stereotype.Controller;
 public abstract class BaseController {
 
 
-    public Long getUserId(){
-       return (Long) SecurityUtils.getSubject().getPrincipal();
+    protected Long getUserId(){
+       return ShiroUtil.getUserId();
     }
 
 }

@@ -6,8 +6,8 @@
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="operaterId" jdbcType="BIGINT" property="operaterid" />
-    <result column="roleId" jdbcType="BIGINT" property="roleid" />
+    <result column="operater_id" jdbcType="BIGINT" property="operaterId" />
+    <result column="role_id" jdbcType="BIGINT" property="roleId" />
     <result column="create_by" jdbcType="BIGINT" property="createBy" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_by" jdbcType="BIGINT" property="updateBy" />

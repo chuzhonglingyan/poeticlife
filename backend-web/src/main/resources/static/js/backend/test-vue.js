@@ -10,7 +10,7 @@ var app = new Vue({
         console.log("%c%s", "color:red","message: " + this.message)
     },
     created: function () {
-        console.group('created 创建完毕状态===============》');
+        console.group('created 创建完毕状态===============》 dom还没生成');
         console.log("%c%s", "color:red","el     : " + this.$el); //undefined
         console.log("%c%s", "color:red","data   : " + this.$data); //已被初始化
         console.log("%c%s", "color:red","message: " + this.message); //已被初始化

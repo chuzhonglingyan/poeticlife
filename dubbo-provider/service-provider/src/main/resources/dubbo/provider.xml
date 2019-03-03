@@ -25,19 +25,27 @@
     <!-- 声明需要暴露的服务接口 -->
     <dubbo:service ref="demoService" interface="com.yuntian.poeticlife.service.DemoService"    version="${dubbo.provider.version}"/>
     <dubbo:service ref="helloService" interface="com.yuntian.poeticlife.service.HelloService"   version="${dubbo.provider.version}"/>
+    <dubbo:service  ref="userService" interface="com.yuntian.poeticlife.service.UserService"
+        version="${dubbo.provider.version}"/>
+
 
     <!-- 后台管理服务接口 -->
     <dubbo:service  ref="backendOperaterService" interface="com.yuntian.poeticlife.service.BackendOperaterService"
         version="${dubbo.provider.version}"/>
 
-    <dubbo:service  ref="userService" interface="com.yuntian.poeticlife.service.UserService"
+    <dubbo:service  ref="roleService" interface="com.yuntian.poeticlife.service.RoleService"
         version="${dubbo.provider.version}"/>
 
     <dubbo:service  ref="operaterRoleService" interface="com.yuntian.poeticlife.service.OperaterRoleService"
         version="${dubbo.provider.version}"/>
 
-    <dubbo:service  ref="roleService" interface="com.yuntian.poeticlife.service.RoleService"
+
+    <dubbo:service  ref="menuService" interface="com.yuntian.poeticlife.service.MenuService"
         version="${dubbo.provider.version}"/>
+
+    <dubbo:service  ref="roleMenuService" interface="com.yuntian.poeticlife.service.RoleMenuService"
+        version="${dubbo.provider.version}"/>
+
 
 </beans>
 

@@ -27,7 +27,6 @@ public class SystemFilter implements Filter {
         request.setAttribute("basePath", basePath);
         request.setAttribute("now",System.currentTimeMillis());
         filterChain.doFilter(request, servletResponse);
-
     }
 
     @Override

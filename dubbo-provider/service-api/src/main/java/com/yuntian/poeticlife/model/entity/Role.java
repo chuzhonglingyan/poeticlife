@@ -1,20 +1,27 @@
 package com.yuntian.poeticlife.model.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
-public class Role implements Serializable {
-
-    private static final long serialVersionUID = 3485883388786466921L;
+public class Role {
+    /**
+     * 主键ID
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
-     * 角色名
+     * 角色名称
      */
-    private String role;
+    @Column(name = "role_name")
+    private String roleName;
+
+    /**
+     * 是否删除 0:未删除 1:已删除
+     */
+    @Column(name = "is_delete")
+    private Byte isDelete;
 
     /**
      * 创建人
@@ -41,41 +48,68 @@ public class Role implements Serializable {
     private Date updateTime;
 
     /**
-     * 是否删除，0-未删除，1-删除，默认为0
+     * 角色状态  0:冻结  1：开通
      */
-    @Column(name = "is_delete")
-    private Byte isDelete;
+    @Column(name = "role_status")
+    private Integer roleStatus;
 
     /**
-     * @return id
+     * 备注
+     */
+    private String remark;
+
+    /**
+     * 获取主键ID
+     *
+     * @return id - 主键ID
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * @param id
+     * 设置主键ID
+     *
+     * @param id 主键ID
      */
     public void setId(Long id) {
         this.id = id;
     }
 
     /**
-     * 获取角色名
+     * 获取角色名称
      *
-     * @return role - 角色名
+     * @return role_name - 角色名称
      */
-    public String getRole() {
-        return role;
+    public String getRoleName() {
+        return roleName;
     }
 
     /**
-     * 设置角色名
+     * 设置角色名称
      *
-     * @param role 角色名
+     * @param roleName 角色名称
      */
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    /**
+     * 获取是否删除 0:未删除 1:已删除
+     *
+     * @return is_delete - 是否删除 0:未删除 1:已删除
+     */
+    public Byte getIsDelete() {
+        return isDelete;
+    }
+
+    /**
+     * 设置是否删除 0:未删除 1:已删除
+     *
+     * @param isDelete 是否删除 0:未删除 1:已删除
+     */
+    public void setIsDelete(Byte isDelete) {
+        this.isDelete = isDelete;
     }
 
     /**
@@ -151,20 +185,38 @@ public class Role implements Serializable {
     }
 
     /**
-     * 获取是否删除，0-未删除，1-删除，默认为0
+     * 获取角色状态  0:冻结  1：开通
      *
-     * @return is_delete - 是否删除，0-未删除，1-删除，默认为0
+     * @return role_status - 角色状态  0:冻结  1：开通
      */
-    public Byte getIsDelete() {
-        return isDelete;
+    public Integer getRoleStatus() {
+        return roleStatus;
     }
 
     /**
-     * 设置是否删除，0-未删除，1-删除，默认为0
+     * 设置角色状态  0:冻结  1：开通
      *
-     * @param isDelete 是否删除，0-未删除，1-删除，默认为0
+     * @param roleStatus 角色状态  0:冻结  1：开通
      */
-    public void setIsDelete(Byte isDelete) {
-        this.isDelete = isDelete;
+    public void setRoleStatus(Integer roleStatus) {
+        this.roleStatus = roleStatus;
+    }
+
+    /**
+     * 获取备注
+     *
+     * @return remark - 备注
+     */
+    public String getRemark() {
+        return remark;
+    }
+
+    /**
+     * 设置备注
+     *
+     * @param remark 备注
+     */
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

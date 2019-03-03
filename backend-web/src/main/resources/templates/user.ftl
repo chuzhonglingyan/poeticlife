@@ -7,6 +7,7 @@
 <body>
 
 <h1 th:text="${user.nickName}">Hello World</h1>
+<h1 th:text="${basePath}">Hello World</h1>
 
 </body>
 </html>

@@ -1,14 +1,10 @@
 package com.yuntian.poeticlife.model.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "operater_role")
-public class OperaterRole implements Serializable {
-
-
-    private static final long serialVersionUID = -5494884082132935699L;
+public class OperaterRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,14 +12,14 @@ public class OperaterRole implements Serializable {
     /**
      * 后台用户id
      */
-    @Column(name = "operaterId")
-    private Long operaterid;
+    @Column(name = "operater_id")
+    private Long operaterId;
 
     /**
      * 角色id
      */
-    @Column(name = "roleId")
-    private Long roleid;
+    @Column(name = "role_id")
+    private Long roleId;
 
     /**
      * 创建人
@@ -72,37 +68,37 @@ public class OperaterRole implements Serializable {
     /**
      * 获取后台用户id
      *
-     * @return operaterId - 后台用户id
+     * @return operater_id - 后台用户id
      */
-    public Long getOperaterid() {
-        return operaterid;
+    public Long getOperaterId() {
+        return operaterId;
     }
 
     /**
      * 设置后台用户id
      *
-     * @param operaterid 后台用户id
+     * @param operaterId 后台用户id
      */
-    public void setOperaterid(Long operaterid) {
-        this.operaterid = operaterid;
+    public void setOperaterId(Long operaterId) {
+        this.operaterId = operaterId;
     }
 
     /**
      * 获取角色id
      *
-     * @return roleId - 角色id
+     * @return role_id - 角色id
      */
-    public Long getRoleid() {
-        return roleid;
+    public Long getRoleId() {
+        return roleId;
     }
 
     /**
      * 设置角色id
      *
-     * @param roleid 角色id
+     * @param roleId 角色id
      */
-    public void setRoleid(Long roleid) {
-        this.roleid = roleid;
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
     }
 
     /**

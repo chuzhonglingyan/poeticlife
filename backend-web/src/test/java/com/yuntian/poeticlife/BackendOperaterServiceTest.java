@@ -43,5 +43,9 @@ public class BackendOperaterServiceTest extends BaseTest {
         log.error(JSON.toJSONString(list));
     }
 
+    @Test
+    public void  test2(){
+        log.error(backendOperaterService.getRole(Long.valueOf(1)));
+    }
 
 }

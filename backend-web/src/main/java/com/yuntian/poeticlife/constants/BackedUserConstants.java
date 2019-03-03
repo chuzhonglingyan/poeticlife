@@ -8,6 +8,8 @@ package com.yuntian.poeticlife.constants;
 public class BackedUserConstants {
 
     public final static String CURRENT_USER_COOKIE = "buc";
-    public final static String CURRENT_USERID = "currentUserid";
+
+
+    public final static String CURRENT_USERID = "currentUserId";
 
 }

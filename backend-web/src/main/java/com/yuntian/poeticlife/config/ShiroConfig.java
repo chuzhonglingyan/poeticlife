@@ -3,12 +3,16 @@ package com.yuntian.poeticlife.config;
 
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import javax.servlet.Filter;
 
 /**
  * @Auther: yuntian
@@ -31,6 +35,11 @@ public class ShiroConfig {
         // 没有权限访问的界面
         shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorized");
 
+//        Map<String, Filter > filters=new HashMap<>();
+//
+//        filters.put("authc",shiroFormAuthenticationFilter());
+//        shiroFilterFactoryBean.setFilters(filters);
+
 
         // 设置拦截器
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
@@ -49,6 +58,8 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/admin/**", "roles[admin]");
         //开放登陆接口
         filterChainDefinitionMap.put("/operater/login", "anon");
+
+
         //其余接口一律拦截 //主要这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截
         filterChainDefinitionMap.put("/**", "authc");
 
@@ -78,6 +89,11 @@ public class ShiroConfig {
     @Bean
     public CustomRealm customRealm() {
         return new CustomRealm();
+    }
+
+    @Bean
+    public FormAuthenticationFilter  shiroFormAuthenticationFilter(){
+        return new ShiroFormAuthenticationFilter();
     }
 
 }
