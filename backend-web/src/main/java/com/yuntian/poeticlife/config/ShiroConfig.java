@@ -30,6 +30,7 @@ public class ShiroConfig {
         // setLoginUrl 如果不设置值，默认会自动寻找Web工程根目录下的"/login.jsp"页面 或 "/login" 映射
         // 登陆界面
         shiroFilterFactoryBean.setLoginUrl("/login");
+
         // 成功登陆后的界面
         shiroFilterFactoryBean.setSuccessUrl("/index");
         // 没有权限访问的界面
@@ -58,6 +59,8 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/admin/**", "roles[admin]");
         //开放登陆接口
         filterChainDefinitionMap.put("/operater/login", "anon");
+        filterChainDefinitionMap.put("/operater/register", "anon");
+        filterChainDefinitionMap.put("/register", "anon");
 
 
         //其余接口一律拦截 //主要这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截

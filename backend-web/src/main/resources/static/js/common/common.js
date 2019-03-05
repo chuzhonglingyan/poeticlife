@@ -43,6 +43,10 @@ var postForm = function (url, requestBody, successcallback) {
 };
 
 var postFormFull = function (url, requestBody, successCallback, failureCallback) {
+    //loading层
+    var index = layer.load(1, {
+        shade: [0.1,'#fff'] //0.1透明度的白色背景
+    });
     $.ajax({
         type: 'post',
         url: url,
@@ -57,10 +61,12 @@ var postFormFull = function (url, requestBody, successCallback, failureCallback)
                 failureCallback(data.message);
             }
         }
+        layer.close(index);
     }).error(function (xhr) {
         if (failureCallback != null) {
             failureCallback(xhr.statusText);
         }
+        layer.close(index);
         console.debug("request failed： " + xhr.status + " " + xhr.statusText);
     });
 };
@@ -132,7 +138,7 @@ function addTP(t,i) {
             return $(this).data("id") === t ? ($(this).show().siblings(".J_iframe").hide(), !1) : void 0
         })), n = !1, !1) : void 0
     }), n) {
-        var s = '<a href="javascript:;" class="active J_menuTab",data-index="'+i+'" data-id="' + t + '">' + i + ' <i class="fa fa-refresh" style="margin-right: 5px;margin-left: 5px;"></i><i class="fa fa-times-circle"></i></a>';
+        var s = '<a href="javascript:;" class="active J_menuTab",data-index="'+i+'" data-id="' + t + '">' + i + ' <i   class="fa fa-refresh"    style="margin-right: 5px;margin-left: 5px;"></i><i class="fa fa-times-circle"></i></a>';
         $(".J_menuTab",window.parent.document).removeClass("active");
         var r = '<iframe class="J_iframe" name="iframe' + a + '" width="100%" height="100%" src="' + t + '" frameborder="0" data-id="' + t + '" seamless></iframe>';
         $(".J_mainContent",window.parent.document).find("iframe.J_iframe").hide().parents(".J_mainContent").append(r);
@@ -141,6 +147,9 @@ function addTP(t,i) {
     }
     return ! 1
 }
+
+
+// onclick="addTP(\''+t+'\',\''+i+'\')"
 
 function openTabPage(e) {
     var a = switchTabPage($(e).prevAll()),
@@ -258,4 +267,10 @@ function hideModal(modal,listener){
             listener();
         }
     });
+}
+
+
+function layerAlert(msg) {
+    //信息框-例1
+    layer.alert(msg, {icon: 6});
 }

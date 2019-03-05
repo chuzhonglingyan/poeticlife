@@ -61,13 +61,13 @@ var vm = new Vue({
                     title: "操作",
                     formatter: function option(value, row, index) {
                         var str = "";
-                        str += "<button class='btn btn-xs btn-info btn-edit' onclick='vm.editUser(" + JSON.stringify(row) + ")'>编辑</button> ";
-                        str += "<button style='margin-left:5px' class='btn btn-xs btn-primary btn-set' onclick='vm.roleAssignment(" + row.id + ")'>角色分配</button>";
+                        str += "<button class='btn btn-xs btn-info' onclick='vm.editUser(" + JSON.stringify(row) + ")'><i class=\"fa fa-pencil-square-o\" ></i>&nbsp;编辑</button> ";
+                        str += "<button style='margin-left:15px' class='btn btn-xs btn-primary' onclick='vm.roleAssignment(" + row.id + ")'>角色分配</button>";
                         if (row.isEnable === 1) {
-                            str += "<button style='margin-left:5px' class='btn btn-xs btn-warning btn-stop' onclick='vm.freezeUser(" + row.id + ")'>禁用</button>";
+                            str += "<button style='margin-left:15px' class='btn btn-xs btn-warning ' onclick='vm.freezeUser(" + row.id + ")'><i class=\"fa fa-ban\" ></i>禁用</button>";
                         } else {
-                            str += "<button style='margin-left:5px' class='btn btn-xs btn-success btn-start' onclick='vm.eableUser(" + row.id + ")'>启用</button>";
-                            str += "<button style='margin-left:5px' class='btn btn-xs btn-danger btn-delete' onclick='vm.deleteUser(" + row.id + ")'>删除</button>";
+                            str += "<button style='margin-left:15px' class='btn btn-xs btn-success ' onclick='vm.eableUser(" + row.id + ")'><i class=\"fa fa-play\" ></i>启用</button>";
+                            str += "<button style='margin-left:15px' class='btn btn-xs btn-danger ' onclick='vm.deleteUser(" + row.id + ")'><i class=\"fa fa-trash-o\" ></i>&nbsp;删除</button>";
                         }
                         return str;
                     },

@@ -7,43 +7,34 @@
 
 </head>
 
-<style>
-    .col-center-block {
-        float: none;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-</style>
+<body  class="gray-bg">
+<div  id="app" class="middle-box text-center loginscreen  animated fadeInDown">
+    <div>
+        <div>
 
-<body>
+            <h1 class="logo-name">H+</h1>
 
-<div class="container" id="app">
-    <div class="row ">
-        <div class="col-xs-6 col-md-4 col-center-block">
-            <form >
-                <h3 class="text-center">请登录</h3>
-                <div class="form-group">
-                    <label for="username" class="sr-only">用户名</label>
-                    <input type="text" id="userName" v-model="userName" class="form-control" placeholder="用户名" >
-                </div>
-                <div class="form-group">
-                    <label for="password" class="sr-only">密码</label>
-                    <input autocomplete="off" type="password"  id="passWord" v-model="passWord" class="form-control" placeholder="密码" >
-                </div>
-                <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="remember-me">
-                        记住我 </label>
-                </div>
-                <button @click="login()" class="btn btn-lg btn-primary btn-block" id="login" type="button">登录</button>
-                </div>
-            </form>
         </div>
-    </div>
+        <h3>欢迎使用 H+</h3>
+        <form class="m-t" role="form" id="loginForm">
+            <div class="form-group">
+                <input type="text" name="userName" v-model="userName" class="form-control" placeholder="用户名" required="">
+            </div>
+            <div class="form-group">
+                <input type="password" name="passWord" v-model="passWord"  class="form-control" placeholder="密码" required="">
+            </div>
+            <button type="button" @click="login()" class="btn btn-primary block full-width m-b">登 录</button>
 
+            <p class="text-muted text-center"> <a href="login"><small>忘记密码了？</small></a> | <a href="register">注册一个新账号</a>
+            </p>
+
+        </form>
+    </div>
 </div>
+
+<!-- jQuery Validation plugin javascript-->
+<script src="${basePath}/static/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="${basePath}/static/js/plugins/validate/messages_zh.min.js"></script>
 
 <script src="${basePath}/static/js/backend/login.js"></script>
 </body>

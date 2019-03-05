@@ -7,7 +7,7 @@
     <title>测试网络</title>
 
     <script src="../static/js/jquery/jquery-1.12.4.js"></script>
-    <script src="../static/js/vue/vue-2.6.7.js"></script>
+    <script src="../static/js/vue/vue.js"></script>
     <script src="../static/js/common/common.js"></script>
     <script src="../static/js/bootstrap/bootstrap.js"></script>
     <link href="../static/css/bootstrap.css" rel="stylesheet">

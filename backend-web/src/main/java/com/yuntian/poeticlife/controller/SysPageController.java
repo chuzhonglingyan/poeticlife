@@ -1,12 +1,7 @@
 package com.yuntian.poeticlife.controller;
 
-import com.yuntian.poeticlife.util.ShiroUtil;
-
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -16,17 +11,21 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Controller
-public class MainController extends BaseController {
+public class SysPageController extends BaseController {
 
     @RequestMapping("/index")
     public String index() {
-        log.error("当前登录用户："+ getUserId());
         return "backend/index";
     }
 
     @RequestMapping("/login")
     public String login() {
         return "backend/login";
+    }
+
+    @RequestMapping("/register")
+    public String register() {
+        return "backend/register";
     }
 
     @RequestMapping("/main")
@@ -45,9 +44,14 @@ public class MainController extends BaseController {
         return "backend/menu02";
     }
 
+    @RequestMapping("/menuManager")
+    public String menuManager() {
+        return "backend/menuManager";
+    }
 
-    @RequestMapping("/operaterList")
+
+    @RequestMapping("/operaterManager")
     public String operaterList() {
-        return "backend/operaterList";
+        return "backend/operaterManager";
     }
 }

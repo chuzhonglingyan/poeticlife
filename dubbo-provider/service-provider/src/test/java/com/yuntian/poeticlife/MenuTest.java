@@ -34,7 +34,7 @@ public class MenuTest extends BaseTest {
     public void test() {
         MenuDTO menu = new MenuDTO();
 
-        menu.setMenuParentId(4L);
+        menu.setPid(4L);
         menu.setMenuLevel((byte) 2);
         menu.setMenuName("二级菜单4");
         menu.setCreateBy(1L);
@@ -80,7 +80,7 @@ public class MenuTest extends BaseTest {
                 } else {
                     menuVOList = menuTreeVO.getChildList();
                 }
-                if (menuTreeVO.getId().equals(child.getMenuParentId())) {
+                if (menuTreeVO.getId().equals(child.getPid())) {
                     menuVOList.add(child);
                 }
             }
@@ -89,7 +89,7 @@ public class MenuTest extends BaseTest {
     }
 
 //    public void getListMenu(MenuTreeVO menuTreeVO,List<MenuTreeVO> list) {
-//        if (menuTreeVO.getMenuParentId()==0){
+//        if (menuTreeVO.getPid()==0){
 //            list.add(menuTreeVO);
 //        }
 //        List<MenuTreeVO> treeVOList=menuTreeVO.getChildList();

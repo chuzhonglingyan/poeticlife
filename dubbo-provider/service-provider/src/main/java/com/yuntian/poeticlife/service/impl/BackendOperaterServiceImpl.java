@@ -21,6 +21,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import tk.mybatis.mapper.entity.Condition;
+
 
 /**
  * Created by CodeGenerator on 2019/02/23.
@@ -68,7 +70,7 @@ public class BackendOperaterServiceImpl extends AbstractService<BackendOperater>
         }
         getTreeMenu(menuTreeVOList);
         //删除掉所以不为顶级目录的元素
-        menuTreeVOList.removeIf(roleAuthVO -> roleAuthVO.getMenuParentId() != null && roleAuthVO.getMenuParentId() != 0);
+        menuTreeVOList.removeIf(roleAuthVO -> roleAuthVO.getPid() != null && roleAuthVO.getPid() != 0);
         return menuTreeVOList;
     }
 
@@ -82,7 +84,7 @@ public class BackendOperaterServiceImpl extends AbstractService<BackendOperater>
                 } else {
                     menuVOList = menuTreeVO.getChildList();
                 }
-                if (menuTreeVO.getId().equals(child.getMenuParentId())) {
+                if (menuTreeVO.getId().equals(child.getPid())) {
                     menuVOList.add(child);
                 }
             }

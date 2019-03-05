@@ -42,8 +42,8 @@ public class Menu implements Serializable {
     /**
      * 父菜单ID
      */
-    @Column(name = "menu_parent_id")
-    private Long menuParentId;
+    @Column(name = "pid")
+    private Long pid;
 
     /**
      * 菜单等级 1一级菜单  2 二级菜单  3 三级菜单
@@ -188,17 +188,17 @@ public class Menu implements Serializable {
      *
      * @return menu_parent_id - 父菜单ID
      */
-    public Long getMenuParentId() {
-        return menuParentId;
+    public Long getPid() {
+        return pid;
     }
 
     /**
      * 设置父菜单ID
      *
-     * @param menuParentId 父菜单ID
+     * @param pid 父菜单ID
      */
-    public void setMenuParentId(Long menuParentId) {
-        this.menuParentId = menuParentId;
+    public void setPid(Long pid) {
+        this.pid = pid;
     }
 
     /**

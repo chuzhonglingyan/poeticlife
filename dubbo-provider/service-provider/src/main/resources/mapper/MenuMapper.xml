@@ -10,7 +10,7 @@
     <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
     <result column="menu_url" jdbcType="VARCHAR" property="menuUrl" />
     <result column="menu_type" jdbcType="INTEGER" property="menuType" />
-    <result column="menu_parent_id" jdbcType="BIGINT" property="menuParentId" />
+    <result column="pid" jdbcType="BIGINT" property="pid" />
     <result column="menu_level" jdbcType="TINYINT" property="menuLevel" />
     <result column="open_type" jdbcType="TINYINT" property="openType" />
     <result column="is_delete" jdbcType="TINYINT" property="isDelete" />

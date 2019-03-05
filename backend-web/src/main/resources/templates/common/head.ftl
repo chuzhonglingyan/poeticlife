@@ -10,6 +10,7 @@
 <link href="${basePath}/static/css/font-awesome.css" rel="stylesheet">
 <link href="${basePath}/static/css/animate.css" rel="stylesheet">
 <link href="${basePath}/static/css/style.css" rel="stylesheet">
+<link href="${basePath}/static/js/plugins/layer/theme/default/layer.css" rel="stylesheet">
 
 
 <!-- 全局js -->
@@ -17,7 +18,7 @@
 <script src="${basePath}/static/js/bootstrap/bootstrap.min.js?v=3.3.7"></script>
 <script src="${basePath}/static/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="${basePath}/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="${basePath}/static/js/plugins/layer/layer.min.js"></script>
-<script src="${basePath}/static/js/vue/vue-2.6.7.js"></script>
+<script src="${basePath}/static/js/plugins/layer/layer.js?v=3.1.1"></script>
+<script src="${basePath}/static/js/vue/vue.min.js"></script>
 
 <script src="${basePath}/static/js/common/common.js"></script>

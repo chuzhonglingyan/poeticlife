@@ -1,40 +1,54 @@
-new Vue({
+var vm = new Vue({
     el: '#app',
     data: {
-        loginUrl:"/backend/operater/login",
+        loginUrl: "/backend/operater/login",
         errors: [],
         userName: '',
-        passWord: ''
+        passWord: '',
+        validate:{}
     },
     methods: {
-        checkForm: function (e) {
-            if (this.userName && this.passWord) {
-                return true;
-            }
-            this.errors = [];
-            if (!this.userName) {
-                this.errors.push('userName required.');
-            }
-            if (!this.passWord) {
-                this.errors.push('password required.');
-            }
-            e.preventDefault();
-        },
         login: function () {
-            if (!this.userName) {
-                alert("userName required.");
-                return
+            if (vm.validate.form()) {
+                var  params=$("#loginForm").serialize();
+                postFormFull(this.loginUrl, params, function (data) {
+                    console.debug("登录成功了");
+                    gotoPage("/index");
+                }, function (msg) {
+                    layer.msg(msg);
+                });
             }
-            if (!this.passWord) {
-                alert("passWord required.");
-                return
-            }
-
-            var params = {userName: this.userName, passWord: this.passWord};
-            postForm(this.loginUrl, params, function (data) {
-                console.debug("登录成功了");
-                gotoPage("/index");
-            });
         }
+    },
+    mounted: function () {
+        this.validate=initValidForm();
     }
 });
+
+function initValidForm() {
+   return $("#loginForm").validate({
+        rules: {
+            userName: {
+                required: true,
+                minlength: 2
+            },
+            passWord: {
+                required: true,
+                minlength: 6,
+                maxlength: 20
+            }
+        },
+        messages: {
+            username: {
+                required: "请输入用户名",
+                minlength: "用户名必需由两个字母组成"
+            },
+            passWord: {
+                required: "请输入密码",
+                minlength: "密码长度不能小于 6 个字符",
+                maxlength: "密码长度不能大于 20 个字符"
+            }
+        }
+    });
+}
+

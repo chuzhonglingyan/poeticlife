@@ -28,8 +28,8 @@ var app = new Vue({
                 navHtml += ' <ul class="nav nav-second-level">';
                 if(pNode.childList && pNode.childList.length>0) {
                     $.each(pNode.childList, function (idx, child) {
-                        if (child.menuParentId === pNode.id)
-                            navHtml += "<li><a  onclick='addTP("+"\""+child.menuUrl+"\""+","+"\""+child.menuName+"\""+")'  class='J_menuItem' > "+ child.menuName +" </a></li>";
+                        if (child.pid === pNode.id)
+                            navHtml += "<li><a  href='javascript:;' onclick='addTP("+"\""+child.menuUrl+"\""+","+"\""+child.menuName+"\""+")'  class='J_menuItem' > "+ child.menuName +" </a></li>";
                     });
                 }
                 navHtml += '   </ul>';

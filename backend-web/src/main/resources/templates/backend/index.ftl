@@ -37,7 +37,7 @@
                     <div class="logo-element">H+</div>
                 </li>
              <#--菜单选项-->
-                <#--<li  v-for="(item,index) in menuList" :id="item.id" class="active">-->
+                <#--<li  v-for="(item,index) in menuList" :id="item.id" >-->
                     <#--<a href="#">-->
                         <#--<i class="fa fa-home"></i>-->
                         <#--<span class="nav-label">{{item.menuName}}</span>-->
@@ -115,7 +115,7 @@
 <!-- 自定义js -->
 <script src="${basePath}/static/js/hplus.js?v=4.1.0"></script>
 <script src="${basePath}/static/js/plugins/pace/pace.min.js"></script>
-<script type="text/javascript" src="${basePath}/static/js/contabs.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/contabs.min.js"></script>
 <script src="${basePath}/static/js/backend/index.js"></script>
 
 

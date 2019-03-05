@@ -55,4 +55,12 @@ public class MenuController extends BaseController{
         PageInfoVo<Menu> pageInfo = new PageInfoVo<>(new PageInfo<>(list));
         return ResultGenerator.genSuccessResult(pageInfo);
     }
+
+
+    @PostMapping("/getAll")
+    public List<Menu>  getAll() {
+        return menuService.findAll();
+    }
+
+
 }

@@ -5,7 +5,7 @@
 </head>
 
 <body>
-<h1 class="text-center">菜单01</h1>
+<h1 class="text-center">注册页面</h1>
 
 </body>
 </html>
