@@ -1,6 +1,6 @@
 package com.yuntian.poeticlife.controller;
 
-import com.yuntian.basecommon.exception.BusinessException;
+import com.yuntian.poeticlife.exception.BusinessException;
 import com.yuntian.poeticlife.util.AjaxUtil;
 
 import org.springframework.boot.web.servlet.error.ErrorController;

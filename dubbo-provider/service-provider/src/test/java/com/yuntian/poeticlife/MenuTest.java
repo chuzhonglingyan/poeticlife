@@ -36,7 +36,7 @@ public class MenuTest extends BaseTest {
 
         menu.setPid(4L);
         menu.setMenuLevel((byte) 2);
-        menu.setMenuName("二级菜单4");
+        menu.setMenuName("根目录");
         menu.setCreateBy(1L);
         menu.setUpdateBy(1L);
 
@@ -110,5 +110,17 @@ public class MenuTest extends BaseTest {
             }
         }
 
+    }
+
+
+    @Test
+    public void  findChildMenusById(){
+        System.out.println(JSON.toJSON(menuService.findChildMenusById(3L)));
+    }
+
+
+    @Test
+    public void  deleteById(){
+        menuService.deleteById(3L);
     }
 }

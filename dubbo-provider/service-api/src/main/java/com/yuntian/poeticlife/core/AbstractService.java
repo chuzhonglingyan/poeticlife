@@ -1,7 +1,7 @@
 package com.yuntian.poeticlife.core;
 
 
-import com.yuntian.basecommon.exception.BusinessException;
+import com.yuntian.poeticlife.exception.BusinessException;
 import org.apache.ibatis.exceptions.TooManyResultsException;
 import org.springframework.beans.factory.annotation.Autowired;
 

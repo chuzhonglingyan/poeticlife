@@ -26,6 +26,8 @@ public class MenuController extends BaseController{
 
     @PostMapping("/add")
     public Result add(Menu menu) {
+        menu.setCreateBy(getUserId());
+        menu.setUpdateBy(getUserId());
         menuService.save(menu);
         return ResultGenerator.genSuccessResult();
     }

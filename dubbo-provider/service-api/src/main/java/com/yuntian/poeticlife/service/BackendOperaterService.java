@@ -15,7 +15,7 @@ public interface BackendOperaterService extends Service<BackendOperater> {
 
     String getRole(Long operaterId);
 
-    List<Menu> getMenuListByOperater(Long operaterId);
+    List<Menu> getNavMenuListByOperater(Long operaterId);
 
 
     List<MenuTreeVO> getMenuTreeVOListByOperater(Long operaterId);

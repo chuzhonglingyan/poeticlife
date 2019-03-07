@@ -269,8 +269,24 @@ function hideModal(modal,listener){
     });
 }
 
+function isEmpty(obj) {
+    if (obj === null) return true;
+    if (typeof obj === 'undefined') {
+        return true;
+    }
+    if (typeof obj === 'string') {
+        if (obj === "") {
+            return true;
+        }
+        var reg = new RegExp("^([ ]+)|([　]+)$");
+        return reg.test(obj);
+    }
+    return false;
+}
 
 function layerAlert(msg) {
     //信息框-例1
     layer.alert(msg, {icon: 6});
 }
+
+

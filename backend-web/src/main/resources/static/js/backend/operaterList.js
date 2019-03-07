@@ -61,8 +61,8 @@ var vm = new Vue({
                     title: "操作",
                     formatter: function option(value, row, index) {
                         var str = "";
-                        str += "<button class='btn btn-xs btn-info' onclick='vm.editUser(" + JSON.stringify(row) + ")'><i class=\"fa fa-pencil-square-o\" ></i>&nbsp;编辑</button> ";
-                        str += "<button style='margin-left:15px' class='btn btn-xs btn-primary' onclick='vm.roleAssignment(" + row.id + ")'>角色分配</button>";
+                        str += "<button  class='btn btn-xs btn-primary' onclick='vm.roleAssignment(" + row.id + ")'>角色分配</button>";
+                        str += "<button style='margin-left:15px' class='btn btn-xs btn-info' onclick='vm.editUser(" + JSON.stringify(row) + ")'><i class=\"fa fa-pencil-square-o\" ></i>&nbsp;编辑</button> ";
                         if (row.isEnable === 1) {
                             str += "<button style='margin-left:15px' class='btn btn-xs btn-warning ' onclick='vm.freezeUser(" + row.id + ")'><i class=\"fa fa-ban\" ></i>禁用</button>";
                         } else {

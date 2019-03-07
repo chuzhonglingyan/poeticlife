@@ -1,8 +1,7 @@
 package com.yuntian.poeticlife.config;
 
-import com.yuntian.basecommon.exception.BusinessException;
+import com.yuntian.poeticlife.exception.BusinessException;
 import com.yuntian.basecommon.util.PasswordUtil;
-import com.yuntian.basecommon.util.encrypt.use.MD5Util;
 import com.yuntian.poeticlife.model.entity.BackendOperater;
 import com.yuntian.poeticlife.service.BackendOperaterService;
 
@@ -49,9 +48,9 @@ public class CustomRealm extends AuthorizingRealm {
         BackendOperater user = backendOperaterService.findBy("accountName", token.getUsername());
         String savePassWord= new String((char[]) token.getCredentials());
         if (null == user) {
-            throw new BusinessException("账号不存在");
+            BusinessException.throwMessage("账号不存在");
         } else if (!PasswordUtil.verify(savePassWord, user.getPassWord())) {
-            throw new BusinessException("密码不正确");
+            BusinessException.throwMessage("密码不正确");
         }
         SimpleAuthenticationInfo simpleAuthenticationInfo=new SimpleAuthenticationInfo(user.getId(), savePassWord, getName());
         log.error("————身份认证通过————");

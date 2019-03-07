@@ -21,8 +21,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import tk.mybatis.mapper.entity.Condition;
-
 
 /**
  * Created by CodeGenerator on 2019/02/23.
@@ -51,13 +49,13 @@ public class BackendOperaterServiceImpl extends AbstractService<BackendOperater>
 
 
     @Override
-    public List<Menu> getMenuListByOperater(Long operaterId) {
+    public List<Menu> getNavMenuListByOperater(Long operaterId) {
         return menuService.findAll();
     }
 
     @Override
     public List<MenuTreeVO> getMenuTreeVOListByOperater(Long operaterId) {
-        List<Menu> menuList=getMenuListByOperater(operaterId);
+        List<Menu> menuList= getNavMenuListByOperater(operaterId);
         List<MenuTreeVO> menuTreeVOList = new ArrayList<>();
         for (Menu menu : menuList) {
             MenuTreeVO menuTreeVO = new MenuTreeVO();

@@ -1,4 +1,4 @@
-package com.yuntian.basecommon.exception;
+package com.yuntian.poeticlife.exception;
 
 import java.io.Serializable;
 
@@ -9,7 +9,9 @@ import java.io.Serializable;
  */
 public class BusinessException extends RuntimeException implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 7984725909902168809L;
+
     private String msg;
     private int code = 500;
 
@@ -49,5 +51,14 @@ public class BusinessException extends RuntimeException implements Serializable 
 
     public void setCode(int code) {
         this.code = code;
+    }
+
+
+    public static void throwMessage(String msg){
+        throwMessage(500,msg);
+    }
+
+    public static void throwMessage(int code,String msg){
+        throw new BusinessException(code,msg);
     }
 }
