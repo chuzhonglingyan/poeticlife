@@ -553,7 +553,7 @@
           supportsPassive = true;
         }
       })); // https://github.com/facebook/flow/issues/285
-      window.addEventListener('login-passive', null, opts);
+      window.addEventListener('test-passive', null, opts);
     } catch (e) {}
   }
 
@@ -7165,12 +7165,12 @@
    *
    * Possible cases:
    *
-   * - login
-   * - login[key]
-   * - login[test1[key]]
-   * - login["a"][key]
-   * - xxx.login[a[a].test1[key]]
-   * - login.xxx.a["asa"][test1[key]]
+   * - test
+   * - test[key]
+   * - test[test1[key]]
+   * - test["a"][key]
+   * - xxx.test[a[a].test1[key]]
+   * - test.xxx.a["asa"][test1[key]]
    *
    */
 
