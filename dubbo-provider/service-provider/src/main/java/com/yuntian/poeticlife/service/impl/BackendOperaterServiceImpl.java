@@ -50,43 +50,15 @@ public class BackendOperaterServiceImpl extends AbstractService<BackendOperater>
 
     @Override
     public List<Menu> getNavMenuListByOperater(Long operaterId) {
-        return menuService.findAll();
+        return menuService.findEnableMenus();
     }
 
     @Override
     public List<MenuTreeVO> getMenuTreeVOListByOperater(Long operaterId) {
         List<Menu> menuList= getNavMenuListByOperater(operaterId);
-        List<MenuTreeVO> menuTreeVOList = new ArrayList<>();
-        for (Menu menu : menuList) {
-            MenuTreeVO menuTreeVO = new MenuTreeVO();
-            try {
-                BeanUtils.copyProperties(menuTreeVO, menu);
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
-            }
-            menuTreeVOList.add(menuTreeVO);
-        }
-        getTreeMenu(menuTreeVOList);
-        //删除掉所以不为顶级目录的元素
-        menuTreeVOList.removeIf(roleAuthVO -> roleAuthVO.getPid() != null && roleAuthVO.getPid() != 0);
-        return menuTreeVOList;
+        return menuService.getMenuTreeVOList(menuList);
     }
 
-    private void getTreeMenu(List<MenuTreeVO> list) {
-        for (MenuTreeVO menuTreeVO : list) {
-            for (MenuTreeVO child : list) {
-                List<MenuTreeVO> menuVOList;
-                if (menuTreeVO.getChildList() == null) {
-                    menuVOList = new ArrayList<>();
-                    menuTreeVO.setChildList(menuVOList);
-                } else {
-                    menuVOList = menuTreeVO.getChildList();
-                }
-                if (menuTreeVO.getId().equals(child.getPid())) {
-                    menuVOList.add(child);
-                }
-            }
-        }
-    }
+
 
 }

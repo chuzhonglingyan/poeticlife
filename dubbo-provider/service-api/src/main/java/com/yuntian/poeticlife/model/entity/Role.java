@@ -1,9 +1,13 @@
 package com.yuntian.poeticlife.model.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
-public class Role {
+public class Role implements Serializable {
+
+
+    private static final long serialVersionUID = -2314323591292413112L;
     /**
      * 主键ID
      */

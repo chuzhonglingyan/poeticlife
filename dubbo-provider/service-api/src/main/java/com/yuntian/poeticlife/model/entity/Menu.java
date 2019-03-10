@@ -90,8 +90,8 @@ public class Menu implements Serializable {
     /**
      * 0：启用  1：冻结
      */
-    @Column(name = "is_frozen")
-    private Byte isFrozen;
+    @Column(name = "menu_status")
+    private Byte menuStatus;
 
     /**
      * 获取菜单ID
@@ -332,16 +332,16 @@ public class Menu implements Serializable {
      *
      * @return is_frozen - 0：启用  1：冻结
      */
-    public Byte getIsFrozen() {
-        return isFrozen;
+    public Byte getMenuStatus() {
+        return menuStatus;
     }
 
     /**
      * 设置0：启用  1：冻结
      *
-     * @param isFrozen 0：启用  1：冻结
+     * @param menuStatus 0：启用  1：冻结
      */
-    public void setIsFrozen(Byte isFrozen) {
-        this.isFrozen = isFrozen;
+    public void setMenuStatus(Byte menuStatus) {
+        this.menuStatus = menuStatus;
     }
 }

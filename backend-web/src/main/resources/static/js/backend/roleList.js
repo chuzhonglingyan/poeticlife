@@ -190,7 +190,7 @@ function formatStatus(value){
 
 function initModalListener() {
     var  addRoleModal= $("#addRoleModal");
-    showModallListener(addRoleModal,function () {
+    showModalListener(addRoleModal,function () {
         initValidForm();
         vm.validator = $("#addRoleForm").data("bootstrapValidator");
         console.debug("显示");

@@ -105,7 +105,4 @@ public class BackendOperaterController extends BaseController {
         return ResultGenerator.genSuccessResult(list);
     }
 
-
-
-
 }

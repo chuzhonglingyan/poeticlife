@@ -34,12 +34,15 @@ public class MenuController extends BaseController{
 
     @PostMapping("/delete")
     public Result delete(@RequestParam Long id) {
+
         menuService.deleteById(id);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/update")
     public Result update(Menu menu) {
+        menu.setCreateBy(getUserId());
+        menu.setUpdateBy(getUserId());
         menuService.update(menu);
         return ResultGenerator.genSuccessResult();
     }

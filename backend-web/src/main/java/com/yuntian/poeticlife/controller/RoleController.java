@@ -1,18 +1,17 @@
 package com.yuntian.poeticlife.controller;
 import com.yuntian.poeticlife.core.Result;
 import com.yuntian.poeticlife.core.ResultGenerator;
+import com.yuntian.poeticlife.model.dto.RoleDTO;
 import com.yuntian.poeticlife.model.entity.Role;
 import com.yuntian.poeticlife.service.RoleService;
-import com.github.pagehelper.PageHelper;
 import com.yuntian.poeticlife.model.vo.PageInfoVo;
-import com.github.pagehelper.PageInfo;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
 * Created by CodeGenerator on 2019/02/26.
@@ -26,6 +25,8 @@ public class RoleController extends BaseController{
 
     @PostMapping("/add")
     public Result add(Role role) {
+        role.setCreateBy(getUserId());
+        role.setUpdateBy(getUserId());
         roleService.save(role);
         return ResultGenerator.genSuccessResult();
     }
@@ -38,9 +39,30 @@ public class RoleController extends BaseController{
 
     @PostMapping("/update")
     public Result update(Role role) {
+        role.setCreateBy(getUserId());
+        role.setUpdateBy(getUserId());
         roleService.update(role);
         return ResultGenerator.genSuccessResult();
     }
+
+    @PostMapping("/isEnable")
+    public Result isEnable(Role role) {
+        role.setCreateBy(getUserId());
+        role.setUpdateBy(getUserId());
+        roleService.isEnable(role);
+        return ResultGenerator.genSuccessResult();
+    }
+
+
+    @PostMapping("/isStop")
+    public Result isStop(Role role) {
+        role.setCreateBy(getUserId());
+        role.setUpdateBy(getUserId());
+        roleService.isStop(role);
+        return ResultGenerator.genSuccessResult();
+    }
+
+
 
     @PostMapping("/detail")
     public Result detail(@RequestParam Long id) {
@@ -49,10 +71,7 @@ public class RoleController extends BaseController{
     }
 
     @PostMapping("/list")
-    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
-        PageHelper.startPage(page, size);
-        List<Role> list = roleService.findAll();
-        PageInfoVo<Role> pageInfo = new PageInfoVo<>(new PageInfo<>(list));
-        return ResultGenerator.genSuccessResult(pageInfo);
+    public PageInfoVo<Role> list(RoleDTO roleDTO) {
+        return roleService.queryRoleListByPage(roleDTO);
     }
 }

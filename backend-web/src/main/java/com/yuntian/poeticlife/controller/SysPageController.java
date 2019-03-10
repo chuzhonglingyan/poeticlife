@@ -54,4 +54,9 @@ public class SysPageController extends BaseController {
     public String operaterList() {
         return "backend/operaterManager";
     }
+
+    @RequestMapping("/roleManager")
+    public String roleList() {
+        return "backend/roleManager";
+    }
 }

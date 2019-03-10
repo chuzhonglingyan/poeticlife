@@ -253,20 +253,34 @@ function formatDate(time, format){
     })
 }
 
-function showModal(modal,listener){
-    modal.on('show.bs.modal',function() {
-          if (listener !=null){
-              listener();
-          }
-    });
-}
 
-function hideModal(modal,listener){
+
+function hideModalListener(modal,listener){
     modal.on('hidden.bs.modal',function() {
         if (listener !=null){
             listener();
         }
     });
+}
+
+function showModalListener(modal,listener){
+    modal.on('show.bs.modal',function() {
+        if (listener !=null){
+            listener();
+        }
+    });
+}
+
+function setModalTitle(modal, title) {
+    modal.find('.modal-title').text(title);
+}
+
+function showModal(modal) {
+    modal.modal('show')
+}
+
+function hideModal(modal) {
+    modal.modal('hide')
 }
 
 function isEmpty(obj) {
@@ -287,6 +301,19 @@ function isEmpty(obj) {
 function layerAlert(msg) {
     //信息框-例1
     layer.alert(msg, {icon: 6});
+}
+
+
+function formatText(text) {
+    if (isEmpty(text)) {
+        return "";
+    } else {
+        if (text.length > 10) {
+            return '<span title =' + escapeHtml(text) + '>' + escapeHtml(text).substring(0, 10) + "..." + '</span>';
+        } else {
+            return text;
+        }
+    }
 }
 
 

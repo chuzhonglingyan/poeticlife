@@ -5,12 +5,18 @@ import com.yuntian.poeticlife.core.AbstractService;
 import com.yuntian.poeticlife.dao.MenuMapper;
 import com.yuntian.poeticlife.exception.BusinessException;
 import com.yuntian.poeticlife.model.entity.Menu;
+import com.yuntian.poeticlife.model.vo.MenuTreeVO;
 import com.yuntian.poeticlife.service.MenuService;
 
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.annotation.Resource;
 
@@ -34,10 +40,11 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
         Example.Criteria criteria = condition.createCriteria();
         criteria.andEqualTo("id", id);
         criteria.andEqualTo("isDelete", 0);
-        criteria.andEqualTo("isFrozen", 0);
         List<Menu> menuList = findByCondition(condition);
-        AssertUtil.isNotEmpty(menuList, "不存在该菜单");
-        return menuList.get(0);
+        if (CollectionUtils.isNotEmpty(menuList)){
+            return menuList.get(0);
+        }
+        return null;
     }
 
 
@@ -46,6 +53,30 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
         Condition condition = new Condition(Menu.class);
         Example.Criteria criteria = condition.createCriteria();
         criteria.andEqualTo("pid", id);
+        criteria.andEqualTo("isDelete", 0);
+        return findByCondition(condition);
+    }
+
+    @Override
+    public Menu findEnableMenuById(Long id) {
+        Condition condition = new Condition(Menu.class);
+        Example.Criteria criteria = condition.createCriteria();
+        criteria.andEqualTo("id", id);
+        criteria.andEqualTo("isDelete", 0);
+        criteria.andEqualTo("menuStatus", 0);
+        List<Menu> menuList = findByCondition(condition);
+        if (CollectionUtils.isNotEmpty(menuList)){
+            return menuList.get(0);
+        }
+        return null;
+    }
+
+    @Override
+    public List<Menu> findEnableMenus() {
+        Condition condition = new Condition(Menu.class);
+        Example.Criteria criteria = condition.createCriteria();
+        criteria.andEqualTo("isDelete", 0);
+        criteria.andEqualTo("menuStatus", 0);
         return findByCondition(condition);
     }
 
@@ -54,7 +85,6 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
         Condition condition = new Condition(Menu.class);
         Example.Criteria criteria = condition.createCriteria();
         criteria.andEqualTo("isDelete", 0);
-        criteria.andEqualTo("isFrozen", 0);
         return findByCondition(condition);
     }
 
@@ -96,12 +126,17 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void deleteById(Long id) {
+        Menu menuVO = findById(id);
+        if (Objects.isNull(menuVO)){
+            BusinessException.throwMessage("菜单不存在，请刷新页面");
+        }
+        if (menuVO.getMenuStatus() == 1) {
+            BusinessException.throwMessage("菜单处于冻结状态，无法删除.");
+        }
         List<Menu> list = findChildMenusById(id);
         AssertUtil.isEmpty(list, "存在子菜单，不能删除");
-        Menu menu = new Menu();
-        menu.setId(id);
-        menu.setIsDelete((byte) 1);
-        super.update(menu);
+        menuVO.setIsDelete((byte) 1);
+        super.update(menuVO);
     }
 
 
@@ -109,7 +144,7 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
     public void isEnableMenu(Long id) {
         Menu menu = new Menu();
         menu.setId(id);
-        menu.setIsFrozen((byte) 0);
+        menu.setMenuStatus((byte) 0);
         super.update(menu);
     }
 
@@ -117,9 +152,43 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
     public void isStopMenu(Long id) {
         Menu menu = new Menu();
         menu.setId(id);
-        menu.setIsFrozen((byte) 1);
+        menu.setMenuStatus((byte) 1);
         super.update(menu);
     }
 
+    @Override
+    public List<MenuTreeVO> getMenuTreeVOList(List<Menu> menuList) {
+        List<MenuTreeVO> menuTreeVOList = new ArrayList<>();
+        for (Menu menu : menuList) {
+            MenuTreeVO menuTreeVO = new MenuTreeVO();
+            try {
+                BeanUtils.copyProperties(menuTreeVO, menu);
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+            menuTreeVOList.add(menuTreeVO);
+        }
+        getTreeMenu(menuTreeVOList);
+        //删除掉所以不为顶级目录的元素
+        menuTreeVOList.removeIf(roleAuthVO -> roleAuthVO.getPid() != null && roleAuthVO.getPid() != 0);
+        return menuTreeVOList;
+    }
+
+    private void getTreeMenu(List<MenuTreeVO> list) {
+        for (MenuTreeVO menuTreeVO : list) {
+            for (MenuTreeVO child : list) {
+                List<MenuTreeVO> menuVOList;
+                if (menuTreeVO.getChildList() == null) {
+                    menuVOList = new ArrayList<>();
+                    menuTreeVO.setChildList(menuVOList);
+                } else {
+                    menuVOList = menuTreeVO.getChildList();
+                }
+                if (menuTreeVO.getId().equals(child.getPid())) {
+                    menuVOList.add(child);
+                }
+            }
+        }
+    }
 
 }

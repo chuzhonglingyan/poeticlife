@@ -2,22 +2,24 @@ var $table = $('#table');
 var $addSysMenu = $('#addSysMenu');
 
 //父id
-var pid = '';
+var pid = null;
+
+var id = null;
 
 $(function () {
     $('#addFirstMenu').click(function () {
-        $addSysMenu.find('.modal-title').text('新增一级菜单');
+        setModalTitle($addSysMenu,"新增一级菜单");
         $("#menuTypeFrom").hide();
-        $addSysMenu.modal("show");
+        showModal( $addSysMenu);
         pid = 0;
     });
     $('#saveMenu').click(function () {
-        saveMenu(pid);
+        saveOrUpdateMenu();
     });
 
-    hideModal($addSysMenu, function () {
+    hideModalListener($addSysMenu, function () {
         $('#addMenuForm')[0].reset();
-        pid = '';
+        pid = null;
     });
 
     loadTable();
@@ -43,7 +45,7 @@ function loadTable() {
             // {field: 'id', title: '编号', sortable: true, align: 'center'},
             // {field: 'pid', title: '所属上级'},
             {
-                field: 'isFrozen',
+                field: 'menuStatus',
                 title: '状态',
                 sortable: true,
                 align: 'center',
@@ -160,7 +162,7 @@ window.operateEvents = {
  */
 function selectChilds(datas, row, id, pid, checked) {
     for (var i in datas) {
-        if (datas[i][pid] == row[id]) {
+        if (datas[i][pid] === row[id]) {
             datas[i].check = checked;
             selectChilds(datas, datas[i], id, pid, checked);
         }
@@ -174,13 +176,12 @@ function selectParentChecked(datas, row, id, pid) {
             datas[i].check = true;
             selectParentChecked(datas, datas[i], id, pid);
         }
-        ;
     }
 }
 
 function test() {
     var selRows = $table.bootstrapTable("getSelections");
-    if (selRows.length == 0) {
+    if (selRows.length === 0) {
         layerAlert("请至少选择一行");
         return;
     }
@@ -201,36 +202,56 @@ function add(id) {
     $("#menuTypeFrom").show();
     $addSysMenu.modal("show");
     pid = id;
-}
 
-function del(id) {
-    //询问框
-    layer.confirm('确定要删除？', {btn: ['确定','取消']}, function(){
-        delMenu(id);
-    }, function(){
-    });
+    this.id=null;
 }
 
 function update(id) {
-    layerAlert("update 方法 , id = " + id);
+    $addSysMenu.find('.modal-title').text('编辑菜单');
+    $addSysMenu.modal("show");
+    pid =null;
+    this.id=id;
+    postFormFull(baseURL + "/menu/detail", {"id":id}, function (data) {
+        $('#menuName').val(data.menuName);
+        $('#menuValue').val(data.menuUrl);
+
+        var  menuType=data.menuType;
+        var  menuStatus=data.menuStatus;
+        $('input:radio[name="menuType"][value='+menuType+']').prop("checked", "checked");
+        $('input:radio[name="menuStatus"][value='+menuStatus+']').prop("checked", "checked");
+
+    }, function (msg) {
+        layer.msg(msg);
+    });
 }
 
-function saveMenu(id) {
+
+function del(id) {
+    //询问框
+    layer.confirm('确定要删除？', {btn: ['确定', '取消']}, function () {
+        delMenu(id);
+    }, function () {
+    });
+}
+
+
+
+
+function saveOrUpdateMenu() {
+    var  isAdd=isEmpty(id);
+
     var menuName = $.trim(($('#menuName').val()));
     var menuValue = $.trim(($('#menuValue').val()));
     var menuType = $('input:radio[name=menuType]:checked').val();
     var menuStatus = $('input:radio[name=menuStatus]:checked').val();
     var menu = {
-        "pid": id,
+        "id": id,
+        "pid": pid,
         "menuName": menuName,
         "menuUrl": menuValue,
         "menuType": menuType,
         "menuStatus": menuStatus
     };
-    if (isEmpty(pid)) {
-        layer.msg("父id不能为空");
-        return;
-    }
     if (isEmpty(menuName)) {
         layer.msg("菜单名不能为空");
         return;
@@ -241,14 +262,24 @@ function saveMenu(id) {
     }
     console.debug(menu);
 
-    postFormFull(baseURL + "/menu/add", menu, function (data) {
-        loadTable();
-        layer.msg("新增成功");
-        $addSysMenu.modal("hide");
-    }, function (msg) {
-        layer.msg(msg);
+    if (isAdd) {
+        postFormFull(baseURL + "/menu/add", menu, function (data) {
+            loadTable();
+            layer.msg("新增成功");
+            $addSysMenu.modal("hide");
+        }, function (msg) {
+            layer.msg(msg);
 
-    });
+        });
+    }else {
+        postFormFull(baseURL + "/menu/update", menu, function (data) {
+            loadTable();
+            layer.msg("更新成功");
+            $addSysMenu.modal("hide");
+        }, function (msg) {
+            layer.msg(msg);
+        });
+    }
 }
 
 function delMenu(id) {

@@ -7,25 +7,65 @@ package com.yuntian.poeticlife.model.dto;
  */
 public class BaseDTO  {
 
+    private Long id;
 
-    private Integer start;
 
+    private Long createBy;
 
-    private Integer end;
+    private Long updateBy;
 
-    public Integer getStart() {
-        return start;
+    private Integer isDelete=0;
+
+    private Integer pageNum=1;
+
+    private Integer pageSize=10;
+
+    public Integer getPageNum() {
+        return pageNum;
     }
 
-    public void setStart(Integer start) {
-        this.start = start;
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
     }
 
-    public Integer getEnd() {
-        return end;
+    public Integer getPageSize() {
+        return pageSize;
     }
 
-    public void setEnd(Integer end) {
-        this.end = end;
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
+    }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(Long createBy) {
+        this.createBy = createBy;
+    }
+
+    public Long getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(Long updateBy) {
+        this.updateBy = updateBy;
     }
 }

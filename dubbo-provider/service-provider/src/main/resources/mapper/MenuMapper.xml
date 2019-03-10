@@ -18,6 +18,6 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_by" jdbcType="BIGINT" property="updateBy" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="is_frozen" jdbcType="TINYINT" property="isFrozen" />
+    <result column="menu_status" jdbcType="TINYINT" property="menuStatus" />
   </resultMap>
 </mapper>
