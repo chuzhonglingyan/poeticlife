@@ -93,6 +93,7 @@ var vm = new Vue({
             console.debug("freezeUser:" + id)
         },
         editUser: function (row) {
+            setModalTitle($("#addUserModal"),"编辑用户");
             console.debug("editUser:" + row.id)
         },
         deleteUser: function (id) {
@@ -118,13 +119,13 @@ var vm = new Vue({
 
 function initModalListener() {
     var  addUserModal= $("#addUserModal");
-    showModal(addUserModal,function () {
+    showModalListener(addUserModal,function () {
         initValidForm();
         vm.validator = $("#addUserForm").data("bootstrapValidator");
         console.debug("显示");
     });
 
-    hideModal(addUserModal,function () {
+    hideModalListener(addUserModal,function () {
         console.debug("消失");
         $('#addUserForm')[0].reset();
         vm.validator.destroy();
