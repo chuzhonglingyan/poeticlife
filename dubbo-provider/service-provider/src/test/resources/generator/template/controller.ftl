@@ -48,8 +48,8 @@ public class ${modelNameUpperCamel}Controller extends BaseController{
         return ResultGenerator.genSuccessResult(${modelNameLowerCamel});
     }
 
-    @PostMapping("/childList")
-    public Result childList(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
+    @PostMapping("/list")
+    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
         List<${modelNameUpperCamel}> childList = ${modelNameLowerCamel}Service.findAll();
         PageInfoVo<${modelNameUpperCamel}> pageInfo = new PageInfoVo<>(new PageInfo<>(childList));

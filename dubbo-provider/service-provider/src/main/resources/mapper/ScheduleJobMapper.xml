@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuntian.poeticlife.dao.ScheduleJobMapper">
+    <resultMap id="BaseResultMap" type="com.yuntian.poeticlife.model.entity.ScheduleJob">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="group_name" jdbcType="VARCHAR" property="groupName" />
+        <result column="bean_name" jdbcType="VARCHAR" property="beanName" />
+        <result column="method_name" jdbcType="VARCHAR" property="methodName" />
+        <result column="params" jdbcType="VARCHAR" property="params" />
+        <result column="cron_expression" jdbcType="VARCHAR" property="cronExpression" />
+        <result column="status" jdbcType="TINYINT" property="status" />
+        <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="create_by" jdbcType="BIGINT" property="createBy" />
+        <result column="update_by" jdbcType="BIGINT" property="updateBy" />
+    </resultMap>
+
+
+    <sql id="tableName">
+		schedule_job
+	</sql>
+
+
+
+    <!--保存 -->
+    <insert id="insertJob" parameterType="com.yuntian.poeticlife.model.entity.ScheduleJob" 	useGeneratedKeys="true" keyProperty="id" >
+        insert into
+        <include refid="tableName"/>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id, group_name,bean_name, method_name, params, cron_expression, status, remark,is_delete, create_time, update_time, create_by, update_by
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id}, #{groupName}, #{beanName}, #{methodName}, #{params}, #{cronExpression}, 0, #{remark},0, now(), now(), #{createBy}, #{updateBy}
+        </trim>
+    </insert>
+
+
+
+</mapper>

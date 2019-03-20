@@ -1,5 +1,7 @@
 package com.yuntian.poeticlife.model.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
@@ -8,7 +10,8 @@ import javax.persistence.*;
 public class BackendOperater implements Serializable {
 
 
-    private static final long serialVersionUID = -8515315107809661780L;
+    private static final long serialVersionUID = 4477423196488196386L;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,12 +30,20 @@ public class BackendOperater implements Serializable {
     private String userName;
 
     @Column(name = "pass_word")
+    @JSONField(serialize = false)
     private String passWord;
 
     /**
      * 邮箱
      */
     private String email;
+
+
+    /**
+     * 电话
+     */
+    private String phone;
+
 
     /**
      * 创建人
@@ -282,5 +293,13 @@ public class BackendOperater implements Serializable {
      */
     public void setIsDelete(Byte isDelete) {
         this.isDelete = isDelete;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

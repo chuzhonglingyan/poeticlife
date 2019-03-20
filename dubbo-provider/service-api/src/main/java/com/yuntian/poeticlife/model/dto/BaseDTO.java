@@ -1,11 +1,17 @@
 package com.yuntian.poeticlife.model.dto;
 
+import java.io.Serializable;
+
 /**
  * @Auther: yuntian
  * @Date: 2019/2/23 0023 23:02
  * @Description:
  */
-public class BaseDTO  {
+public class BaseDTO  implements Serializable {
+
+
+    private static final long serialVersionUID = -327327727652596175L;
+
 
     private Long id;
 

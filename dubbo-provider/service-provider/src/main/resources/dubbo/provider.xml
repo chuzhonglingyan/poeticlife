@@ -46,6 +46,14 @@
     <dubbo:service  ref="roleMenuService" interface="com.yuntian.poeticlife.service.RoleMenuService"
         version="${dubbo.provider.version}"/>
 
+    <dubbo:service  ref="scheduleJobService" interface="com.yuntian.poeticlife.service.ScheduleJobService"
+        version="${dubbo.provider.version}"/>
+
+
+    <dubbo:service  ref="scheduleJobLogService" interface="com.yuntian.poeticlife.service.ScheduleJobLogService"
+        version="${dubbo.provider.version}"/>
+
+
 
 </beans>
 

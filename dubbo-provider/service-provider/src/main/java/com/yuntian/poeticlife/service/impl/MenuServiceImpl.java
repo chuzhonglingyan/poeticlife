@@ -7,6 +7,9 @@ import com.yuntian.poeticlife.exception.BusinessException;
 import com.yuntian.poeticlife.model.entity.Menu;
 import com.yuntian.poeticlife.model.vo.MenuTreeVO;
 import com.yuntian.poeticlife.service.MenuService;
+import com.yuntian.poeticlife.service.OperaterRoleService;
+import com.yuntian.poeticlife.service.RoleMenuService;
+import com.yuntian.poeticlife.service.RoleService;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -32,6 +35,12 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
 
     @Resource
     private MenuMapper menuMapper;
+
+    @Resource
+    private OperaterRoleService operaterRoleService;
+    @Resource
+    private RoleMenuService roleMenuService;
+
 
 
     @Override
@@ -63,7 +72,7 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
         Example.Criteria criteria = condition.createCriteria();
         criteria.andEqualTo("id", id);
         criteria.andEqualTo("isDelete", 0);
-        criteria.andEqualTo("menuStatus", 0);
+        criteria.andEqualTo("menuStatus", 1);
         List<Menu> menuList = findByCondition(condition);
         if (CollectionUtils.isNotEmpty(menuList)){
             return menuList.get(0);
@@ -71,12 +80,36 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
         return null;
     }
 
+    /**
+     * 查找用户所用户的权限菜单
+     * @param operaterId
+     * @return
+     */
+    @Override
+    public List<Menu> findEnableMenuByOperaterId(Long operaterId) {
+        List<Long>  roleIdList=operaterRoleService.getRoleIdListByOperaterId(operaterId);
+        if (CollectionUtils.isNotEmpty(roleIdList)){
+            Long roleId=roleIdList.get(0);
+            List<Long> menuIds= roleMenuService.getMenuIdListByRoleId(roleId);
+
+            Condition condition = new Condition(Menu.class);
+            Example.Criteria criteria = condition.createCriteria();
+            criteria.andIn("id", menuIds);
+            criteria.andEqualTo("isDelete", 0);
+            criteria.andEqualTo("menuStatus", 1);
+            return  findByCondition(condition);
+        }
+        return null;
+    }
+
+
+
     @Override
     public List<Menu> findEnableMenus() {
         Condition condition = new Condition(Menu.class);
         Example.Criteria criteria = condition.createCriteria();
         criteria.andEqualTo("isDelete", 0);
-        criteria.andEqualTo("menuStatus", 0);
+        criteria.andEqualTo("menuStatus", 1);
         return findByCondition(condition);
     }
 
@@ -144,7 +177,7 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
     public void isEnableMenu(Long id) {
         Menu menu = new Menu();
         menu.setId(id);
-        menu.setMenuStatus((byte) 0);
+        menu.setMenuStatus((byte) 1);
         super.update(menu);
     }
 
@@ -152,7 +185,7 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
     public void isStopMenu(Long id) {
         Menu menu = new Menu();
         menu.setId(id);
-        menu.setMenuStatus((byte) 1);
+        menu.setMenuStatus((byte) 0);
         super.update(menu);
     }
 

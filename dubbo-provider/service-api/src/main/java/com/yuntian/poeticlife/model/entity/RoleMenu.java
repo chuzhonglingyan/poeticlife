@@ -30,11 +30,7 @@ public class RoleMenu {
     @Column(name = "is_checked")
     private Byte isChecked;
 
-    /**
-     * 是否删除 0:未删除 1:已删除
-     */
-    @Column(name = "is_delete")
-    private Byte isDelete;
+
 
     /**
      * 创建人
@@ -132,23 +128,6 @@ public class RoleMenu {
         this.isChecked = isChecked;
     }
 
-    /**
-     * 获取是否删除 0:未删除 1:已删除
-     *
-     * @return is_delete - 是否删除 0:未删除 1:已删除
-     */
-    public Byte getIsDelete() {
-        return isDelete;
-    }
-
-    /**
-     * 设置是否删除 0:未删除 1:已删除
-     *
-     * @param isDelete 是否删除 0:未删除 1:已删除
-     */
-    public void setIsDelete(Byte isDelete) {
-        this.isDelete = isDelete;
-    }
 
     /**
      * 获取创建人

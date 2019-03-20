@@ -14,7 +14,7 @@ import tk.mybatis.mapper.entity.Condition;
  */
 public interface RoleService extends Service<Role> {
 
-
+     List<Role>  findEnableRoleList();
 
     Role findRoleByName(String roleName );
 

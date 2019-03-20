@@ -30,6 +30,7 @@ public abstract class AbstractService<T> implements Service<T> {
         mapper.insertSelective(model);
     }
 
+
     public void save(List<T> models) {
         mapper.insertList(models);
     }

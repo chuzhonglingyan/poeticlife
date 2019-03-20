@@ -10,6 +10,8 @@ import com.yuntian.poeticlife.model.dto.RoleDTO;
 import com.yuntian.poeticlife.model.entity.Menu;
 import com.yuntian.poeticlife.model.entity.Role;
 import com.yuntian.poeticlife.model.vo.PageInfoVo;
+import com.yuntian.poeticlife.service.OperaterRoleService;
+import com.yuntian.poeticlife.service.RoleMenuService;
 import com.yuntian.poeticlife.service.RoleService;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -33,6 +35,21 @@ import tk.mybatis.mapper.entity.Example;
 public class RoleServiceImpl extends AbstractService<Role> implements RoleService {
     @Resource
     private RoleMapper roleMapper;
+
+    @Resource
+    private RoleMenuService roleMenuService;
+
+    @Resource
+    private OperaterRoleService operaterRoleService;
+
+    @Override
+    public List<Role>  findEnableRoleList() {
+        Condition condition = new Condition(Role.class);
+        Example.Criteria criteria = condition.createCriteria();
+        criteria.andEqualTo("isDelete", 0);
+        criteria.andEqualTo("roleStatus", 1);
+        return findByCondition(condition);
+    }
 
 
     @Override
@@ -69,7 +86,6 @@ public class RoleServiceImpl extends AbstractService<Role> implements RoleServic
         AssertUtil.isNotNull(model, "参数不能为空");
         AssertUtil.isNotNull(model.getId(), "角色id不能为空");
         AssertUtil.isNotNull(model.getRoleName(), "角色名不能为空");
-        AssertUtil.isNotNull(model.getCreateBy(), "创建人不能为空");
         AssertUtil.isNotNull(model.getUpdateBy(), "更新人不能为空");
         Role role = findById(model.getId());
         if (Objects.isNull(role)) {
@@ -83,7 +99,6 @@ public class RoleServiceImpl extends AbstractService<Role> implements RoleServic
     public void isEnable(Role model) {
         AssertUtil.isNotNull(model, "参数不能为空");
         AssertUtil.isNotNull(model.getId(), "角色id不能为空");
-        AssertUtil.isNotNull(model.getCreateBy(), "创建人不能为空");
         AssertUtil.isNotNull(model.getUpdateBy(), "更新人不能为空");
         model.setRoleStatus(1);
         super.update(model);
@@ -93,8 +108,12 @@ public class RoleServiceImpl extends AbstractService<Role> implements RoleServic
     public void isStop(Role model) {
         AssertUtil.isNotNull(model, "参数不能为空");
         AssertUtil.isNotNull(model.getId(), "角色id不能为空");
-        AssertUtil.isNotNull(model.getCreateBy(), "创建人不能为空");
         AssertUtil.isNotNull(model.getUpdateBy(), "更新人不能为空");
+
+        List<Long> operaterIdList= operaterRoleService.getOperaterIdListByRoleId(model.getId());
+        if (CollectionUtils.isNotEmpty(operaterIdList)){
+            BusinessException.throwMessage("角色下关联着用户,不能禁用");
+        }
         model.setRoleStatus(0);
         super.update(model);
     }
@@ -107,7 +126,11 @@ public class RoleServiceImpl extends AbstractService<Role> implements RoleServic
         if (Objects.isNull(role)) {
             BusinessException.throwMessage("角色不存在，请刷新页面");
         }
-        //todo 要删除和用户的关联关系
+        List<Long> operaterIdList= operaterRoleService.getOperaterIdListByRoleId(id);
+        if (CollectionUtils.isNotEmpty(operaterIdList)){
+            BusinessException.throwMessage("角色下关联着用户,不能删除");
+        }
+        roleMenuService.deleteByRoleId(role.getId());
         role.setIsDelete((byte) 1);
         super.update(role);
     }

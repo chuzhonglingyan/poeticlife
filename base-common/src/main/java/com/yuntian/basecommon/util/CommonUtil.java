@@ -50,7 +50,7 @@ public class CommonUtil {
 
     private static final Probe PROBE = ProbeFactory.getProbe();
     @SuppressWarnings("rawtypes")
-    public static final Collection NULL_COLLECTION = EMPTY_COLLECTION;
+    public static final Collection NULL_COLLECTION = new NullCollection();
 
     public static String getIp() {
         StringBuffer sb = new StringBuffer();

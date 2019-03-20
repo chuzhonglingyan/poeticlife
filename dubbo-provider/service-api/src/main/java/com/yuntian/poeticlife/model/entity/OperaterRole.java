@@ -1,10 +1,14 @@
 package com.yuntian.poeticlife.model.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "operater_role")
-public class OperaterRole {
+public class OperaterRole implements Serializable {
+
+
+    private static final long serialVersionUID = 6431163478773230934L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -45,11 +49,6 @@ public class OperaterRole {
     @Column(name = "update_time")
     private Date updateTime;
 
-    /**
-     * 是否删除，0-未删除，1-删除，默认为0
-     */
-    @Column(name = "is_delete")
-    private Byte isDelete;
 
     /**
      * @return id
@@ -173,21 +172,5 @@ public class OperaterRole {
         this.updateTime = updateTime;
     }
 
-    /**
-     * 获取是否删除，0-未删除，1-删除，默认为0
-     *
-     * @return is_delete - 是否删除，0-未删除，1-删除，默认为0
-     */
-    public Byte getIsDelete() {
-        return isDelete;
-    }
 
-    /**
-     * 设置是否删除，0-未删除，1-删除，默认为0
-     *
-     * @param isDelete 是否删除，0-未删除，1-删除，默认为0
-     */
-    public void setIsDelete(Byte isDelete) {
-        this.isDelete = isDelete;
-    }
 }

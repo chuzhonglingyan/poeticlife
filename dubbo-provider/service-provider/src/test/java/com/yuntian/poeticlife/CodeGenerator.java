@@ -57,7 +57,7 @@ public class CodeGenerator {
 
 
     public static void main(String[] args) {
-        genCode("menu");
+        genCode("schedule_job_log");
         //genCodeByCustomModelName("输入表名","输入自定义Model名称");
     }
 

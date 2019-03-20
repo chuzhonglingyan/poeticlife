@@ -1,6 +1,11 @@
 package com.yuntian.poeticlife.service;
+import com.yuntian.poeticlife.model.dto.RoleMenuDTO;
+import com.yuntian.poeticlife.model.entity.Menu;
 import com.yuntian.poeticlife.model.entity.RoleMenu;
 import com.yuntian.poeticlife.core.Service;
+import com.yuntian.poeticlife.model.vo.MenuVO;
+
+import java.util.List;
 
 
 /**
@@ -8,4 +13,17 @@ import com.yuntian.poeticlife.core.Service;
  */
 public interface RoleMenuService extends Service<RoleMenu> {
 
+
+    List<Long> getMenuIdListByRoleId(Long roleId);
+
+
+    List<MenuVO> getMenuListByRoleId(Long roleId);
+
+
+    List<RoleMenu> findByRoleId(Long roleId);
+
+   void  deleteByRoleId(Long roleId);
+
+
+   void saveMenuListByRoleId(RoleMenuDTO roleMenuDTO);
 }
