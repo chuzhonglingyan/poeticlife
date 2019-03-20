@@ -2,6 +2,9 @@ package com.yuntian.poeticlife.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -59,4 +62,38 @@ public class SysPageController extends BaseController {
     public String roleList() {
         return "backend/roleManager";
     }
+
+
+
+
+    /**
+     * @Author heyong
+     * @Description: 进入评分记录数据详情
+     * @Date: 2018/10/18 10:31
+     */
+
+    @RequestMapping("/roleManager/authorityList")
+    public ModelAndView authorityList(String roleId,String roleName) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("roleId", roleId);
+        modelAndView.addObject("roleName", roleName);
+        modelAndView.setViewName("backend/authorityManager");
+        return modelAndView;
+    }
+
+
+    @RequestMapping("/scheduleJobManager")
+    public String scheduleJobList() {
+        return "backend/scheduleJobManager";
+    }
+
+    @RequestMapping("/scheduleJobLogManager")
+    public ModelAndView scheduleJobLogList(String jobId,String beanName) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("jobId", jobId);
+        modelAndView.addObject("beanName", beanName);
+        modelAndView.setViewName("backend/scheduleJobLogManager");
+        return modelAndView;
+    }
+
 }

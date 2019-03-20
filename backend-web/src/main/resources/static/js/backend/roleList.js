@@ -10,7 +10,7 @@ var vm = new Vue({
             deleteUrl: baseURL + "/role/delete"
         },
         validator: {},
-        roleData:null,
+        rowData:null,
         addRoleModal:null
     },
     methods: {
@@ -79,6 +79,7 @@ var vm = new Vue({
                     formatter: function option(value, row, index) {
                         var str = "";
                         str += "<button style='margin-left:15px' class='btn btn-xs btn-info' onclick='vm.editRole(" + JSON.stringify(row) + ")'><i class=\"fa fa-pencil-square-o\" ></i>&nbsp;编辑</button> ";
+                        str += "<button style='margin-left:15px' class='btn btn-xs btn-info' onclick='vm.allocationAuthority(" + JSON.stringify(row) + ")'><i class=\"fa fa-pencil-square-o\" ></i>&nbsp;分配权限</button> ";
                         if (row.roleStatus === 1) {
                             str += "<button style='margin-left:15px' class='btn btn-xs btn-warning ' onclick='vm.freezeRole(" + row.id + ")'><i class=\"fa fa-ban\" ></i>禁用</button>";
                         } else {
@@ -115,8 +116,11 @@ var vm = new Vue({
                 layer.msg(msg);
             })
         },
+        allocationAuthority: function (row) {
+            addTP(baseURL+"/roleManager/authorityList?roleId=" + row.id+"&roleName="+row.roleName,"权限分配");
+        },
         editRole: function (row) {
-            vm.roleData=row;
+            vm.rowData=row;
             $('#roleName').val(row.roleName);
             $('#remark').val(row.remark);
             var  roleStatus=row.roleStatus;
@@ -125,7 +129,7 @@ var vm = new Vue({
             showModal( vm.addRoleModal);
         },
         addRole: function () {
-            vm.roleData=null;
+            vm.rowData=null;
             setModalTitle( vm.addRoleModal,"新增角色");
             showModal( vm.addRoleModal);
         },
@@ -146,7 +150,7 @@ var vm = new Vue({
 
             vm.validator.validate();
             if (vm.validator.isValid()) {
-                if (isEmpty(vm.roleData)) {
+                if (isEmpty(vm.rowData)) {
                     postFormFull(vm.url.addUrl,paramFrom,function (data) {
                         layer.msg("新增成功");
                         hideModal( vm.addRoleModal);
@@ -155,7 +159,7 @@ var vm = new Vue({
                         layer.msg(msg);
                     })
                 }else {
-                    var data = $.param({'id': vm.roleData.id}) + '&' + paramFrom;
+                    var data = $.param({'id': vm.rowData.id}) + '&' + paramFrom;
                     postFormFull(vm.url.updateUrl,data,function (data) {
                         layer.msg("编辑成功");
                         hideModal( vm.addRoleModal);
@@ -176,14 +180,6 @@ var vm = new Vue({
         initModalListener();
     }
 });
-
-function formatStatus(value){
-    if (value === 1) {
-        return "启用";
-    } else {
-        return "冻结";
-    }
-}
 
 
 

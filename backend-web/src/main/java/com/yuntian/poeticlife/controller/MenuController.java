@@ -2,6 +2,7 @@ package com.yuntian.poeticlife.controller;
 import com.yuntian.poeticlife.core.Result;
 import com.yuntian.poeticlife.core.ResultGenerator;
 import com.yuntian.poeticlife.model.entity.Menu;
+import com.yuntian.poeticlife.model.vo.MenuVO;
 import com.yuntian.poeticlife.service.MenuService;
 import com.github.pagehelper.PageHelper;
 import com.yuntian.poeticlife.model.vo.PageInfoVo;
@@ -25,7 +26,7 @@ public class MenuController extends BaseController{
     private MenuService menuService;
 
     @PostMapping("/add")
-    public Result add(Menu menu) {
+    public Result add(MenuVO menu) {
         menu.setCreateBy(getUserId());
         menu.setUpdateBy(getUserId());
         menuService.save(menu);
@@ -40,7 +41,7 @@ public class MenuController extends BaseController{
     }
 
     @PostMapping("/update")
-    public Result update(Menu menu) {
+    public Result update(MenuVO menu) {
         menu.setCreateBy(getUserId());
         menu.setUpdateBy(getUserId());
         menuService.update(menu);
@@ -65,6 +66,12 @@ public class MenuController extends BaseController{
     @PostMapping("/getAll")
     public List<Menu>  getAll() {
         return menuService.findAll();
+    }
+
+
+    @PostMapping("/getEnableMenuList")
+    public List<Menu>  getEnableMenuList() {
+        return menuService.findEnableMenus();
     }
 
 

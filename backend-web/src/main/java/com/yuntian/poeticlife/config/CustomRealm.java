@@ -1,6 +1,5 @@
 package com.yuntian.poeticlife.config;
 
-import com.yuntian.poeticlife.exception.BusinessException;
 import com.yuntian.basecommon.util.PasswordUtil;
 import com.yuntian.poeticlife.model.entity.BackendOperater;
 import com.yuntian.poeticlife.service.BackendOperaterService;
@@ -10,6 +9,7 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -46,13 +46,13 @@ public class CustomRealm extends AuthorizingRealm {
         log.error("————进入身份认证————");
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken; // 从数据库获取对应用户名密码的用户
         BackendOperater user = backendOperaterService.findBy("accountName", token.getUsername());
-        String savePassWord= new String((char[]) token.getCredentials());
+        String savePassWord = new String((char[]) token.getCredentials());
         if (null == user) {
-            BusinessException.throwMessage("账号不存在");
+            throw new UnknownAccountException("账号不存在");
         } else if (!PasswordUtil.verify(savePassWord, user.getPassWord())) {
-            BusinessException.throwMessage("密码不正确");
+            throw new UnknownAccountException("密码不正确");
         }
-        SimpleAuthenticationInfo simpleAuthenticationInfo=new SimpleAuthenticationInfo(user.getId(), savePassWord, getName());
+        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(user.getId(), savePassWord, getName());
         log.error("————身份认证通过————");
         return simpleAuthenticationInfo;
     }
@@ -70,7 +70,7 @@ public class CustomRealm extends AuthorizingRealm {
         Long userId = (Long) SecurityUtils.getSubject().getPrincipal();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo(); //获得该用户角色
         String role = backendOperaterService.getRole(userId);
-        log.error("当前角色："+role);
+        log.error("当前角色：" + role);
         Set<String> set = new HashSet<>();
         //需要将 role 封装到 Set 作为 info.setRoles() 的参数
         set.add(role);
@@ -78,8 +78,6 @@ public class CustomRealm extends AuthorizingRealm {
         info.setRoles(set);
         return info;
     }
-
-
 
 
 }

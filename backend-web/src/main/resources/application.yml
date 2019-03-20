@@ -10,9 +10,15 @@ spring:
      freemarker:
          cache: false
          request-context-attribute: request
+         charset: UTF-8
+         check-template-location: true
+         content-type: text/html; charset=utf-8
+         expose-request-attributes: true
+         expose-session-attributes: true
          suffix: .ftl
          settings:
            number_format: 0.##
+
 
      redis:
        host: localhost

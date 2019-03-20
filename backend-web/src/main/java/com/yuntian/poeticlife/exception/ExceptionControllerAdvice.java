@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.yuntian.poeticlife.core.Result;
 import com.yuntian.poeticlife.core.ResultGenerator;
 
+import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -32,11 +33,16 @@ public class ExceptionControllerAdvice {
         return result;
     }
 
+    @ExceptionHandler({UnknownAccountException.class})
+    public Result handlerException(UnknownAccountException ex) {
+        return ResultGenerator.genFailResult(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage());
+    }
+
+
     @ExceptionHandler({Exception.class})
     public Result handlerException(Exception ex) {
         log.error("发生未知异常：{}", ex);
         return ResultGenerator.genFailResult(HttpStatus.INTERNAL_SERVER_ERROR.value(), "服务器打了个小盹儿~请稍候再试");
     }
-
 
 }

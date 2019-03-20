@@ -1,11 +1,9 @@
 package com.yuntian.poeticlife.controller;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.yuntian.poeticlife.core.Result;
 import com.yuntian.poeticlife.core.ResultGenerator;
+import com.yuntian.poeticlife.model.dto.OperaterDTO;
 import com.yuntian.poeticlife.model.entity.BackendOperater;
-import com.yuntian.poeticlife.model.entity.Menu;
 import com.yuntian.poeticlife.model.vo.MenuTreeVO;
 import com.yuntian.poeticlife.model.vo.PageInfoVo;
 import com.yuntian.poeticlife.service.BackendOperaterService;
@@ -19,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -38,6 +34,8 @@ public class BackendOperaterController extends BaseController {
 
     @PostMapping("/add")
     public Result add(BackendOperater backendOperater) {
+        backendOperater.setCreateBy(getUserId());
+        backendOperater.setUpdateBy(getUserId());
         backendOperaterService.save(backendOperater);
         return ResultGenerator.genSuccessResult();
     }
@@ -50,9 +48,26 @@ public class BackendOperaterController extends BaseController {
 
     @PostMapping("/update")
     public Result update(BackendOperater backendOperater) {
+        backendOperater.setUpdateBy(getUserId());
         backendOperaterService.update(backendOperater);
         return ResultGenerator.genSuccessResult();
     }
+
+    @PostMapping("/isEnable")
+    public Result isEnable(BackendOperater backendOperater) {
+        backendOperater.setUpdateBy(getUserId());
+        backendOperaterService.isEnable(backendOperater);
+        return ResultGenerator.genSuccessResult();
+    }
+
+
+    @PostMapping("/isStop")
+    public Result isStop(BackendOperater backendOperater) {
+        backendOperater.setUpdateBy(getUserId());
+        backendOperaterService.isStop(backendOperater);
+        return ResultGenerator.genSuccessResult();
+    }
+
 
     @PostMapping("/detail")
     public Result detail(@RequestParam Long id) {
@@ -61,10 +76,8 @@ public class BackendOperaterController extends BaseController {
     }
 
     @RequestMapping(value = "/list", method = {RequestMethod.GET, RequestMethod.POST})
-    public PageInfoVo<BackendOperater> list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
-        PageHelper.startPage(page, size);
-        List<BackendOperater> list = backendOperaterService.findAll();
-        PageInfoVo<BackendOperater> pageInfo = new PageInfoVo<>(new PageInfo<>(list));
+    public PageInfoVo<BackendOperater> list(OperaterDTO dto) {
+        PageInfoVo<BackendOperater> pageInfo = backendOperaterService.queryRoleListByPage(dto);
         return pageInfo;
     }
 
@@ -96,7 +109,6 @@ public class BackendOperaterController extends BaseController {
         }
         return ResultGenerator.genSuccessResult("退出登录成功");
     }
-
 
 
     @GetMapping("/getMenuListByOperater")

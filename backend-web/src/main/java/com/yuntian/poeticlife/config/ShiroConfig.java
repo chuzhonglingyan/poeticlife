@@ -94,9 +94,6 @@ public class ShiroConfig {
         return new CustomRealm();
     }
 
-    @Bean
-    public FormAuthenticationFilter  shiroFormAuthenticationFilter(){
-        return new ShiroFormAuthenticationFilter();
-    }
+
 
 }

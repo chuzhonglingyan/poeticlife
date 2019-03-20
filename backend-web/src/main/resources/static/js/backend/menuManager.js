@@ -108,11 +108,13 @@ function loadTable() {
 
 // 格式化按钮
 function operateFormatter(value, row, index) {
-    return [
-        '<button type="button" class="RoleOfadd btn btn-xs btn-primary " style="margin-right:15px;"><i class="fa fa-plus" ></i>&nbsp;新增</button>',
-        '<button type="button" class="RoleOfedit btn btn-xs btn-info " style="margin-right:15px;"><i class="fa fa-pencil-square-o" ></i>&nbsp;编辑</button>',
-        '<button type="button" class="RoleOfdelete btn btn-xs btn-danger" style="margin-right:15px;"><i class="fa fa-trash-o" ></i>&nbsp;删除</button>'
-    ].join('');
+
+    var  list=[ '<button type="button" class="RoleOfadd btn btn-xs btn-primary " style="margin-right:15px;"><i class="fa fa-plus" ></i>&nbsp;新增</button>',
+        '<button type="button" class="RoleOfedit btn btn-xs btn-info " style="margin-right:15px;"><i class="fa fa-pencil-square-o" ></i>&nbsp;编辑</button>'];
+    if (row.menuStatus===0){
+        list.push('<button type="button" class="RoleOfdelete btn btn-xs btn-danger" style="margin-right:15px;"><i class="fa fa-trash-o" ></i>&nbsp;删除</button>')
+    }
+    return list.join('');
 }
 
 // 格式化类型
@@ -131,7 +133,7 @@ function typeFormatter(value, row, index) {
 
 // 格式化状态
 function statusFormatter(value, row, index) {
-    if (value === 0) {
+    if (value === 1) {
         return '<span class="label label-success">正常</span>';
     } else {
         return '<span class="label label-default">锁定</span>';

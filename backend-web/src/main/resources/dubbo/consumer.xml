@@ -49,5 +49,10 @@
     <dubbo:reference id="roleMenuService" interface="com.yuntian.poeticlife.service.RoleMenuService"
         version="${dubbo.consumer.version}" url="dubbo://localhost:${dubbo.protocol.port}"  />
 
+    <dubbo:reference id="scheduleJobService" interface="com.yuntian.poeticlife.service.ScheduleJobService"
+        version="${dubbo.consumer.version}" url="dubbo://localhost:${dubbo.protocol.port}"  />
 
+
+    <dubbo:reference id="scheduleJobLogService" interface="com.yuntian.poeticlife.service.ScheduleJobLogService"
+        version="${dubbo.consumer.version}" url="dubbo://localhost:${dubbo.protocol.port}"  />
 </beans>

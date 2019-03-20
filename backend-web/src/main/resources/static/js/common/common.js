@@ -71,8 +71,8 @@ var postFormFull = function (url, requestBody, successCallback, failureCallback)
     });
 };
 
-var postJson = function (url, requestBody, successcallback) {
-    postJsonFull(url, toJson(requestBody), successcallback, null);
+var postJson = function (url, requestBody, successCallback, failureCallback) {
+    postJsonFull(url, toJson(requestBody), successCallback, failureCallback);
 };
 
 
@@ -184,6 +184,9 @@ function closeByUrl(url) {
 }
 
 function escapeHtml(text) {
+    if (isEmpty(text)){
+        return '';
+    }
     var map = {
         '&': '&amp;',
         '<': '&lt;',
@@ -300,3 +303,19 @@ function formatText(text) {
 }
 
 
+function formatStatus(value){
+    if (value === 1) {
+        return "启用";
+    } else {
+        return "冻结";
+    }
+}
+
+
+function disabledInput(view,flag) {
+    view.attr("disabled",flag);
+}
+
+function readonlyInput(view,flag) {
+    view.attr("readonly",flag);
+}

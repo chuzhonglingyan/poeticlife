@@ -94,10 +94,10 @@
                                 <div class="col-sm-8">
                                     <label class="checkbox-inline">
                                     <label class="radio-inline">
-                                        <input type="radio" name="menuStatus" id="menuStart" value="0" checked> 是
+                                        <input type="radio" name="menuStatus" id="menuStart" value="1" checked> 是
                                     </label>
                                     <label class="radio-inline">
-                                        <input type="radio" name="menuStatus" id="menuStop"  value="1"> 否
+                                        <input type="radio" name="menuStatus" id="menuStop"  value="0"> 否
                                     </label>
                                     </label>
                                 </div>
