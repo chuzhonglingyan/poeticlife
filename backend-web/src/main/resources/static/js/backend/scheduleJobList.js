@@ -211,6 +211,14 @@ var vm = new Vue({
     }
 });
 
+function formatStatus(value) {
+    if (value === 1) {
+        return "启动";
+    } else {
+        return "暂停";
+    }
+}
+
 
 function initModalListener() {
     var addScheduleJobModal = $("#addScheduleJobModal");

@@ -49,7 +49,7 @@ var vm = new Vue({
                     title: "账号名",
                     align: 'center'
                 }, {
-                    field: 'UserName',
+                    field: 'userName',
                     title: "用户名",
                     align: 'center'
                 }, {

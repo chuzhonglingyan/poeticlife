@@ -38,10 +38,6 @@ var vm = new Vue({
                     align: 'center'
 
                 }, {
-                    field: 'groupName',
-                    title: "组名称",
-                    align: 'center'
-                }, {
                     field: 'beanName',
                     title: "任务类名",
                     align: 'center'
