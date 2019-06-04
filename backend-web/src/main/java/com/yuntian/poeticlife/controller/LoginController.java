@@ -152,17 +152,34 @@ public class LoginController extends BaseController {
         return ResultGenerator.genSuccessResult("登录成功");
     }
 
+
     /**
-     * 本地登出页面
+     * 登出  这个方法没用到,用的是shiro默认的logout
+     *
+     * @param session
+     * @param model
+     * @return
      */
-    @GetMapping("/loginOut")
-    public Result logout() {
+    @RequestMapping("/logout")
+    public String logout(HttpSession session, Model model) {
         Subject subject = SecurityUtils.getSubject();
-        if (subject.isAuthenticated()) {
-            subject.logout();
-        }
-        return ResultGenerator.genSuccessResult("退出登录成功");
+        subject.logout();
+        model.addAttribute("msg", "安全退出！");
+        return "backend/login";
     }
+
+
+//    /**
+//     * 本地登出页面
+//     */
+//    @GetMapping("/loginOut")
+//    public Result logout() {
+//        Subject subject = SecurityUtils.getSubject();
+//        if (subject.isAuthenticated()) {
+//            subject.logout();
+//        }
+//        return ResultGenerator.genSuccessResult("退出登录成功");
+//    }
 
 
 }
