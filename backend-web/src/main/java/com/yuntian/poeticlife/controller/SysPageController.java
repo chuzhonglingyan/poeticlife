@@ -1,5 +1,7 @@
 package com.yuntian.poeticlife.controller;
 
+import com.yuntian.poeticlife.util.ShiroUtil;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +20,7 @@ public class SysPageController extends BaseController {
 
     @RequestMapping("/index")
     public String index() {
+        log.error("记住登录："+ShiroUtil.getSubject().isRemembered());
         return "backend/index";
     }
 
@@ -63,6 +66,15 @@ public class SysPageController extends BaseController {
         return "backend/roleManager";
     }
 
+
+    @RequestMapping("/imageUpload")
+    public ModelAndView imageUpload() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("imageUrl", "test");
+        modelAndView.addObject("imageType", "1");
+        modelAndView.setViewName("backend/imageUpload");
+        return modelAndView;
+    }
 
 
 

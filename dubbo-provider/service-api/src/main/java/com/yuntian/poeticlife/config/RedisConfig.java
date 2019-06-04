@@ -46,8 +46,18 @@ public class RedisConfig extends CachingConfigurerSupport {
 
         redisTemplate.afterPropertiesSet();
         return redisTemplate;
-
     }
+
+
+
+    @Bean
+    public ByteRedisTemplate byteRedisTemplate(RedisConnectionFactory factory) {
+        ByteRedisTemplate byteRedisTemplate = new ByteRedisTemplate();
+        byteRedisTemplate.setConnectionFactory(factory);
+        return byteRedisTemplate;
+    }
+
+
 
     @Bean
     public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory factory) {

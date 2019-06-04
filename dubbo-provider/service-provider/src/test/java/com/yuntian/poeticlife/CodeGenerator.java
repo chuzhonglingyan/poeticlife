@@ -57,7 +57,7 @@ public class CodeGenerator {
 
 
     public static void main(String[] args) {
-        genCode("schedule_job_log");
+        genCode("opreater_image");
         //genCodeByCustomModelName("输入表名","输入自定义Model名称");
     }
 

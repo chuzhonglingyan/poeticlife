@@ -1,30 +1,26 @@
 package com.yuntian.poeticlife.service.impl;
 
-import com.yuntian.basecommon.util.CommonUtil;
 import com.yuntian.poeticlife.AssertUtil;
+import com.yuntian.poeticlife.cache.CglibBeanCopierUtils;
 import com.yuntian.poeticlife.core.AbstractService;
 import com.yuntian.poeticlife.dao.OperaterRoleMapper;
 import com.yuntian.poeticlife.model.dto.OperaterRoleDTO;
 import com.yuntian.poeticlife.model.entity.OperaterRole;
 import com.yuntian.poeticlife.model.entity.Role;
-import com.yuntian.poeticlife.model.entity.RoleMenu;
 import com.yuntian.poeticlife.model.vo.RoleVO;
 import com.yuntian.poeticlife.service.OperaterRoleService;
 import com.yuntian.poeticlife.service.RoleService;
-
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
-
 import tk.mybatis.mapper.entity.Condition;
 import tk.mybatis.mapper.entity.Example;
 
@@ -47,7 +43,7 @@ public class OperaterRoleServiceImpl extends AbstractService<OperaterRole> imple
         Example.Criteria criteria = condition.createCriteria();
         criteria.andEqualTo("operaterId", operaterId);
         List<OperaterRole> list = findByCondition(condition);
-        return CommonUtil.getValueList(list, "roleId");
+        return list.stream().map(OperaterRole::getRoleId).collect(Collectors.toList());
     }
 
     @Override
@@ -58,14 +54,10 @@ public class OperaterRoleServiceImpl extends AbstractService<OperaterRole> imple
 
         for (Role role : roleList) {
             RoleVO roleVO = new RoleVO();
-            try {
-                BeanUtils.copyProperties(roleVO, role);
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
-            }
+            CglibBeanCopierUtils.copyProperties(role,roleVO);
             roleVOList.add(roleVO);
         }
-        Map<Long, RoleVO> roleVOMap = CommonUtil.listforMap(roleVOList, "id", null);
+        Map<Long, RoleVO> roleVOMap = roleVOList.stream().collect(Collectors.toMap(RoleVO::getId, a -> a,(k1,k2)->k1));
         for (Long roleId : roleIdList) {
             if (roleVOMap.containsKey(roleId)) {
                 RoleVO roleVO = roleVOMap.get(roleId);
@@ -81,7 +73,7 @@ public class OperaterRoleServiceImpl extends AbstractService<OperaterRole> imple
         Example.Criteria criteria = condition.createCriteria();
         criteria.andEqualTo("roleId", roleId);
         List<OperaterRole> list = findByCondition(condition);
-        return CommonUtil.getValueList(list, "operaterId");
+        return list.stream().map(OperaterRole::getOperaterId).collect(Collectors.toList());
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -92,7 +84,7 @@ public class OperaterRoleServiceImpl extends AbstractService<OperaterRole> imple
         //删除原先的关联关系
         deleteOperaterId(dto.getOperaterId());
         List<Long> list = dto.getRoleList();
-        if (CollectionUtils.isNotEmpty(list)){
+        if (CollectionUtils.isNotEmpty(list)) {
             List<OperaterRole> operaterRoleList = new ArrayList<>();
             for (Long roleId : list) {
                 OperaterRole operaterRole = new OperaterRole();

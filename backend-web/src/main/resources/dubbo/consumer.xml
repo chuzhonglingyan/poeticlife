@@ -55,4 +55,13 @@
 
     <dubbo:reference id="scheduleJobLogService" interface="com.yuntian.poeticlife.service.ScheduleJobLogService"
         version="${dubbo.consumer.version}" url="dubbo://localhost:${dubbo.protocol.port}"  />
+
+
+    <dubbo:reference id="imageService" interface="com.yuntian.poeticlife.service.ImageService"
+        version="${dubbo.consumer.version}" url="dubbo://localhost:${dubbo.protocol.port}"  />
+
+
+
+    <dubbo:reference id="opreaterImageService" interface="com.yuntian.poeticlife.service.OpreaterImageService"
+        version="${dubbo.consumer.version}" url="dubbo://localhost:${dubbo.protocol.port}"  />
 </beans>

@@ -1,7 +1,7 @@
 var vm = new Vue({
     el: '#app',
     data: {
-        loginUrl: "/backend/operater/login",
+        loginUrl: baseURL+"/login.json",
         errors: [],
         userName: '',
         passWord: '',
@@ -13,7 +13,6 @@ var vm = new Vue({
                 var  params=$("#loginForm").serialize();
                 postFormFull(this.loginUrl, params, function (data) {
                     console.debug("登录成功了");
-                    gotoPage("/index");
                 }, function (msg) {
                     layer.msg(msg);
                 });

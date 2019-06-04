@@ -1,6 +1,7 @@
 package com.yuntian.poeticlife.service.impl;
 
 import com.yuntian.poeticlife.AssertUtil;
+import com.yuntian.poeticlife.cache.CglibBeanCopierUtils;
 import com.yuntian.poeticlife.core.AbstractService;
 import com.yuntian.poeticlife.dao.MenuMapper;
 import com.yuntian.poeticlife.exception.BusinessException;
@@ -9,14 +10,11 @@ import com.yuntian.poeticlife.model.vo.MenuTreeVO;
 import com.yuntian.poeticlife.service.MenuService;
 import com.yuntian.poeticlife.service.OperaterRoleService;
 import com.yuntian.poeticlife.service.RoleMenuService;
-import com.yuntian.poeticlife.service.RoleService;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -33,6 +31,8 @@ import tk.mybatis.mapper.entity.Example;
 @Service("menuService")
 public class MenuServiceImpl extends AbstractService<Menu> implements MenuService {
 
+
+
     @Resource
     private MenuMapper menuMapper;
 
@@ -42,7 +42,6 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
     private RoleMenuService roleMenuService;
 
 
-
     @Override
     public Menu findById(Long id) {
         Condition condition = new Condition(Menu.class);
@@ -50,7 +49,7 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
         criteria.andEqualTo("id", id);
         criteria.andEqualTo("isDelete", 0);
         List<Menu> menuList = findByCondition(condition);
-        if (CollectionUtils.isNotEmpty(menuList)){
+        if (CollectionUtils.isNotEmpty(menuList)) {
             return menuList.get(0);
         }
         return null;
@@ -74,7 +73,7 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
         criteria.andEqualTo("isDelete", 0);
         criteria.andEqualTo("menuStatus", 1);
         List<Menu> menuList = findByCondition(condition);
-        if (CollectionUtils.isNotEmpty(menuList)){
+        if (CollectionUtils.isNotEmpty(menuList)) {
             return menuList.get(0);
         }
         return null;
@@ -82,26 +81,26 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
 
     /**
      * 查找用户所用户的权限菜单
+     *
      * @param operaterId
      * @return
      */
     @Override
     public List<Menu> findEnableMenuByOperaterId(Long operaterId) {
-        List<Long>  roleIdList=operaterRoleService.getRoleIdListByOperaterId(operaterId);
-        if (CollectionUtils.isNotEmpty(roleIdList)){
-            Long roleId=roleIdList.get(0);
-            List<Long> menuIds= roleMenuService.getMenuIdListByRoleId(roleId);
+        List<Long> roleIdList = operaterRoleService.getRoleIdListByOperaterId(operaterId);
+        if (CollectionUtils.isNotEmpty(roleIdList)) {
+            Long roleId = roleIdList.get(0);
+            List<Long> menuIds = roleMenuService.getMenuIdListByRoleId(roleId);
 
             Condition condition = new Condition(Menu.class);
             Example.Criteria criteria = condition.createCriteria();
             criteria.andIn("id", menuIds);
             criteria.andEqualTo("isDelete", 0);
             criteria.andEqualTo("menuStatus", 1);
-            return  findByCondition(condition);
+            return findByCondition(condition);
         }
         return null;
     }
-
 
 
     @Override
@@ -160,7 +159,7 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
     @Override
     public void deleteById(Long id) {
         Menu menuVO = findById(id);
-        if (Objects.isNull(menuVO)){
+        if (Objects.isNull(menuVO)) {
             BusinessException.throwMessage("菜单不存在，请刷新页面");
         }
         if (menuVO.getMenuStatus() == 1) {
@@ -194,11 +193,7 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
         List<MenuTreeVO> menuTreeVOList = new ArrayList<>();
         for (Menu menu : menuList) {
             MenuTreeVO menuTreeVO = new MenuTreeVO();
-            try {
-                BeanUtils.copyProperties(menuTreeVO, menu);
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
-            }
+            CglibBeanCopierUtils.copyProperties(menu,menuTreeVO );
             menuTreeVOList.add(menuTreeVO);
         }
         getTreeMenu(menuTreeVOList);

@@ -53,6 +53,11 @@
     <dubbo:service  ref="scheduleJobLogService" interface="com.yuntian.poeticlife.service.ScheduleJobLogService"
         version="${dubbo.provider.version}"/>
 
+    <dubbo:service  ref="imageService" interface="com.yuntian.poeticlife.service.ImageService"
+        version="${dubbo.provider.version}"/>
+
+    <dubbo:service  ref="opreaterImageService" interface="com.yuntian.poeticlife.service.OpreaterImageService"
+        version="${dubbo.provider.version}"/>
 
 
 </beans>

@@ -44,3 +44,34 @@ logging:
   # 在不指定路径，只指定输出日志的文件名，默认输出至当前项目下
   # 若指定，则会输出至指定目录下
   file: log/backend-web.log
+
+yuntian:
+     shiro:
+       # 用户字段
+       principalIdFieldName: userName
+       # shiro 权限缓存前缀 'shiro:cache:'
+       cachePrefix: 'shiro:cache:'
+       # shiro  权限缓存时长，默认200000秒
+       cacheExpireIn: 200000
+       # shiro session redis前缀 shiro:session:
+       sessionPrefix: 'shiro:session:'
+       # shiro session redis缓存时长，默认12000秒
+       sessionExpireIn: 12000
+       # session 超时时间，默认1800秒,1800000毫秒
+       sessionTimeout: 1800000
+       # rememberMe cookie有效时长，默认30天
+       cookieTimeout: 86400
+        # rememberMe cookie秘钥
+       cookieCipherKey: 'ZWvohmPdUsAWT3=KpPqda'
+       # 免认证的路径配置，如静态资源，druid监控页面，注册页面，验证码请求等
+       anonUrl: /css/**,/js/**,/fonts/**,/adminres/**,/img/**
+       # 登录url
+       loginUrl: /login
+       # 登录成功后跳转的 url
+       successUrl: /admin/index
+       # 登出 url
+       loginOutUrl: /logout
+       # 未授权跳转 url
+       unauthorizedUrl: /error
+       # session的id名称
+       sessionIdName: yuntian.session.id

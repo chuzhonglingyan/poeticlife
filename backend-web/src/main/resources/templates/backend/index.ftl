@@ -8,6 +8,8 @@
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
 
 <div id="wrapper">
+
+
     <!--左侧导航开始-->
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="nav-close"><i class="fa fa-times-circle"></i></div>
@@ -29,7 +31,7 @@
                         </a>
                     <#--下拉选择菜单-->
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a class="J_menuItem" href="">修改头像</a>
+                            <li><a @click="editImage()" class="J_menuItem" href="">修改头像</a>
                             <li><a class="J_menuItem" href="">个人资料</a>
                             <li><a class="J_menuItem" href="">安全退出</a>
                         </ul>

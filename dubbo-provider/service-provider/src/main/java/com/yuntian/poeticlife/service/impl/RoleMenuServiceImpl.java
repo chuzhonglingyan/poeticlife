@@ -1,25 +1,27 @@
 package com.yuntian.poeticlife.service.impl;
 
-import com.yuntian.basecommon.util.CommonUtil;
 import com.yuntian.poeticlife.AssertUtil;
+import com.yuntian.poeticlife.cache.CglibBeanCopierUtils;
 import com.yuntian.poeticlife.core.AbstractService;
 import com.yuntian.poeticlife.dao.RoleMenuMapper;
 import com.yuntian.poeticlife.model.dto.RoleMenuDTO;
 import com.yuntian.poeticlife.model.entity.Menu;
+import com.yuntian.poeticlife.model.entity.OperaterRole;
 import com.yuntian.poeticlife.model.entity.RoleMenu;
 import com.yuntian.poeticlife.model.vo.MenuVO;
+import com.yuntian.poeticlife.model.vo.RoleVO;
 import com.yuntian.poeticlife.service.MenuService;
 import com.yuntian.poeticlife.service.RoleMenuService;
 
-import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
@@ -44,7 +46,7 @@ public class RoleMenuServiceImpl extends AbstractService<RoleMenu> implements Ro
         Example.Criteria criteria = condition.createCriteria();
         criteria.andEqualTo("roleId", roleId);
         List<RoleMenu> roleMenuList = findByCondition(condition);
-        return CommonUtil.getValueList(roleMenuList, "menuId");
+        return roleMenuList.stream().map(RoleMenu::getMenuId).collect(Collectors.toList());
     }
 
     @Override
@@ -55,14 +57,10 @@ public class RoleMenuServiceImpl extends AbstractService<RoleMenu> implements Ro
 
         for (Menu menu: menuList) {
             MenuVO menuVO=new MenuVO();
-            try {
-                BeanUtils.copyProperties(menuVO,menu);
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
-            }
+            CglibBeanCopierUtils.copyProperties(menu,menuVO);
             menuVOList.add(menuVO);
         }
-        Map<Long,MenuVO> menuVOMap=CommonUtil.listforMap(menuVOList,"id",null);
+        Map<Long, MenuVO> menuVOMap = menuVOList.stream().collect(Collectors.toMap(MenuVO::getId, a -> a,(k1, k2)->k1));
         for (Long menuId: menuIdList) {
             if (menuVOMap.containsKey(menuId)){
                 MenuVO menu=menuVOMap.get(menuId);

@@ -1,6 +1,7 @@
 package com.yuntian.poeticlife.util;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 
 /**
  * @Auther: yuntian
@@ -13,5 +14,7 @@ public class ShiroUtil {
         return (Long) SecurityUtils.getSubject().getPrincipal();
     }
 
-
+    public static Subject getSubject(){
+        return  SecurityUtils.getSubject();
+    }
 }

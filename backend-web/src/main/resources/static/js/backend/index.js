@@ -43,6 +43,9 @@ var app = new Vue({
                 console.debug("退出登录");
                 gotoPage("/login");
             });
+        },
+        editImage: function () {
+            addTP(baseURL+"/imageUpload?imageUrl=" + "test"+"&imageType="+ "1","图片上传");
         }
     },
     created: function () {

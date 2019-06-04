@@ -6,9 +6,9 @@ import com.yuntian.poeticlife.model.entity.Menu;
 import com.yuntian.poeticlife.model.vo.MenuTreeVO;
 import com.yuntian.poeticlife.service.MenuService;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.junit.Test;
+import org.springframework.beans.BeanUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class MenuTest extends BaseTest {
     }
 
     @Test
-    public void test1() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public void test1()   {
         List<Menu> list = menuService.findAll();
         List<MenuTreeVO> menuTreeVOList = new ArrayList<>();
         for (Menu menu : list) {
