@@ -1,4 +1,4 @@
-package com.yuntian.poeticlife.config.shrio;
+package com.yuntian.poeticlife.config.shiro;
 
 import com.yuntian.basecommon.util.PasswordUtil;
 import com.yuntian.poeticlife.model.entity.BackendOperater;

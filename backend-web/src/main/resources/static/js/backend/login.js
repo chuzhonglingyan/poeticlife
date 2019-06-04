@@ -1,10 +1,11 @@
 var vm = new Vue({
     el: '#app',
     data: {
-        loginUrl: baseURL+"/login.json",
+        loginUrl: baseURL+"login",
         errors: [],
         userName: '',
         passWord: '',
+        rememberMe: false,
         validate:{}
     },
     methods: {
@@ -13,6 +14,7 @@ var vm = new Vue({
                 var  params=$("#loginForm").serialize();
                 postFormFull(this.loginUrl, params, function (data) {
                     console.debug("登录成功了");
+                    top.location.href= baseURL+'index';
                 }, function (msg) {
                     layer.msg(msg);
                 });

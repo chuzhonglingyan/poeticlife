@@ -1,34 +1,31 @@
-package com.yuntian.poeticlife.config.shrio.session;
+package com.yuntian.poeticlife.config.shiro;
 
-import com.yuntian.poeticlife.config.shrio.ShrioRedisUtil;
-
-import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.cache.AbstractCacheManager;
+import org.apache.shiro.cache.Cache;
+import org.apache.shiro.cache.CacheException;
+import org.apache.shiro.cache.MapCache;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.session.mgt.ValidatingSession;
-import org.apache.shiro.session.mgt.eis.AbstractSessionDAO;
+import org.apache.shiro.session.mgt.eis.CachingSessionDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author: wangsaichao
  * @date: 2018/6/22
  * @description: 参考 shiro-redis 开源项目 Git地址 https://github.com/alexxiyang/shiro-redis
  */
-public class RedisSessionDAO extends AbstractSessionDAO {
+public class RedisSessionDAO extends CachingSessionDAO {
 
     private static Logger logger = LoggerFactory.getLogger(RedisSessionDAO.class);
 
-    private static final String DEFAULT_SESSION_KEY_PREFIX = "shiro:session:";
-    private String keyPrefix = DEFAULT_SESSION_KEY_PREFIX;
+    private static final String DEFAULT_SESSION_KEY_PREFIX = "shiro:cache:";
+    private String keyPrefix = DEFAULT_SESSION_KEY_PREFIX+ACTIVE_SESSION_CACHE_NAME+":";
 
     private static final long DEFAULT_SESSION_IN_MEMORY_TIMEOUT = 1000L;
     /**
@@ -52,12 +49,22 @@ public class RedisSessionDAO extends AbstractSessionDAO {
 
     private static final int MILLISECONDS_IN_A_SECOND = 1000;
 
-    private ShrioRedisUtil redisManager;
+    private RedisManager redisManager;
     private static ThreadLocal<Map<Serializable, SessionInMemory>> sessionsInThread = new ThreadLocal<>();
 
 
+    public RedisSessionDAO() {
+        this.setCacheManager(new AbstractCacheManager() {
+            @Override
+            protected Cache<Serializable, Session> createCache(String name) throws CacheException {
+                return new MapCache<>(name, new ConcurrentHashMap<>());
+            }
+        });
+    }
+
+
     @Override
-    public void update(Session session) throws UnknownSessionException {
+    protected void doUpdate(Session session) {
         //如果会话过期/停止 没必要再更新了
         try {
             if (session instanceof ValidatingSession && !((ValidatingSession) session).isValid()) {
@@ -106,14 +113,17 @@ public class RedisSessionDAO extends AbstractSessionDAO {
         this.redisManager.set(key, session, expire);
     }
 
+
     @Override
-    public void delete(Session session) {
+    protected void doDelete(Session session) {
         if (session == null || session.getId() == null) {
             logger.error("session or session id is null");
             return;
         }
         try {
+            sessionsInThread.remove();
             redisManager.del(getRedisSessionKey(session.getId()));
+            getActiveSessionsCache().remove(session.getId());
         } catch (Exception e) {
             logger.error("delete session error. session id= {}", session.getId());
         }
@@ -169,10 +179,14 @@ public class RedisSessionDAO extends AbstractSessionDAO {
         if (s != null) {
             return s;
         }
+
         logger.debug("read session from redis");
         try {
             s = (Session) redisManager.get(getRedisSessionKey(sessionId));
-            setSessionToThreadLocal(sessionId, s);
+            if (s != null) {
+                setSessionToThreadLocal(sessionId, s);
+                getActiveSessionsCache().put(sessionId, s);
+            }
         } catch (Exception e) {
             logger.error("read session error. settionId= {}", sessionId);
         }
@@ -211,7 +225,6 @@ public class RedisSessionDAO extends AbstractSessionDAO {
         } else {
             sessionMap.remove(sessionId);
         }
-
         return s;
     }
 
@@ -219,11 +232,11 @@ public class RedisSessionDAO extends AbstractSessionDAO {
         return this.keyPrefix + sessionId;
     }
 
-    public ShrioRedisUtil getRedisManager() {
+    public RedisManager getRedisManager() {
         return redisManager;
     }
 
-    public void setRedisManager(ShrioRedisUtil redisManager) {
+    public void setRedisManager(RedisManager redisManager) {
         this.redisManager = redisManager;
     }
 
@@ -232,9 +245,7 @@ public class RedisSessionDAO extends AbstractSessionDAO {
     }
 
     public void setKeyPrefix(String keyPrefix) {
-        if (StringUtils.isNotBlank(keyPrefix)) {
-            this.keyPrefix = keyPrefix;
-        }
+        this.keyPrefix =  keyPrefix+ACTIVE_SESSION_CACHE_NAME+":";
     }
 
     public long getSessionInMemoryTimeout() {

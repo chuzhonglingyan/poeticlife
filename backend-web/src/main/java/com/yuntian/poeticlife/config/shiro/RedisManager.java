@@ -1,30 +1,32 @@
-package com.yuntian.poeticlife.config.shrio;
+package com.yuntian.poeticlife.config.shiro;
 
 import com.yuntian.poeticlife.config.ByteRedisTemplate;
 
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.ScanOptions;
-import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+
 import javax.annotation.Resource;
 
 /**
- * @Auther: yuntian
- * @Date: 2018/8/18 17:50
- * @Description:
+ * @author wangsaichao
+ * 基于spring和redis的byteRedisTemplate工具类
  */
-@Component
-public class ShrioRedisUtil {
-
+public class RedisManager {
 
     @Resource
     private ByteRedisTemplate<String, Object> byteRedisTemplate;
 
+
+    //=============================common============================
 
     /**
      * 指定缓存失效时间
@@ -71,7 +73,7 @@ public class ShrioRedisUtil {
         byteRedisTemplate.delete(keys);
     }
 
-    //============================String============================= /**
+    //============================String=============================
 
     /**
      * 普通缓存获取
@@ -147,5 +149,4 @@ public class ShrioRedisUtil {
         }
         return dbSize;
     }
-
 }

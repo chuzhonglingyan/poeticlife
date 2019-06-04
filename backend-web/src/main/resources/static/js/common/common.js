@@ -1,6 +1,6 @@
 var rootPath = "";
 
-var baseURL = "/backend";
+var baseURL = "../";
 
 
 /**

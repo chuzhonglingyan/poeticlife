@@ -1,17 +1,13 @@
-package com.yuntian.poeticlife.config.shrio.session;
+package com.yuntian.poeticlife.config.shiro;
 
 import org.apache.shiro.session.Session;
 
 import java.util.Date;
 
 /**
- * @Auther: yuntian
- * @Date: 2019/6/3 0003 21:48
- * @Description:
+ * Use ThreadLocal as a temporary storage of Session, so that shiro wouldn't keep read redis several times while a request coming.
  */
 public class SessionInMemory {
-
-
     private Session session;
     private Date createTime;
 

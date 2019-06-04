@@ -4,14 +4,18 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.resource.ResourceUrlProvider;
+import org.springframework.web.servlet.resource.ResourceUrlProviderExposingInterceptor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +27,28 @@ import java.util.List;
  */
 @Configuration
 public class WebMvcConfigurerAdapter implements WebMvcConfigurer {
+
+
+    @Bean
+    public ResourceUrlProvider resourceUrlProvider() {
+        return new ResourceUrlProvider();
+    }
+
+    /**
+     * 设置自己的path匹配规则
+     *
+     * @param configurer
+     */
+    @Override
+    public void configurePathMatch(PathMatchConfigurer configurer) {
+        // 常用的两种
+        // 匹配结尾 / :会识别 url 的最后一个字符是否为 /
+        // 设置为true: localhost:8080/test 与 localhost:8080/test/ 等价
+        configurer.setUseTrailingSlashMatch(true);
+        // 匹配后缀名：会识别 xx.* 后缀的内容
+        // 设置为true: localhost:8080/test 与 localhost:8080/test.jsp 等价
+        configurer.setUseSuffixPatternMatch(true);
+    }
 
 
     @Override
@@ -41,6 +67,7 @@ public class WebMvcConfigurerAdapter implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         // addPathPatterns 用于添加拦截规则
         // excludePathPatterns 用户排除拦截
+        registry.addInterceptor(new ResourceUrlProviderExposingInterceptor(resourceUrlProvider())).addPathPatterns("/**");
     }
 
 

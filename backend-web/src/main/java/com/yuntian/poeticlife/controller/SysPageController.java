@@ -1,10 +1,10 @@
 package com.yuntian.poeticlife.controller;
 
-import com.yuntian.poeticlife.util.ShiroUtil;
+import com.yuntian.poeticlife.model.entity.BackendOperater;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import lombok.extern.slf4j.Slf4j;
@@ -18,26 +18,12 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class SysPageController extends BaseController {
 
-    @RequestMapping("/index")
-    public String index() {
-        log.error("记住登录："+ShiroUtil.getSubject().isRemembered());
-        return "backend/index";
-    }
-
-    @RequestMapping("/login")
-    public String login() {
-        return "backend/login";
-    }
 
     @RequestMapping("/register")
     public String register() {
         return "backend/register";
     }
 
-    @RequestMapping("/main")
-    public String main() {
-        return "backend/main";
-    }
 
     @RequestMapping("/menu01")
     public String menu01() {
@@ -77,7 +63,6 @@ public class SysPageController extends BaseController {
     }
 
 
-
     /**
      * @Author heyong
      * @Description: 进入评分记录数据详情
@@ -85,7 +70,7 @@ public class SysPageController extends BaseController {
      */
 
     @RequestMapping("/roleManager/authorityList")
-    public ModelAndView authorityList(String roleId,String roleName) {
+    public ModelAndView authorityList(String roleId, String roleName) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("roleId", roleId);
         modelAndView.addObject("roleName", roleName);
@@ -100,7 +85,7 @@ public class SysPageController extends BaseController {
     }
 
     @RequestMapping("/scheduleJobLogManager")
-    public ModelAndView scheduleJobLogList(String jobId,String beanName) {
+    public ModelAndView scheduleJobLogList(String jobId, String beanName) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("jobId", jobId);
         modelAndView.addObject("beanName", beanName);

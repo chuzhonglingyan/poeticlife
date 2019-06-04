@@ -1,4 +1,4 @@
-package com.yuntian.poeticlife.config.shrio.session;
+package com.yuntian.poeticlife.config.shiro;
 
 import org.apache.shiro.session.mgt.SimpleSession;
 

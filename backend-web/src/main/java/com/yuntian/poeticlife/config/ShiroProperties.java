@@ -14,7 +14,7 @@ public class ShiroProperties {
 
     private String cachePrefix;
     private String principalIdFieldName;
-    private long cacheExpireIn;
+    private int cacheExpireIn;
     private String sessionPrefix;
     private int sessionExpireIn;
     private long sessionTimeout;
@@ -59,11 +59,11 @@ public class ShiroProperties {
         this.sessionExpireIn = sessionExpireIn;
     }
 
-    public long getCacheExpireIn() {
+    public int getCacheExpireIn() {
         return cacheExpireIn;
     }
 
-    public void setCacheExpireIn(long cacheExpireIn) {
+    public void setCacheExpireIn(int cacheExpireIn) {
         this.cacheExpireIn = cacheExpireIn;
     }
 
