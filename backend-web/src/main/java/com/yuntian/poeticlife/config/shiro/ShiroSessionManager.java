@@ -44,9 +44,14 @@ public class ShiroSessionManager extends DefaultWebSessionManager {
             }
         }
 
-        Session session = super.retrieveSession(sessionKey);
-        if (request != null && null != sessionId) {
-            request.setAttribute(sessionId.toString(), session);
+        Session session = null;
+        try {
+            session = super.retrieveSession(sessionKey);
+            if (request != null && null != sessionId&&session!=null) {
+                request.setAttribute(sessionId.toString(), session);
+            }
+        } catch (UnknownSessionException e) {
+//            e.printStackTrace();
         }
         return session;
     }

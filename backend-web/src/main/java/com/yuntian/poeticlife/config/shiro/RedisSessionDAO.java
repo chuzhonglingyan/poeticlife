@@ -1,31 +1,42 @@
 package com.yuntian.poeticlife.config.shiro;
 
-import org.apache.shiro.cache.AbstractCacheManager;
-import org.apache.shiro.cache.Cache;
-import org.apache.shiro.cache.CacheException;
-import org.apache.shiro.cache.MapCache;
+import com.yuntian.poeticlife.util.Servlets;
+
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.session.mgt.ValidatingSession;
-import org.apache.shiro.session.mgt.eis.CachingSessionDAO;
+import org.apache.shiro.session.mgt.eis.AbstractSessionDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.servlet.resource.ResourceUrlProvider;
 
 import java.io.Serializable;
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author: wangsaichao
  * @date: 2018/6/22
  * @description: 参考 shiro-redis 开源项目 Git地址 https://github.com/alexxiyang/shiro-redis
  */
-public class RedisSessionDAO extends CachingSessionDAO {
+public class RedisSessionDAO extends AbstractSessionDAO {
+
+    @Resource
+    private ResourceUrlProvider resourceUrlProvider;
+
+
 
     private static Logger logger = LoggerFactory.getLogger(RedisSessionDAO.class);
 
-    private static final String DEFAULT_SESSION_KEY_PREFIX = "shiro:cache:";
-    private String keyPrefix = DEFAULT_SESSION_KEY_PREFIX+ACTIVE_SESSION_CACHE_NAME+":";
+    private static final String DEFAULT_SESSION_KEY_PREFIX = "shiro:session:";
+    private String keyPrefix = DEFAULT_SESSION_KEY_PREFIX;
 
     private static final long DEFAULT_SESSION_IN_MEMORY_TIMEOUT = 1000L;
     /**
@@ -54,39 +65,8 @@ public class RedisSessionDAO extends CachingSessionDAO {
 
 
     public RedisSessionDAO() {
-        this.setCacheManager(new AbstractCacheManager() {
-            @Override
-            protected Cache<Serializable, Session> createCache(String name) throws CacheException {
-                return new MapCache<>(name, new ConcurrentHashMap<>());
-            }
-        });
+
     }
-
-
-    @Override
-    protected void doUpdate(Session session) {
-        //如果会话过期/停止 没必要再更新了
-        try {
-            if (session instanceof ValidatingSession && !((ValidatingSession) session).isValid()) {
-                return;
-            }
-
-            if (session instanceof ShiroSession) {
-                // 如果没有主要字段(除lastAccessTime以外其他字段)发生改变
-                ShiroSession ss = (ShiroSession) session;
-                if (!ss.isChanged()) {
-                    return;
-                }
-                //如果没有返回 证明有调用 setAttribute往redis 放的时候永远设置为false
-                ss.setChanged(false);
-            }
-
-            this.saveSession(session);
-        } catch (Exception e) {
-            logger.warn("update Session is failed", e);
-        }
-    }
-
     /**
      * save session
      *
@@ -115,7 +95,31 @@ public class RedisSessionDAO extends CachingSessionDAO {
 
 
     @Override
-    protected void doDelete(Session session) {
+    public void update(Session session) throws UnknownSessionException {
+        //如果会话过期/停止 没必要再更新了
+        try {
+            if (session instanceof ValidatingSession && !((ValidatingSession) session).isValid()) {
+                return;
+            }
+
+            if (session instanceof ShiroSession) {
+                // 如果没有主要字段(除lastAccessTime以外其他字段)发生改变
+                ShiroSession ss = (ShiroSession) session;
+                if (!ss.isChanged()) {
+                    return;
+                }
+                //如果没有返回 证明有调用 setAttribute往redis 放的时候永远设置为false
+                ss.setChanged(false);
+            }
+
+            this.saveSession(session);
+        } catch (Exception e) {
+            logger.warn("update Session is failed", e);
+        }
+    }
+
+    @Override
+    public void delete(Session session) {
         if (session == null || session.getId() == null) {
             logger.error("session or session id is null");
             return;
@@ -123,7 +127,6 @@ public class RedisSessionDAO extends CachingSessionDAO {
         try {
             sessionsInThread.remove();
             redisManager.del(getRedisSessionKey(session.getId()));
-            getActiveSessionsCache().remove(session.getId());
         } catch (Exception e) {
             logger.error("delete session error. session id= {}", session.getId());
         }
@@ -175,17 +178,23 @@ public class RedisSessionDAO extends CachingSessionDAO {
             return null;
         }
         Session s = getSessionFromThreadLocal(sessionId);
-
         if (s != null) {
             return s;
         }
-
+        HttpServletRequest request = Servlets.getRequest();
+        if (request != null) {
+            String uri = request.getServletPath();
+            if (isStaticFile(uri)) {
+                Session session=(Session) request.getAttribute("sid");
+                logger.debug("请求url自带的session:" +session);
+                return session;
+            }
+        }
         logger.debug("read session from redis");
         try {
             s = (Session) redisManager.get(getRedisSessionKey(sessionId));
             if (s != null) {
                 setSessionToThreadLocal(sessionId, s);
-                getActiveSessionsCache().put(sessionId, s);
             }
         } catch (Exception e) {
             logger.error("read session error. settionId= {}", sessionId);
@@ -245,7 +254,7 @@ public class RedisSessionDAO extends CachingSessionDAO {
     }
 
     public void setKeyPrefix(String keyPrefix) {
-        this.keyPrefix =  keyPrefix+ACTIVE_SESSION_CACHE_NAME+":";
+        this.keyPrefix = keyPrefix;
     }
 
     public long getSessionInMemoryTimeout() {
@@ -263,4 +272,12 @@ public class RedisSessionDAO extends CachingSessionDAO {
     public void setExpire(int expire) {
         this.expire = expire;
     }
+
+    private boolean isStaticFile(String path) {
+        String staticUri = resourceUrlProvider.getForLookupPath(path);
+        return staticUri != null;
+    }
+
+
 }
+

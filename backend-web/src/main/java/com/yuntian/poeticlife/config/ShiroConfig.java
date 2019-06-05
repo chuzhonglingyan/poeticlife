@@ -90,6 +90,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/", "anon");
 
         // 匿名访问静态资源
+        filterChainDefinitionMap.put("/favicon.ico", "anon");
         filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/image/**", "anon");//img
         filterChainDefinitionMap.put("/css/**", "anon");//css
@@ -333,7 +334,7 @@ public class ShiroConfig {
         RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
         redisSessionDAO.setRedisManager(redisManager());
         //session在redis中的保存时间,最好大于session会话超时时间
-        redisSessionDAO.setKeyPrefix(shiroProperties.getCachePrefix());
+        redisSessionDAO.setKeyPrefix(shiroProperties.getSessionPrefix());
         redisSessionDAO.setExpire(shiroProperties.getSessionExpireIn());
         return redisSessionDAO;
     }

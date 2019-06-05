@@ -168,18 +168,4 @@ public class LoginController extends BaseController {
         return "backend/login";
     }
 
-
-//    /**
-//     * 本地登出页面
-//     */
-//    @GetMapping("/loginOut")
-//    public Result logout() {
-//        Subject subject = SecurityUtils.getSubject();
-//        if (subject.isAuthenticated()) {
-//            subject.logout();
-//        }
-//        return ResultGenerator.genSuccessResult("退出登录成功");
-//    }
-
-
 }
