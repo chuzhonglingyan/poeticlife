@@ -127,6 +127,7 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
         AssertUtil.isNotNull(model.getPid() < 0, "父级id参数有问题");
         AssertUtil.isNotBlank(model.getMenuName(), "菜单名字不能为空");
         AssertUtil.isNotBlank(model.getMenuUrl(), "菜单值不能为空");
+        AssertUtil.isNotBlank(model.getMenuCode(), "菜单权限不能为空");
         AssertUtil.isNotNull(model.getMenuType(), "菜单类型不能为空");
         AssertUtil.isNotNull(model.getCreateBy(), "创建人不能为空");
         AssertUtil.isNotNull(model.getUpdateBy(), "更新人不能为空");
@@ -148,6 +149,7 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
         AssertUtil.isNotNull(model.getId(), "菜单id不能为空");
         AssertUtil.isNotBlank(model.getMenuName(), "菜单名字不能为空");
         AssertUtil.isNotBlank(model.getMenuUrl(), "菜单值不能为空");
+        AssertUtil.isNotBlank(model.getMenuCode(), "菜单权限不能为空");
         AssertUtil.isNotNull(model.getCreateBy(), "创建人不能为空");
         AssertUtil.isNotNull(model.getUpdateBy(), "更新人不能为空");
         findById(model.getId());

@@ -70,11 +70,17 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">菜单值：</label>
                                 <div class="col-sm-8">
-                                    <input id="menuValue" name="menuValue" type="email"
+                                    <input id="menuValue" name="menuValue"  maxlength="50"
                                            class="form-control">
                                 </div>
                             </div>
-
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">菜单权限：</label>
+                                <div class="col-sm-8">
+                                    <input id="menuCode" name="menuCode" type="text" maxlength="50"
+                                           class="form-control">
+                                </div>
+                            </div>
                             <div class="form-group" id="menuTypeFrom">
                                 <label class="col-sm-3 control-label">是否为菜单：</label>
                                 <div class="col-sm-8">

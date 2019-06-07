@@ -15,6 +15,14 @@ public class Role implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+    /**
+     * 角色key
+     */
+    @Column(name = "role")
+    private String role;
+
+
     /**
      * 角色名称
      */
@@ -222,5 +230,13 @@ public class Role implements Serializable {
      */
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

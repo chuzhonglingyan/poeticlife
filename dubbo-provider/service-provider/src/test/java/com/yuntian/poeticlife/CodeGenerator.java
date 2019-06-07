@@ -52,12 +52,18 @@ public class CodeGenerator {
 
     public static final String BACKEND_CONTROL_PATH = PROJECT_PATH + BACKEND_PATH+ JAVA_PATH;
 
+    public static final String BACKEND_VIEW = PROJECT_PATH + BACKEND_PATH+ "/src/main/resources/templates/backend/";
+    public static final String BACKEND_JS= PROJECT_PATH + BACKEND_PATH+ "/src/main/resources/static/js/backend/";
+
+
     public static final String TEMPLATE_FILE_PATH = PROJECT_PATH + SERVICE_PROVIDER_PATH + "/src/test/resources/generator/template";//模板位置
 
 
 
     public static void main(String[] args) {
-        genCode("opreater_image");
+        genCode("image");
+        genViewList("image",null,"图片");
+        genJSList("image",null,"图片");
         //genCodeByCustomModelName("输入表名","输入自定义Model名称");
     }
 
@@ -211,6 +217,56 @@ public class CodeGenerator {
         }
 
     }
+
+    public static void genViewList(String tableName, String modelName,String modelNameDesc) {
+        try {
+            freemarker.template.Configuration cfg = getConfiguration();
+            Map<String, Object> data = new HashMap<>();
+            data.put("commonHead", "<#include \"../common/head.ftl\">");
+            data.put("basePath", "${basePath}");
+            data.put("modelNameDesc", modelNameDesc);
+            String modelNameUpperCamel = StringUtils.isEmpty(modelName) ? tableNameConvertUpperCamel(tableName) : modelName;
+            data.put("baseRequestMapping", modelNameConvertMappingPath(modelNameUpperCamel));
+            data.put("modelNameUpperCamel", modelNameUpperCamel);
+            data.put("modelNameLowerCamel", CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, modelNameUpperCamel));
+            data.put("basePackage", BASE_PACKAGE);
+
+            File file = new File(BACKEND_VIEW + data.get("modelNameLowerCamel") + "List.ftl");
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+            cfg.getTemplate("moduleViewList.ftl").process(data, new FileWriter(file));
+
+            System.out.println(modelNameUpperCamel + "moduleViewList.ftl 生成成功");
+        } catch (Exception e) {
+            throw new RuntimeException("生成View失败", e);
+        }
+
+    }
+
+    public static void genJSList(String tableName, String modelName,String modelNameDesc) {
+        try {
+            freemarker.template.Configuration cfg = getConfiguration();
+            Map<String, Object> data = new HashMap<>();
+            data.put("modelNameDesc", modelNameDesc);
+            String modelNameUpperCamel = StringUtils.isEmpty(modelName) ? tableNameConvertUpperCamel(tableName) : modelName;
+            data.put("baseRequestMapping", modelNameConvertMappingPath(modelNameUpperCamel));
+            data.put("modelNameUpperCamel", modelNameUpperCamel);
+            data.put("modelNameLowerCamel", CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, modelNameUpperCamel));
+            data.put("basePackage", BASE_PACKAGE);
+
+            File file = new File(BACKEND_JS + data.get("modelNameLowerCamel") + "List.js");
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+            cfg.getTemplate("moduleJsList.ftl").process(data, new FileWriter(file));
+            System.out.println(modelNameUpperCamel + "moduleJsList.js 生成成功");
+        } catch (Exception e) {
+            throw new RuntimeException("生成View失败", e);
+        }
+    }
+
+
 
     private static freemarker.template.Configuration getConfiguration() throws IOException {
         freemarker.template.Configuration cfg = new freemarker.template.Configuration(freemarker.template.Configuration.VERSION_2_3_23);

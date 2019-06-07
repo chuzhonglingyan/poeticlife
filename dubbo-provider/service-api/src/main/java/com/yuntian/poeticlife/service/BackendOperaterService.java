@@ -1,7 +1,8 @@
 package com.yuntian.poeticlife.service;
+
+import com.yuntian.poeticlife.core.Service;
 import com.yuntian.poeticlife.model.dto.OperaterDTO;
 import com.yuntian.poeticlife.model.entity.BackendOperater;
-import com.yuntian.poeticlife.core.Service;
 import com.yuntian.poeticlife.model.entity.Menu;
 import com.yuntian.poeticlife.model.vo.MenuTreeVO;
 import com.yuntian.poeticlife.model.vo.PageInfoVo;
@@ -15,8 +16,9 @@ import java.util.List;
 public interface BackendOperaterService extends Service<BackendOperater> {
 
 
-    BackendOperater findOperaterByAccount(String accountName );
+    BackendOperater findOperaterByAccount(String accountName);
 
+    Long getRoleId(Long operaterId);
 
     String getRole(Long operaterId);
 

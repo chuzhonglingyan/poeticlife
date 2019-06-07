@@ -128,6 +128,8 @@ public class BackendOperaterServiceImpl extends AbstractService<BackendOperater>
         return null;
     }
 
+
+
     @Override
     public void isEnable(BackendOperater model) {
         AssertUtil.isNotNull(model, "参数不能为空");
@@ -163,9 +165,14 @@ public class BackendOperaterServiceImpl extends AbstractService<BackendOperater>
     public String getRole(Long operaterId) {
         OperaterRole operaterRole = operaterRoleService.findBy("operaterId", operaterId);
         Role role = roleService.findBy("id", operaterRole.getRoleId());
-        return role.getRoleName();
+        return role.getRole();
     }
-
+    @Override
+    public Long getRoleId(Long operaterId) {
+        OperaterRole operaterRole = operaterRoleService.findBy("operaterId", operaterId);
+        Role role = roleService.findBy("id", operaterRole.getRoleId());
+        return role.getId();
+    }
 
     @Resource
     private MenuService menuService;

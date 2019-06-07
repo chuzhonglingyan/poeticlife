@@ -15,7 +15,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
-* Created by CodeGenerator on 2019/03/31.
+* Created by CodeGenerator on 2019/06/06.
 */
 @RestController
 @RequestMapping("/image")
@@ -23,6 +23,9 @@ public class ImageController extends BaseController{
 
     @Resource
     private ImageService imageService;
+
+
+
 
     @PostMapping("/add")
     public Result add(Image image) {

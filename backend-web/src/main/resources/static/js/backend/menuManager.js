@@ -216,6 +216,7 @@ function update(id) {
     postFormFull(baseURL + "/menu/detail", {"id":id}, function (data) {
         $('#menuName').val(data.menuName);
         $('#menuValue').val(data.menuUrl);
+        $('#menuCode').val(data.menuCode);
 
         var  menuType=data.menuType;
         var  menuStatus=data.menuStatus;
@@ -244,6 +245,7 @@ function saveOrUpdateMenu() {
 
     var menuName = $.trim(($('#menuName').val()));
     var menuValue = $.trim(($('#menuValue').val()));
+    var menuCode = $.trim(($('#menuCode').val()));
     var menuType = $('input:radio[name=menuType]:checked').val();
     var menuStatus = $('input:radio[name=menuStatus]:checked').val();
     var menu = {
@@ -251,6 +253,7 @@ function saveOrUpdateMenu() {
         "pid": pid,
         "menuName": menuName,
         "menuUrl": menuValue,
+        "menuCode": menuCode,
         "menuType": menuType,
         "menuStatus": menuStatus
     };
@@ -260,6 +263,10 @@ function saveOrUpdateMenu() {
     }
     if (isEmpty(menuValue)) {
         layer.msg("菜单值不能为空");
+        return;
+    }
+    if (isEmpty(menuCode)) {
+        layer.msg("菜单权限不能为空");
         return;
     }
     console.debug(menu);

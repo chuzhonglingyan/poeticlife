@@ -2,6 +2,7 @@ package com.yuntian.poeticlife.config.shiro;
 
 import com.yuntian.basecommon.util.PasswordUtil;
 import com.yuntian.poeticlife.model.entity.BackendOperater;
+import com.yuntian.poeticlife.model.entity.Menu;
 import com.yuntian.poeticlife.service.BackendOperaterService;
 
 import org.apache.shiro.SecurityUtils;
@@ -17,6 +18,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -52,6 +54,7 @@ public class ShiroRealm extends AuthorizingRealm {
         } else if (!PasswordUtil.verify(savePassWord, user.getPassWord())) {
             throw new UnknownAccountException("密码不正确");
         }
+        token.setUsername(String.valueOf(user.getId()));
         SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(user.getId(), savePassWord, getName());
         log.error("————身份认证通过————");
         return simpleAuthenticationInfo;
@@ -76,6 +79,15 @@ public class ShiroRealm extends AuthorizingRealm {
         set.add(role);
         // 设置该用户拥有的角色
         info.setRoles(set);
+        //获取用户权限
+        List<Menu> menuList = backendOperaterService.getNavMenuListByOperater(userId);
+        Set<String> stringPermissions = new HashSet<>();
+        menuList.forEach(menu -> {
+            stringPermissions.add(menu.getMenuCode());
+        });
+        //添加权限
+        info.setStringPermissions(stringPermissions);
+
         return info;
     }
 
@@ -102,6 +114,7 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     public void clearCache(PrincipalCollection principals) {
         super.clearCache(principals);
+
     }
 
     /**
@@ -125,5 +138,6 @@ public class ShiroRealm extends AuthorizingRealm {
         clearAllCachedAuthenticationInfo();
         clearAllCachedAuthorizationInfo();
     }
+
 
 }

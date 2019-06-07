@@ -49,6 +49,11 @@ public class SysPageController extends BaseController {
         return "backend/roleManager";
     }
 
+    @RequestMapping("/imageManager")
+    public String imageList() {
+        return "backend/imageList";
+    }
+
 
     @RequestMapping("/imageUpload")
     public ModelAndView imageUpload() {

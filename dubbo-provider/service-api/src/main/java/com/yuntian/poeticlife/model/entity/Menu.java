@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
-public class Menu implements Serializable {
+public class Menu implements Serializable{
 
 
     private static final long serialVersionUID = 5890598419923742867L;

@@ -9,7 +9,6 @@ import org.apache.shiro.session.mgt.eis.AbstractSessionDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.resource.ResourceUrlProvider;
-
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -17,7 +16,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -30,7 +28,6 @@ public class RedisSessionDAO extends AbstractSessionDAO {
 
     @Resource
     private ResourceUrlProvider resourceUrlProvider;
-
 
 
     private static Logger logger = LoggerFactory.getLogger(RedisSessionDAO.class);
@@ -64,9 +61,23 @@ public class RedisSessionDAO extends AbstractSessionDAO {
     private static ThreadLocal<Map<Serializable, SessionInMemory>> sessionsInThread = new ThreadLocal<>();
 
 
+    /**
+     * 是否包括离线（最后访问时间大于3分钟为离线会话）
+     */
+    private  boolean includeLeave=false;
+
     public RedisSessionDAO() {
 
     }
+
+    public boolean isIncludeLeave() {
+        return includeLeave;
+    }
+
+    public void setIncludeLeave(boolean includeLeave) {
+        this.includeLeave = includeLeave;
+    }
+
     /**
      * save session
      *
@@ -111,7 +122,13 @@ public class RedisSessionDAO extends AbstractSessionDAO {
                 //如果没有返回 证明有调用 setAttribute往redis 放的时候永远设置为false
                 ss.setChanged(false);
             }
-
+            HttpServletRequest request = Servlets.getRequest();
+            if (request != null) {
+                String uri = request.getServletPath();
+                if (isStaticFile(uri)) {
+                    return ;
+                }
+            }
             this.saveSession(session);
         } catch (Exception e) {
             logger.warn("update Session is failed", e);
@@ -132,22 +149,39 @@ public class RedisSessionDAO extends AbstractSessionDAO {
         }
     }
 
+    /**
+     * 获取活动会话
+     * @return
+     */
     @Override
     public Collection<Session> getActiveSessions() {
-        Set<Session> sessions = new HashSet<Session>();
+        Set<Session> sessions = new HashSet<>();
         try {
             Set<String> keys = redisManager.scan(this.keyPrefix + "*");
             if (keys != null && keys.size() > 0) {
                 for (String key : keys) {
-                    Session s = (Session) redisManager.get(key);
-                    sessions.add(s);
+                    Session session = (Session) redisManager.get(key);
+                    if (session!=null){
+                        boolean isActiveSession = false;
+                        // 不包括离线并符合最后访问时间小于等于3分钟条件。
+                        if (includeLeave || pastMinutes(session.getLastAccessTime()) <= 3) {
+                            isActiveSession = true;
+                        }
+                        if (isActiveSession) {
+                            sessions.add(session);
+                        }
+                    }
                 }
+            }else {
+                logger.error("搜索"+getKeyPrefix()+":没有关联的会话.");
             }
         } catch (Exception e) {
-            logger.error("get active sessions error.");
+            logger.error("get active sessions error."+e.getMessage());
         }
         return sessions;
     }
+
+
 
     public Long getActiveSessionsSize() {
         Long size = 0L;
@@ -165,8 +199,16 @@ public class RedisSessionDAO extends AbstractSessionDAO {
             logger.error("session is null");
             throw new UnknownSessionException("session is null");
         }
+        HttpServletRequest request = Servlets.getRequest();
+        if (request != null) {
+            String uri = request.getServletPath();
+            if (isStaticFile(uri)) {
+                return null;
+            }
+        }
         Serializable sessionId = this.generateSessionId(session);
         this.assignSessionId(session, sessionId);
+
         this.saveSession(session);
         return sessionId;
     }
@@ -177,18 +219,20 @@ public class RedisSessionDAO extends AbstractSessionDAO {
             logger.warn("session id is null");
             return null;
         }
-        Session s = getSessionFromThreadLocal(sessionId);
-        if (s != null) {
-            return s;
-        }
+        Session s = null;
         HttpServletRequest request = Servlets.getRequest();
         if (request != null) {
             String uri = request.getServletPath();
+            s = (Session) request.getAttribute(sessionId.toString());
             if (isStaticFile(uri)) {
-                Session session=(Session) request.getAttribute("sid");
-                logger.debug("请求url自带的session:" +session);
-                return session;
+                return null;
             }
+        }
+        if (s == null) {
+            s = getSessionFromThreadLocal(sessionId);
+        }
+        if (s != null) {
+            return s;
         }
         logger.debug("read session from redis");
         try {
@@ -237,6 +281,17 @@ public class RedisSessionDAO extends AbstractSessionDAO {
         return s;
     }
 
+
+    @Override
+    public Session readSession(Serializable sessionId) throws UnknownSessionException {
+        try {
+            return super.readSession(sessionId);
+        } catch (UnknownSessionException e) {
+            return null;
+        }
+    }
+
+
     private String getRedisSessionKey(Serializable sessionId) {
         return this.keyPrefix + sessionId;
     }
@@ -277,6 +332,20 @@ public class RedisSessionDAO extends AbstractSessionDAO {
         String staticUri = resourceUrlProvider.getForLookupPath(path);
         return staticUri != null;
     }
+
+
+
+    /**
+     * 获取过去的分钟
+     *
+     * @param date
+     * @return
+     */
+    public static long pastMinutes(Date date) {
+        long t = new Date().getTime() - date.getTime();
+        return t / (60 * 1000);
+    }
+
 
 
 }

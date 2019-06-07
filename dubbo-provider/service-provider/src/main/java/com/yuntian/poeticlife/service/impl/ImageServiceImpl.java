@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 
 
 /**
- * Created by CodeGenerator on 2019/03/31.
+ * Created by CodeGenerator on 2019/06/06.
  */
 @Service("imageService")
 public class ImageServiceImpl extends AbstractService<Image> implements ImageService {
