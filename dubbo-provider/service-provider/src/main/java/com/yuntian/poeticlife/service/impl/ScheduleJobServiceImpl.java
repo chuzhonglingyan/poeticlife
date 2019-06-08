@@ -2,7 +2,7 @@ package com.yuntian.poeticlife.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.yuntian.poeticlife.AssertUtil;
+import com.yuntian.poeticlife.util.AssertUtil;
 import com.yuntian.poeticlife.core.AbstractService;
 import com.yuntian.poeticlife.dao.ScheduleJobMapper;
 import com.yuntian.poeticlife.exception.BusinessException;
@@ -24,13 +24,10 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
@@ -78,8 +75,8 @@ public class ScheduleJobServiceImpl extends AbstractService<ScheduleJob> impleme
         AssertUtil.isNotNull(model.getBeanName(), "实体类不能为空");
         AssertUtil.isNotBlank(model.getMethodName(), "方法不能为空");
         AssertUtil.isNotBlank(model.getCronExpression(), "时间表达式不能为空");
-        AssertUtil.isNotNull(model.getCreateBy(), "创建人不能为空");
-        AssertUtil.isNotNull(model.getUpdateBy(), "更新人不能为空");
+        AssertUtil.isNotNull(model.getcreateId(), "创建人不能为空");
+        AssertUtil.isNotNull(model.getupdateId(), "更新人不能为空");
         if (!CronExpression.isValidExpression(model.getCronExpression())) {
             BusinessException.throwMessage("cron表达式不正确");
         }
@@ -126,7 +123,7 @@ public class ScheduleJobServiceImpl extends AbstractService<ScheduleJob> impleme
         AssertUtil.isNotNull(model.getBeanName(), "实体类不能为空");
         AssertUtil.isNotBlank(model.getMethodName(), "方法不能为空");
         AssertUtil.isNotBlank(model.getCronExpression(), "时间表达式不能为空");
-        AssertUtil.isNotNull(model.getUpdateBy(), "更新人不能为空");
+        AssertUtil.isNotNull(model.getupdateId(), "更新人不能为空");
 
         check(model.getBeanName(),model.getMethodName(),model.getParams());
         super.update(model);
@@ -189,8 +186,8 @@ public class ScheduleJobServiceImpl extends AbstractService<ScheduleJob> impleme
         scheduleJobLog.setJobId(scheduleJob.getId());
         scheduleJobLog.setBeanName(scheduleJob.getBeanName());
         scheduleJobLog.setMethodName(scheduleJob.getMethodName());
-        scheduleJobLog.setCreateBy(1L);
-        scheduleJobLog.setUpdateBy(1L);
+        scheduleJobLog.setcreateId(1L);
+        scheduleJobLog.setupdateId(1L);
 
         boolean isException=false;
         String msg="";

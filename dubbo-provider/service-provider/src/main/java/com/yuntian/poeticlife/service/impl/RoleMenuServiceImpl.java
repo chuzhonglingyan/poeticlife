@@ -1,22 +1,19 @@
 package com.yuntian.poeticlife.service.impl;
 
-import com.yuntian.poeticlife.AssertUtil;
-import com.yuntian.poeticlife.cache.CglibBeanCopierUtils;
+import com.yuntian.poeticlife.util.AssertUtil;
+import com.yuntian.poeticlife.util.CglibBeanCopierUtils;
 import com.yuntian.poeticlife.core.AbstractService;
 import com.yuntian.poeticlife.dao.RoleMenuMapper;
 import com.yuntian.poeticlife.model.dto.RoleMenuDTO;
 import com.yuntian.poeticlife.model.entity.Menu;
-import com.yuntian.poeticlife.model.entity.OperaterRole;
 import com.yuntian.poeticlife.model.entity.RoleMenu;
 import com.yuntian.poeticlife.model.vo.MenuVO;
-import com.yuntian.poeticlife.model.vo.RoleVO;
 import com.yuntian.poeticlife.service.MenuService;
 import com.yuntian.poeticlife.service.RoleMenuService;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.lang.reflect.InvocationTargetException;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -101,8 +98,8 @@ public class RoleMenuServiceImpl extends AbstractService<RoleMenu> implements Ro
             roleMenu.setRoleId(roleMenuDTO.getRoleId());
             roleMenu.setMenuId(menuId);
             roleMenu.setIsChecked((byte) 1);
-            roleMenu.setCreateBy(roleMenuDTO.getCreateBy());
-            roleMenu.setUpdateBy(roleMenuDTO.getUpdateBy());
+            roleMenu.setcreateId(roleMenuDTO.getcreateId());
+            roleMenu.setupdateId(roleMenuDTO.getupdateId());
             roleMenu.setCreateTime(new Date());
             roleMenu.setUpdateTime(new Date());
             roleMenuList.add(roleMenu);

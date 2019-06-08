@@ -16,8 +16,8 @@
         <result column="remark" jdbcType="VARCHAR" property="remark" />
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-        <result column="create_by" jdbcType="BIGINT" property="createBy" />
-        <result column="update_by" jdbcType="BIGINT" property="updateBy" />
+        <result column="create_id" jdbcType="BIGINT" property="createId" />
+        <result column="update_id" jdbcType="BIGINT" property="updateId" />
     </resultMap>
 
 
@@ -32,10 +32,10 @@
         insert into
         <include refid="tableName"/>
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            id, group_name,bean_name, method_name, params, cron_expression, status, remark,is_delete, create_time, update_time, create_by, update_by
+            id, group_name,bean_name, method_name, params, cron_expression, status, remark,is_delete, create_time, update_time, create_id, update_id
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            #{id}, #{groupName}, #{beanName}, #{methodName}, #{params}, #{cronExpression}, 0, #{remark},0, now(), now(), #{createBy}, #{updateBy}
+            #{id}, #{groupName}, #{beanName}, #{methodName}, #{params}, #{cronExpression}, 0, #{remark},0, now(), now(), #{createId}, #{updateId}
         </trim>
     </insert>
 

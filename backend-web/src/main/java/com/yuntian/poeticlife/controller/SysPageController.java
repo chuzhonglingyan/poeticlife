@@ -54,6 +54,10 @@ public class SysPageController extends BaseController {
         return "backend/imageList";
     }
 
+    @RequestMapping("/dictManager")
+    public String dictList() {
+        return "backend/dictList";
+    }
 
     @RequestMapping("/imageUpload")
     public ModelAndView imageUpload() {

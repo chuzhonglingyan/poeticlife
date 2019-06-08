@@ -1,7 +1,7 @@
 package com.yuntian.poeticlife.service.impl;
 
-import com.yuntian.poeticlife.AssertUtil;
-import com.yuntian.poeticlife.cache.CglibBeanCopierUtils;
+import com.yuntian.poeticlife.util.AssertUtil;
+import com.yuntian.poeticlife.util.CglibBeanCopierUtils;
 import com.yuntian.poeticlife.core.AbstractService;
 import com.yuntian.poeticlife.dao.OperaterRoleMapper;
 import com.yuntian.poeticlife.model.dto.OperaterRoleDTO;
@@ -11,7 +11,6 @@ import com.yuntian.poeticlife.model.vo.RoleVO;
 import com.yuntian.poeticlife.service.OperaterRoleService;
 import com.yuntian.poeticlife.service.RoleService;
 import org.apache.commons.collections.CollectionUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
@@ -90,8 +89,8 @@ public class OperaterRoleServiceImpl extends AbstractService<OperaterRole> imple
                 OperaterRole operaterRole = new OperaterRole();
                 operaterRole.setOperaterId(dto.getOperaterId());
                 operaterRole.setRoleId(roleId);
-                operaterRole.setCreateBy(dto.getCreateBy());
-                operaterRole.setUpdateBy(dto.getUpdateBy());
+                operaterRole.setcreateId(dto.getcreateId());
+                operaterRole.setupdateId(dto.getupdateId());
                 operaterRole.setCreateTime(new Date());
                 operaterRole.setUpdateTime(new Date());
                 operaterRoleList.add(operaterRole);

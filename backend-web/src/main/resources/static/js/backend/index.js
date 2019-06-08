@@ -25,11 +25,29 @@ var app = new Vue({
                     navHtml += 'class="active"';
                 navHtml += ' >';
                 navHtml += ' <a><i href="#" class="fa fa-th-large"></i> <span class="nav-label">' + pNode.menuName + '</span> <span class="fa arrow"></span></a>';
-                navHtml += ' <ul class="nav nav-second-level">';
-                if(pNode.childList && pNode.childList.length>0) {
+                navHtml += ' <ul class="nav nav-first-level">';
+                if(pNode.childList!=null && pNode.childList.length>0) {
                     $.each(pNode.childList, function (idx, child) {
-                        if (child.pid === pNode.id)
-                            navHtml += "<li><a  href='javascript:;' onclick='addTP("+"\""+child.menuUrl+"\""+","+"\""+child.menuName+"\""+")'  class='J_menuItem' > "+ child.menuName +" </a></li>";
+                        if(child.childList!=null && child.childList.length>0) {
+
+                            navHtml += '<li id="li'+child.id+'" ';
+                            navHtml += ' >';
+                            navHtml += ' <a><i href="#" class="fa fa-th-large"></i> <span class="nav-label">' + child.menuName + '</span> <span class="fa arrow"></span></a>';
+                            navHtml += ' <ul class="nav nav-second-level">';
+
+                            $.each(child.childList, function (idx, cchild) {
+                                if (cchild.pid === child.id){
+                                    navHtml += "<li><a  href='javascript:;' onclick='addTP("+"\""+cchild.menuUrl+"\""+","+"\""+cchild.menuName+"\""+")'  class='J_menuItem' > "+ cchild.menuName +" </a></li>";
+                                }
+                            });
+                            navHtml += '   </ul>';
+                            navHtml += '</li>';
+                        }else {
+                            if (child.pid === pNode.id){
+                                navHtml += "<li><a  href='javascript:;' onclick='addTP("+"\""+child.menuUrl+"\""+","+"\""+child.menuName+"\""+")'  class='J_menuItem' > "+ child.menuName +" </a></li>";
+                            }
+                        }
+
                     });
                 }
                 navHtml += '   </ul>';

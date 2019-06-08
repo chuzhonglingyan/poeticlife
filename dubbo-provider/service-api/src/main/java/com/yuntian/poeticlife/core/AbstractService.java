@@ -49,7 +49,7 @@ public abstract class AbstractService<T> implements Service<T> {
     }
 
     public void update(T model) {
-        mapper.updateByPrimaryKeySelective(model);
+        mapper.updateByPrimaryKey(model);
     }
 
     public T findById(Long id) {

@@ -16,7 +16,7 @@
     <result column="times" jdbcType="INTEGER" property="times" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="create_by" jdbcType="BIGINT" property="createBy" />
-    <result column="update_by" jdbcType="BIGINT" property="updateBy" />
+    <result column="create_id" jdbcType="BIGINT" property="createId" />
+    <result column="update_id" jdbcType="BIGINT" property="updateId" />
   </resultMap>
 </mapper>

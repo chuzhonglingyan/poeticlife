@@ -59,6 +59,7 @@
     <dubbo:service  ref="opreaterImageService" interface="com.yuntian.poeticlife.service.OpreaterImageService"
         version="${dubbo.provider.version}"/>
 
-
+    <dubbo:service  ref="dictService" interface="com.yuntian.poeticlife.service.DictService"
+        version="${dubbo.provider.version}"/>
 </beans>
 

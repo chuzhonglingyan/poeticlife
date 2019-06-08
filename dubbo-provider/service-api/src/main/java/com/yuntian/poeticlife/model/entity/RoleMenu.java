@@ -35,8 +35,8 @@ public class RoleMenu {
     /**
      * 创建人
      */
-    @Column(name = "create_by")
-    private Long createBy;
+    @Column(name = "create_id")
+    private Long createId;
 
     /**
      * 创建时间
@@ -47,8 +47,8 @@ public class RoleMenu {
     /**
      * 更新人
      */
-    @Column(name = "update_by")
-    private Long updateBy;
+    @Column(name = "update_id")
+    private Long updateId;
 
     /**
      * 更新时间
@@ -132,19 +132,19 @@ public class RoleMenu {
     /**
      * 获取创建人
      *
-     * @return create_by - 创建人
+     * @return create_id - 创建人
      */
-    public Long getCreateBy() {
-        return createBy;
+    public Long getcreateId() {
+        return createId;
     }
 
     /**
      * 设置创建人
      *
-     * @param createBy 创建人
+     * @param createId 创建人
      */
-    public void setCreateBy(Long createBy) {
-        this.createBy = createBy;
+    public void setcreateId(Long createId) {
+        this.createId = createId;
     }
 
     /**
@@ -168,19 +168,19 @@ public class RoleMenu {
     /**
      * 获取更新人
      *
-     * @return update_by - 更新人
+     * @return update_id - 更新人
      */
-    public Long getUpdateBy() {
-        return updateBy;
+    public Long getupdateId() {
+        return updateId;
     }
 
     /**
      * 设置更新人
      *
-     * @param updateBy 更新人
+     * @param updateId 更新人
      */
-    public void setUpdateBy(Long updateBy) {
-        this.updateBy = updateBy;
+    public void setupdateId(Long updateId) {
+        this.updateId = updateId;
     }
 
     /**

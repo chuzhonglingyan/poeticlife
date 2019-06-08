@@ -1,10 +1,12 @@
 package com.yuntian.poeticlife.config.shiro;
 
 import com.yuntian.basecommon.util.PasswordUtil;
+import com.yuntian.poeticlife.exception.BusinessException;
 import com.yuntian.poeticlife.model.entity.BackendOperater;
 import com.yuntian.poeticlife.model.entity.Menu;
 import com.yuntian.poeticlife.service.BackendOperaterService;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -47,12 +49,14 @@ public class ShiroRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         log.error("————进入身份认证————");
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken; // 从数据库获取对应用户名密码的用户
-        BackendOperater user = backendOperaterService.findBy("accountName", token.getUsername());
+        BackendOperater user = backendOperaterService.findOperaterByAccount(token.getUsername());
         String savePassWord = new String((char[]) token.getCredentials());
         if (null == user) {
             throw new UnknownAccountException("账号不存在");
         } else if (!PasswordUtil.verify(savePassWord, user.getPassWord())) {
             throw new UnknownAccountException("密码不正确");
+        }else if (user.getIsEnable()==0) {
+            throw new UnknownAccountException("该账号已经被禁用");
         }
         token.setUsername(String.valueOf(user.getId()));
         SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(user.getId(), savePassWord, getName());
@@ -73,20 +77,24 @@ public class ShiroRealm extends AuthorizingRealm {
         Long userId = (Long) SecurityUtils.getSubject().getPrincipal();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo(); //获得该用户角色
         String role = backendOperaterService.getRole(userId);
-        log.error("当前角色：" + role);
-        Set<String> set = new HashSet<>();
-        //需要将 role 封装到 Set 作为 info.setRoles() 的参数
-        set.add(role);
-        // 设置该用户拥有的角色
-        info.setRoles(set);
-        //获取用户权限
-        List<Menu> menuList = backendOperaterService.getNavMenuListByOperater(userId);
-        Set<String> stringPermissions = new HashSet<>();
-        menuList.forEach(menu -> {
-            stringPermissions.add(menu.getMenuCode());
-        });
-        //添加权限
-        info.setStringPermissions(stringPermissions);
+        if (StringUtils.isNotBlank(role)) {
+            log.error("当前角色：" + role);
+            Set<String> set = new HashSet<>();
+            //需要将 role 封装到 Set 作为 info.setRoles() 的参数
+            set.add(role);
+            // 设置该用户拥有的角色
+            info.setRoles(set);
+            //获取用户权限
+            List<Menu> menuList = backendOperaterService.getNavMenuListByOperater(userId);
+            Set<String> stringPermissions = new HashSet<>();
+            menuList.forEach(menu -> {
+                stringPermissions.add(menu.getMenuCode());
+            });
+            //添加权限
+            info.setStringPermissions(stringPermissions);
+        }else {
+            log.error("该用户还未分配角色");
+        }
 
         return info;
     }

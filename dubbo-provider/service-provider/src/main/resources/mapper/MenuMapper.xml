@@ -14,9 +14,9 @@
     <result column="menu_level" jdbcType="TINYINT" property="menuLevel" />
     <result column="open_type" jdbcType="TINYINT" property="openType" />
     <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
-    <result column="create_by" jdbcType="BIGINT" property="createBy" />
+    <result column="create_id" jdbcType="BIGINT" property="createId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_by" jdbcType="BIGINT" property="updateBy" />
+    <result column="update_id" jdbcType="BIGINT" property="updateId" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="menu_status" jdbcType="TINYINT" property="menuStatus" />
   </resultMap>

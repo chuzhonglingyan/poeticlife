@@ -37,19 +37,23 @@
 
                     <div class="ibox-content">
 
-                        <form role="form" class="form-inline">
-                            <button class="btn btn-primary" type="button" @click="addUser()">新增用户
-                            </button>
-
-                            <div class="input-group pull-right">
-                                <input type="text" placeholder="请输入用户名"
-                                       class="input-sm form-control">
-                                <span class="input-group-btn">
+                        <form role="form" class="form-horizontal" style="margin-left: 15px;margin-right: 15px">
+                            <div class="form-group ">
+                                <@shiro.hasRole name="admin">
+                                <button class="btn btn-primary pull-left " type="button"
+                                        @click="addUser()">
+                                    新增用户
+                                </button>
+                               </@shiro.hasRole>
+                                <div class="input-group pull-right col-xs-6 col-sm-3 " >
+                                    <input type="text" placeholder="请输入用户名"
+                                           class="input-sm form-control">
+                                    <span class="input-group-btn">
                                         <button type="button"
                                                 class="btn btn-sm btn-primary">查询</button>
                                 </span>
+                                </div>
                             </div>
-
                         </form>
 
                         <div class="table-responsive" style="margin-top: 10px">

@@ -30,8 +30,8 @@ public class RoleMenuController extends BaseController {
 
     @PostMapping("/saveMenuListByRoleId")
     public Result saveMenuIListByRoleId(@RequestBody RoleMenuDTO roleMenuDTO) {
-        roleMenuDTO.setCreateBy(getUserId());
-        roleMenuDTO.setUpdateBy(getUserId());
+        roleMenuDTO.setcreateId(getUserId());
+        roleMenuDTO.setupdateId(getUserId());
         roleMenuService.saveMenuListByRoleId(roleMenuDTO);
         return ResultGenerator.genSuccessResult();
     }

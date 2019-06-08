@@ -37,8 +37,8 @@ public class MenuTest extends BaseTest {
         menu.setPid(4L);
         menu.setMenuLevel((byte) 2);
         menu.setMenuName("根目录");
-        menu.setCreateBy(1L);
-        menu.setUpdateBy(1L);
+        menu.setcreateId(1L);
+        menu.setupdateId(1L);
 
         menuService.save(menu);
     }

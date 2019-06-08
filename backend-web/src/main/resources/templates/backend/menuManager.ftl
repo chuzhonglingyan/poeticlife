@@ -23,7 +23,9 @@
                     <div class="ibox-content">
 
                         <form role="form" class="form-inline">
-                            <button class="btn btn-primary" type="button" id="addFirstMenu">新增导航</button>
+                            <button class="btn btn-primary" type="button" id="addFirstMenu">
+                                新增导航
+                            </button>
 
                             <div class="input-group pull-right">
                                 <input type="text" placeholder="请输入菜单名"
@@ -70,7 +72,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">菜单值：</label>
                                 <div class="col-sm-8">
-                                    <input id="menuValue" name="menuValue"  maxlength="50"
+                                    <input id="menuValue" name="menuValue" maxlength="50"
                                            class="form-control">
                                 </div>
                             </div>
@@ -86,12 +88,14 @@
                                 <div class="col-sm-8">
 
                                     <label class="checkbox-inline">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="menuType" id="isMenu" value="1" checked> 是
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="menuType" id="isNotMenu"  value="2"> 否
-                                    </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="menuType" id="isMenu"
+                                                   value="1" checked> 是
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="menuType" id="isNotMenu"
+                                                   value="2"> 否
+                                        </label>
                                     </label>
                                 </div>
                             </div>
@@ -99,12 +103,14 @@
                                 <label class="col-sm-3 control-label">是否启用：</label>
                                 <div class="col-sm-8">
                                     <label class="checkbox-inline">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="menuStatus" id="menuStart" value="1" checked> 是
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="menuStatus" id="menuStop"  value="0"> 否
-                                    </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="menuStatus" id="menuStart"
+                                                   value="1" checked> 是
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="menuStatus" id="menuStop"
+                                                   value="0"> 否
+                                        </label>
                                     </label>
                                 </div>
                             </div>

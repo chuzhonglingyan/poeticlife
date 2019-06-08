@@ -27,8 +27,8 @@ public class MenuController extends BaseController{
 
     @PostMapping("/add")
     public Result add(MenuVO menu) {
-        menu.setCreateBy(getUserId());
-        menu.setUpdateBy(getUserId());
+        menu.setcreateId(getUserId());
+        menu.setupdateId(getUserId());
         menuService.save(menu);
         return ResultGenerator.genSuccessResult();
     }
@@ -42,8 +42,8 @@ public class MenuController extends BaseController{
 
     @PostMapping("/update")
     public Result update(MenuVO menu) {
-        menu.setCreateBy(getUserId());
-        menu.setUpdateBy(getUserId());
+        menu.setcreateId(getUserId());
+        menu.setupdateId(getUserId());
         menuService.update(menu);
         return ResultGenerator.genSuccessResult();
     }

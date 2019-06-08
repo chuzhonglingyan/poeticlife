@@ -5,6 +5,7 @@ import com.yuntian.poeticlife.core.Result;
 import com.yuntian.poeticlife.core.ResultGenerator;
 
 import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -35,7 +36,15 @@ public class ExceptionControllerAdvice {
 
     @ExceptionHandler({UnknownAccountException.class})
     public Result handlerException(UnknownAccountException ex) {
+        log.error("发生未知异常：{}", ex.getMessage());
         return ResultGenerator.genFailResult(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage());
+    }
+
+
+    @ExceptionHandler({UnauthorizedException.class})
+    public Result handlerException(UnauthorizedException ex) {
+        log.error("发生未知异常：{}", ex.getMessage());
+        return ResultGenerator.genFailResult(HttpStatus.INTERNAL_SERVER_ERROR.value(), "没有该操作权限");
     }
 
 

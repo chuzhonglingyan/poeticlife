@@ -37,8 +37,8 @@ public class ScheduleJobTest extends BaseTest {
         model.setMethodName("test");
         model.setGroupName("test");
         model.setCronExpression("0 0/1 * * * ?");
-        model.setCreateBy(1L);
-        model.setUpdateBy(1L);
+        model.setcreateId(1L);
+        model.setupdateId(1L);
         scheduleJobService.save(model);
 
     }

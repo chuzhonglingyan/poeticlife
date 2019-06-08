@@ -8,9 +8,6 @@ import com.yuntian.poeticlife.model.entity.BackendOperater;
 import com.yuntian.poeticlife.service.BackendOperaterService;
 
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.LockedAccountException;
-import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
@@ -87,7 +84,6 @@ public class LoginController extends BaseController {
     }
 
 
-
     /**
      * 跳转到无权限页面
      *
@@ -129,23 +125,9 @@ public class LoginController extends BaseController {
         if (rememberMe != null) {
             rememberMeFlag = (rememberMe == 1);
         }
-        try {
-            //登录操作
-            // 执行认证登陆
-            UsernamePasswordToken token = new UsernamePasswordToken(userName, passWord, rememberMeFlag);
-            subject.login(token);
-        } catch (Exception e) {
-            //登录失败从request中获取shiro处理的异常信息 shiroLoginFailure:就是shiro异常类的全类名
-            String msg="";
-            if (e instanceof UnknownAccountException) {
-                msg="用户名或密码错误！";
-            } else if (e instanceof IncorrectCredentialsException) {
-                msg="用户名或密码错误！";
-            } else if (e instanceof LockedAccountException) {
-                msg="账号已被锁定,请联系管理员！";
-            }
-            return ResultGenerator.genFailResult(msg);
-        }
+        //登录操作
+        UsernamePasswordToken token = new UsernamePasswordToken(userName, passWord, rememberMeFlag);
+        subject.login(token);
         return ResultGenerator.genSuccessResult("登录成功");
     }
 

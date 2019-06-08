@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yuntian.basecommon.util.PasswordUtil;
 import com.yuntian.basecommon.util.encrypt.use.MD5Util;
-import com.yuntian.poeticlife.AssertUtil;
+import com.yuntian.poeticlife.util.AssertUtil;
 import com.yuntian.poeticlife.core.AbstractService;
 import com.yuntian.poeticlife.dao.BackendOperaterMapper;
 import com.yuntian.poeticlife.exception.BusinessException;
@@ -14,7 +14,6 @@ import com.yuntian.poeticlife.model.entity.Menu;
 import com.yuntian.poeticlife.model.entity.OperaterRole;
 import com.yuntian.poeticlife.model.entity.Role;
 import com.yuntian.poeticlife.model.vo.MenuTreeVO;
-import com.yuntian.poeticlife.model.vo.MenuVO;
 import com.yuntian.poeticlife.model.vo.PageInfoVo;
 import com.yuntian.poeticlife.service.BackendOperaterService;
 import com.yuntian.poeticlife.service.MenuService;
@@ -26,6 +25,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -56,14 +56,14 @@ public class BackendOperaterServiceImpl extends AbstractService<BackendOperater>
         AssertUtil.isNotNull(model.getAccountName(), "账号不能为空");
         AssertUtil.isNotNull(model.getUserName(), "用户名不能为空");
         AssertUtil.isNotNull(model.getEmail(), "邮箱不能为空");
-        AssertUtil.isNotNull(model.getCreateBy(), "创建人不能为空");
-        AssertUtil.isNotNull(model.getUpdateBy(), "更新人不能为空");
+        AssertUtil.isNotNull(model.getcreateId(), "创建人不能为空");
+        AssertUtil.isNotNull(model.getupdateId(), "更新人不能为空");
         BackendOperater backendOperater = findOperaterByAccount(model.getAccountName());
         if (!Objects.isNull(backendOperater)) {
             BusinessException.throwMessage("已经存在该账号");
         }
         //设置，默认密码
-        model.setPassWord(MD5Util.encoderByMd5("123456"));
+        model.setPassWord(PasswordUtil.md5HexWithSalt("123456"));
         super.save(model);
     }
 
@@ -74,7 +74,7 @@ public class BackendOperaterServiceImpl extends AbstractService<BackendOperater>
         AssertUtil.isNotNull(model.getId(), "用户id不能为空");
         AssertUtil.isNotNull(model.getUserName(), "用户名不能为空");
         AssertUtil.isNotNull(model.getEmail(), "邮箱不能为空");
-        AssertUtil.isNotNull(model.getUpdateBy(), "更新人不能为空");
+        AssertUtil.isNotNull(model.getupdateId(), "更新人不能为空");
 
         BackendOperater backendOperater = findById(model.getId());
         if (Objects.isNull(backendOperater)) {
@@ -134,7 +134,7 @@ public class BackendOperaterServiceImpl extends AbstractService<BackendOperater>
     public void isEnable(BackendOperater model) {
         AssertUtil.isNotNull(model, "参数不能为空");
         AssertUtil.isNotNull(model.getId(), "用户id不能为空");
-        AssertUtil.isNotNull(model.getUpdateBy(), "更新人不能为空");
+        AssertUtil.isNotNull(model.getupdateId(), "更新人不能为空");
         model.setIsEnable((byte) 1);
         super.update(model);
     }
@@ -143,7 +143,7 @@ public class BackendOperaterServiceImpl extends AbstractService<BackendOperater>
     public void isStop(BackendOperater model) {
         AssertUtil.isNotNull(model, "参数不能为空");
         AssertUtil.isNotNull(model.getId(), "用户id不能为空");
-        AssertUtil.isNotNull(model.getUpdateBy(), "更新人不能为空");
+        AssertUtil.isNotNull(model.getupdateId(), "更新人不能为空");
         model.setIsEnable((byte) 0);
         super.update(model);
     }
@@ -163,15 +163,22 @@ public class BackendOperaterServiceImpl extends AbstractService<BackendOperater>
 
     @Override
     public String getRole(Long operaterId) {
-        OperaterRole operaterRole = operaterRoleService.findBy("operaterId", operaterId);
-        Role role = roleService.findBy("id", operaterRole.getRoleId());
-        return role.getRole();
+        List<Long> list=operaterRoleService.getRoleIdListByOperaterId(operaterId);
+        if (CollectionUtils.isNotEmpty(list)){
+            Role role = roleService.findBy("id", list.get(0));
+            return  role.getRole();
+        }
+        return null;
     }
+
     @Override
     public Long getRoleId(Long operaterId) {
-        OperaterRole operaterRole = operaterRoleService.findBy("operaterId", operaterId);
-        Role role = roleService.findBy("id", operaterRole.getRoleId());
-        return role.getId();
+        List<Long> list=operaterRoleService.getRoleIdListByOperaterId(operaterId);
+        if (CollectionUtils.isNotEmpty(list)){
+            Role role = roleService.findBy("id", list.get(0));
+            return  role.getId();
+        }
+        return null;
     }
 
     @Resource
@@ -186,6 +193,9 @@ public class BackendOperaterServiceImpl extends AbstractService<BackendOperater>
     @Override
     public List<MenuTreeVO> getMenuTreeVOListByOperater(Long operaterId) {
         List<Menu> menuList= getNavMenuListByOperater(operaterId);
+        if (CollectionUtils.isEmpty(menuList)){
+            return  new ArrayList<>();
+        }
         return menuService.getMenuTreeVOList(menuList);
     }
 

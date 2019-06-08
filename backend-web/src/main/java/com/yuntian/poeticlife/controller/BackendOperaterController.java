@@ -8,6 +8,7 @@ import com.yuntian.poeticlife.model.vo.MenuTreeVO;
 import com.yuntian.poeticlife.model.vo.PageInfoVo;
 import com.yuntian.poeticlife.service.BackendOperaterService;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,8 +32,8 @@ public class BackendOperaterController extends BaseController {
 
     @PostMapping("/add")
     public Result add(BackendOperater backendOperater) {
-        backendOperater.setCreateBy(getUserId());
-        backendOperater.setUpdateBy(getUserId());
+        backendOperater.setcreateId(getUserId());
+        backendOperater.setupdateId(getUserId());
         backendOperaterService.save(backendOperater);
         return ResultGenerator.genSuccessResult();
     }
@@ -43,16 +44,17 @@ public class BackendOperaterController extends BaseController {
         return ResultGenerator.genSuccessResult();
     }
 
+    @RequiresPermissions(value = {"operater:update"})
     @PostMapping("/update")
     public Result update(BackendOperater backendOperater) {
-        backendOperater.setUpdateBy(getUserId());
+        backendOperater.setupdateId(getUserId());
         backendOperaterService.update(backendOperater);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/isEnable")
     public Result isEnable(BackendOperater backendOperater) {
-        backendOperater.setUpdateBy(getUserId());
+        backendOperater.setupdateId(getUserId());
         backendOperaterService.isEnable(backendOperater);
         return ResultGenerator.genSuccessResult();
     }
@@ -60,7 +62,7 @@ public class BackendOperaterController extends BaseController {
 
     @PostMapping("/isStop")
     public Result isStop(BackendOperater backendOperater) {
-        backendOperater.setUpdateBy(getUserId());
+        backendOperater.setupdateId(getUserId());
         backendOperaterService.isStop(backendOperater);
         return ResultGenerator.genSuccessResult();
     }

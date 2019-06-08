@@ -18,6 +18,8 @@ public interface BackendOperaterService extends Service<BackendOperater> {
 
     BackendOperater findOperaterByAccount(String accountName);
 
+
+
     Long getRoleId(Long operaterId);
 
     String getRole(Long operaterId);

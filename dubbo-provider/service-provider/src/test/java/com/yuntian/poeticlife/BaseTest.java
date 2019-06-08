@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @Auther: yuntian
  * @Date: 2019/2/23 0023 19:55
@@ -13,9 +15,9 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DubboProviderApplication.class)
+@Slf4j
 public class BaseTest {
 
-    protected static final Logger log = LoggerFactory.getLogger(BaseTest.class);
 
 
 }

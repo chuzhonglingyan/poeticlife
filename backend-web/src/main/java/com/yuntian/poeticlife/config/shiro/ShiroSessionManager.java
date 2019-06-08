@@ -2,6 +2,7 @@ package com.yuntian.poeticlife.config.shiro;
 
 import org.apache.shiro.session.InvalidSessionException;
 import org.apache.shiro.session.Session;
+import org.apache.shiro.session.SessionException;
 import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.session.mgt.SessionContext;
 import org.apache.shiro.session.mgt.SessionKey;
@@ -200,4 +201,12 @@ public class ShiroSessionManager extends DefaultWebSessionManager {
         }
     }
 
+    @Override
+    public Session getSession(SessionKey key) throws SessionException {
+        try {
+            return super.getSession(key);
+        } catch (SessionException e) {
+           return  null;
+        }
+    }
 }

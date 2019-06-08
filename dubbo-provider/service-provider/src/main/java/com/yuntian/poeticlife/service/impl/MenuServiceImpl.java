@@ -1,7 +1,5 @@
 package com.yuntian.poeticlife.service.impl;
 
-import com.yuntian.poeticlife.AssertUtil;
-import com.yuntian.poeticlife.cache.CglibBeanCopierUtils;
 import com.yuntian.poeticlife.core.AbstractService;
 import com.yuntian.poeticlife.dao.MenuMapper;
 import com.yuntian.poeticlife.exception.BusinessException;
@@ -10,6 +8,8 @@ import com.yuntian.poeticlife.model.vo.MenuTreeVO;
 import com.yuntian.poeticlife.service.MenuService;
 import com.yuntian.poeticlife.service.OperaterRoleService;
 import com.yuntian.poeticlife.service.RoleMenuService;
+import com.yuntian.poeticlife.util.AssertUtil;
+import com.yuntian.poeticlife.util.CglibBeanCopierUtils;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,6 @@ import tk.mybatis.mapper.entity.Example;
  */
 @Service("menuService")
 public class MenuServiceImpl extends AbstractService<Menu> implements MenuService {
-
 
 
     @Resource
@@ -91,13 +90,14 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
         if (CollectionUtils.isNotEmpty(roleIdList)) {
             Long roleId = roleIdList.get(0);
             List<Long> menuIds = roleMenuService.getMenuIdListByRoleId(roleId);
-
-            Condition condition = new Condition(Menu.class);
-            Example.Criteria criteria = condition.createCriteria();
-            criteria.andIn("id", menuIds);
-            criteria.andEqualTo("isDelete", 0);
-            criteria.andEqualTo("menuStatus", 1);
-            return findByCondition(condition);
+            if (CollectionUtils.isNotEmpty(menuIds)) {
+                Condition condition = new Condition(Menu.class);
+                Example.Criteria criteria = condition.createCriteria();
+                criteria.andIn("id", menuIds);
+                criteria.andEqualTo("isDelete", 0);
+                criteria.andEqualTo("menuStatus", 1);
+                return findByCondition(condition);
+            }
         }
         return null;
     }
@@ -129,8 +129,8 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
         AssertUtil.isNotBlank(model.getMenuUrl(), "菜单值不能为空");
         AssertUtil.isNotBlank(model.getMenuCode(), "菜单权限不能为空");
         AssertUtil.isNotNull(model.getMenuType(), "菜单类型不能为空");
-        AssertUtil.isNotNull(model.getCreateBy(), "创建人不能为空");
-        AssertUtil.isNotNull(model.getUpdateBy(), "更新人不能为空");
+        AssertUtil.isNotNull(model.getcreateId(), "创建人不能为空");
+        AssertUtil.isNotNull(model.getupdateId(), "更新人不能为空");
 
         if (model.getPid() == 0) {
             model.setMenuLevel((byte) 1);
@@ -150,8 +150,8 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
         AssertUtil.isNotBlank(model.getMenuName(), "菜单名字不能为空");
         AssertUtil.isNotBlank(model.getMenuUrl(), "菜单值不能为空");
         AssertUtil.isNotBlank(model.getMenuCode(), "菜单权限不能为空");
-        AssertUtil.isNotNull(model.getCreateBy(), "创建人不能为空");
-        AssertUtil.isNotNull(model.getUpdateBy(), "更新人不能为空");
+        AssertUtil.isNotNull(model.getcreateId(), "创建人不能为空");
+        AssertUtil.isNotNull(model.getupdateId(), "更新人不能为空");
         findById(model.getId());
         super.update(model);
     }
@@ -195,7 +195,7 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
         List<MenuTreeVO> menuTreeVOList = new ArrayList<>();
         for (Menu menu : menuList) {
             MenuTreeVO menuTreeVO = new MenuTreeVO();
-            CglibBeanCopierUtils.copyProperties(menu,menuTreeVO );
+            CglibBeanCopierUtils.copyProperties(menu, menuTreeVO);
             menuTreeVOList.add(menuTreeVO);
         }
         getTreeMenu(menuTreeVOList);

@@ -32,8 +32,8 @@ public class OperaterRoleController extends BaseController{
 
     @PostMapping("/saveRoleListByOperaterId")
     public Result saveRoleListByOperaterId(@RequestBody OperaterRoleDTO dto) {
-        dto.setCreateBy(getUserId());
-        dto.setUpdateBy(getUserId());
+        dto.setcreateId(getUserId());
+        dto.setupdateId(getUserId());
         operaterRoleService.saveRoleListByOperaterId(dto);
         return ResultGenerator.genSuccessResult();
     }

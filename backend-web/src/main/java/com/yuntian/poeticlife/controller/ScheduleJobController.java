@@ -29,8 +29,8 @@ public class ScheduleJobController extends BaseController{
 
     @PostMapping("/add")
     public Result add(ScheduleJob scheduleJob) {
-        scheduleJob.setCreateBy(getUserId());
-        scheduleJob.setUpdateBy(getUserId());
+        scheduleJob.setcreateId(getUserId());
+        scheduleJob.setupdateId(getUserId());
         scheduleJobService.save(scheduleJob);
         return ResultGenerator.genSuccessResult();
     }
@@ -43,8 +43,8 @@ public class ScheduleJobController extends BaseController{
 
     @PostMapping("/update")
     public Result update(ScheduleJob scheduleJob) {
-        scheduleJob.setCreateBy(getUserId());
-        scheduleJob.setUpdateBy(getUserId());
+        scheduleJob.setcreateId(getUserId());
+        scheduleJob.setupdateId(getUserId());
         scheduleJobService.update(scheduleJob);
         return ResultGenerator.genSuccessResult();
     }

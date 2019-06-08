@@ -16,9 +16,9 @@ public class BaseDTO  implements Serializable {
     private Long id;
 
 
-    private Long createBy;
+    private Long createId;
 
-    private Long updateBy;
+    private Long updateId;
 
     private Integer isDelete=0;
 
@@ -59,19 +59,19 @@ public class BaseDTO  implements Serializable {
         this.id = id;
     }
 
-    public Long getCreateBy() {
-        return createBy;
+    public Long getcreateId() {
+        return createId;
     }
 
-    public void setCreateBy(Long createBy) {
-        this.createBy = createBy;
+    public void setcreateId(Long createId) {
+        this.createId = createId;
     }
 
-    public Long getUpdateBy() {
-        return updateBy;
+    public Long getupdateId() {
+        return updateId;
     }
 
-    public void setUpdateBy(Long updateBy) {
-        this.updateBy = updateBy;
+    public void setupdateId(Long updateId) {
+        this.updateId = updateId;
     }
 }

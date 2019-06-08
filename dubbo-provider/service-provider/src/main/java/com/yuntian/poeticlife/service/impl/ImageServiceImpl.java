@@ -17,4 +17,10 @@ public class ImageServiceImpl extends AbstractService<Image> implements ImageSer
     @Resource
     private ImageMapper imageMapper;
 
+
+    @Override
+    public void save(Image model) {
+
+        super.save(model);
+    }
 }

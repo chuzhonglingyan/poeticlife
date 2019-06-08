@@ -61,9 +61,9 @@ public class CodeGenerator {
 
 
     public static void main(String[] args) {
-        genCode("image");
-        genViewList("image",null,"图片");
-        genJSList("image",null,"图片");
+        genCode("dict");
+        genViewList("dict",null,"字典");
+        genJSList("dict",null,"字典");
         //genCodeByCustomModelName("输入表名","输入自定义Model名称");
     }
 

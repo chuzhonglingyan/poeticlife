@@ -11,9 +11,9 @@
     <result column="pass_word" jdbcType="VARCHAR" property="passWord" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="create_by" jdbcType="BIGINT" property="createBy" />
+    <result column="create_id" jdbcType="BIGINT" property="createId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_by" jdbcType="BIGINT" property="updateBy" />
+    <result column="update_id" jdbcType="BIGINT" property="updateId" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="is_supper" jdbcType="TINYINT" property="isSupper" />
     <result column="is_enable" jdbcType="TINYINT" property="isEnable" />

@@ -26,8 +26,8 @@ public class RoleController extends BaseController {
 
     @PostMapping("/add")
     public Result add(Role role) {
-        role.setCreateBy(getUserId());
-        role.setUpdateBy(getUserId());
+        role.setcreateId(getUserId());
+        role.setupdateId(getUserId());
         roleService.save(role);
         return ResultGenerator.genSuccessResult();
     }
@@ -40,14 +40,14 @@ public class RoleController extends BaseController {
 
     @PostMapping("/update")
     public Result update(Role role) {
-        role.setUpdateBy(getUserId());
+        role.setupdateId(getUserId());
         roleService.update(role);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/isEnable")
     public Result isEnable(Role role) {
-        role.setUpdateBy(getUserId());
+        role.setupdateId(getUserId());
         roleService.isEnable(role);
         return ResultGenerator.genSuccessResult();
     }
@@ -55,7 +55,7 @@ public class RoleController extends BaseController {
 
     @PostMapping("/isStop")
     public Result isStop(Role role) {
-        role.setUpdateBy(getUserId());
+        role.setupdateId(getUserId());
         roleService.isStop(role);
         return ResultGenerator.genSuccessResult();
     }

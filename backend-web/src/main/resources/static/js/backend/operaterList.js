@@ -82,7 +82,7 @@ var vm = new Vue({
                     formatter: function option(value, row, index) {
                         var str = "";
                         str += "<button class='btn btn-xs btn-info' onclick='vm.editUser(" + JSON.stringify(row) + ")'><i class=\"fa fa-pencil-square-o\" ></i>&nbsp;编辑</button> ";
-                        str += "<button    style='margin-left:15px' class='btn btn-xs btn-primary' onclick='vm.roleAssignment(" + JSON.stringify(row) + ")'>角色分配</button>";
+                        str += "<button   style='margin-left:15px' class='btn btn-xs btn-primary' onclick='vm.roleAssignment(" + JSON.stringify(row) + ")'>角色分配</button>";
                         if (row.isEnable === 1) {
                             str += "<button style='margin-left:15px' class='btn btn-xs btn-warning ' onclick='vm.freezeUser(" + row.id + ")'><i class=\"fa fa-ban\" ></i>禁用</button>";
                         } else {
@@ -130,7 +130,7 @@ var vm = new Vue({
             disabledInput($accountName, true);
 
             $accountName.val(row.accountName);
-            $('#UserName').val(row.UserName);
+            $('#userName').val(row.userName);
             $('#email').val(row.email);
             $('#phone').val(row.phone);
             $('#passWord').val(row.passWord);
@@ -234,7 +234,7 @@ function initValidForm() {
                     }
                 }
             },
-            UserName: {
+            userName: {
                 validators: {
                     notEmpty: {
                         message: '用户名不能为空'

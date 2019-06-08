@@ -61,6 +61,8 @@
         version="${dubbo.consumer.version}" url="dubbo://localhost:${dubbo.protocol.port}"  />
 
 
+    <dubbo:reference id="dictService" interface="com.yuntian.poeticlife.service.DictService"
+        version="${dubbo.consumer.version}" url="dubbo://localhost:${dubbo.protocol.port}"  />
 
     <dubbo:reference id="opreaterImageService" interface="com.yuntian.poeticlife.service.OpreaterImageService"
         version="${dubbo.consumer.version}" url="dubbo://localhost:${dubbo.protocol.port}"  />

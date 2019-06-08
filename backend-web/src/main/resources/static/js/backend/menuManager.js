@@ -51,7 +51,8 @@ function loadTable() {
                 align: 'center',
                 formatter: 'statusFormatter'
             },
-            {field: 'menuUrl', title: '权限值'},
+            {field: 'menuUrl', title: '路径'},
+            {field: 'menuCode', title: '权限值'},
             {field: 'menuType', title: '类型', formatter: 'typeFormatter'},
             {
                 field: 'operate',
