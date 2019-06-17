@@ -30,10 +30,9 @@ var vm = new Vue({
                 pageSize: 10,
                 striped: true, //每行表格的背景会显示灰白相间
                 queryParams: function (params) { //查询的参数
-                    var startPage = params.offset + 1;
                     return {
-                        "pageNum": startPage,
-                        "pageSize": params.limit
+                        pageNum: (params.offset / params.limit) + 1,
+                        pageSize: params.limit
                     };
                 },
                 columns: [{

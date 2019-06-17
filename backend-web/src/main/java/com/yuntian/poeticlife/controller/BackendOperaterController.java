@@ -33,7 +33,7 @@ public class BackendOperaterController extends BaseController {
     @PostMapping("/add")
     public Result add(BackendOperater backendOperater) {
         backendOperater.setcreateId(getUserId());
-        backendOperater.setupdateId(getUserId());
+        backendOperater.setUpdateId(getUserId());
         backendOperaterService.save(backendOperater);
         return ResultGenerator.genSuccessResult();
     }
@@ -47,14 +47,14 @@ public class BackendOperaterController extends BaseController {
     @RequiresPermissions(value = {"operater:update"})
     @PostMapping("/update")
     public Result update(BackendOperater backendOperater) {
-        backendOperater.setupdateId(getUserId());
+        backendOperater.setUpdateId(getUserId());
         backendOperaterService.update(backendOperater);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/isEnable")
     public Result isEnable(BackendOperater backendOperater) {
-        backendOperater.setupdateId(getUserId());
+        backendOperater.setUpdateId(getUserId());
         backendOperaterService.isEnable(backendOperater);
         return ResultGenerator.genSuccessResult();
     }
@@ -62,7 +62,7 @@ public class BackendOperaterController extends BaseController {
 
     @PostMapping("/isStop")
     public Result isStop(BackendOperater backendOperater) {
-        backendOperater.setupdateId(getUserId());
+        backendOperater.setUpdateId(getUserId());
         backendOperaterService.isStop(backendOperater);
         return ResultGenerator.genSuccessResult();
     }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuntian.poeticlife.dao.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.yuntian.poeticlife.model.vo.ArticleVO">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="summary" jdbcType="VARCHAR" property="summary" />
+    <result column="content_type" jdbcType="TINYINT" property="contentType" />
+    <result column="publishTime" jdbcType="TIMESTAMP" property="publishtime" />
+    <result column="editTime" jdbcType="TIMESTAMP" property="edittime" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="look_count" jdbcType="BIGINT" property="lookCount" />
+    <result column="comment_count" jdbcType="BIGINT" property="commentCount" />
+    <result column="favorite_count" jdbcType="BIGINT" property="favoriteCount" />
+    <result column="create_id" jdbcType="BIGINT" property="createId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_id" jdbcType="BIGINT" property="updateId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+</mapper>

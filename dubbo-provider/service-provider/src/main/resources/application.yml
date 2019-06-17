@@ -63,7 +63,7 @@ logging:
     root: warn
   # 在不指定路径，只指定输出日志的文件名，默认输出至当前项目下
   # 若指定，则会输出至指定目录下
-  file: log/service-provider.log
+  file: log/service-provider/service-provider.log
 
 
 

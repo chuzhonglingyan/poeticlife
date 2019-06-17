@@ -25,8 +25,6 @@
     <!-- 声明需要暴露的服务接口 -->
     <dubbo:service ref="demoService" interface="com.yuntian.poeticlife.service.DemoService"    version="${dubbo.provider.version}"/>
     <dubbo:service ref="helloService" interface="com.yuntian.poeticlife.service.HelloService"   version="${dubbo.provider.version}"/>
-    <dubbo:service  ref="userService" interface="com.yuntian.poeticlife.service.UserService"
-        version="${dubbo.provider.version}"/>
 
 
     <!-- 后台管理服务接口 -->
@@ -60,6 +58,9 @@
         version="${dubbo.provider.version}"/>
 
     <dubbo:service  ref="dictService" interface="com.yuntian.poeticlife.service.DictService"
+        version="${dubbo.provider.version}"/>
+
+    <dubbo:service  ref="articleService" interface="com.yuntian.poeticlife.service.ArticleService"
         version="${dubbo.provider.version}"/>
 </beans>
 

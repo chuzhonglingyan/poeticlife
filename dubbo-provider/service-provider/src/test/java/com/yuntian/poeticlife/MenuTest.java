@@ -10,7 +10,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,8 +36,8 @@ public class MenuTest extends BaseTest {
         menu.setPid(4L);
         menu.setMenuLevel((byte) 2);
         menu.setMenuName("根目录");
-        menu.setcreateId(1L);
-        menu.setupdateId(1L);
+        menu.setCreateId(1L);
+        menu.setUpdateId(1L);
 
         menuService.save(menu);
     }

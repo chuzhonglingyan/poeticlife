@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    ${commonHead}
+    <#include "../common/head.ftl">
     <link rel="stylesheet" href="${basePath}/static/css/bootstrap-table/bootstrap-table.min.css">
 </head>
 
 <body class="gray-bg">
-<div id="${modelNameLowerCamel}List">
+<div id="articleList">
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
@@ -14,7 +14,7 @@
                 <div class="ibox float-e-margins">
 
                     <div class="ibox-title">
-                        <h5>${modelNameDesc}管理</h5>
+                        <h5>文章管理</h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -36,12 +36,12 @@
 
                     <div class="ibox-content">
 
-                        <form ${modelNameUpperCamel}="form" class="form-inline">
+                        <form role="form" class="form-inline">
                         <button class="btn btn-primary" type="button"
-                                @click="add${modelNameUpperCamel}()">新增${modelNameDesc}</button>
+                                @click="addArticle()">新增文章</button>
 
                         <div class="input-group pull-right">
-                            <input type="text" placeholder="请输入${modelNameDesc}名"
+                            <input type="text" placeholder="请输入文章名"
                                    class="input-sm form-control">
                             <span class="input-group-btn">
                                         <button type="button"
@@ -52,7 +52,7 @@
                         </form>
 
                         <div class="table-responsive" style="margin-top: 10px">
-                            <table id="${modelNameLowerCamel}Table"
+                            <table id="articleTable"
                                    class="table table-hover "></table>
                         </div>
                     </div>
@@ -63,25 +63,24 @@
     </div>
 
 
-    <div class="modal inmodal" id="add${modelNameUpperCamel}Modal"
-         tabindex="-1" ${modelNameUpperCamel}="dialog" aria-hidden="true">
+    <div class="modal inmodal" id="addArticleModal"
+         tabindex="-1" Article="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content animated bounceInRight">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">
                     <span aria-hidden="true">×</span><span class="sr-only">关闭</span>
                 </button>
-                <h5 class="modal-title">新增${modelNameDesc}</h5>
-            <#--<small class="font-bold">这里可以显示副标题。</small>-->
+                <h5 class="modal-title">新增文章</h5>
             </div>
             <small>
                 <div class="modal-body">
-                    <form class="form-horizontal " id="add${modelNameUpperCamel}Form">
+                    <form class="form-horizontal " id="addArticleForm">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">${modelNameDesc}名：</label>
+                            <label class="col-sm-3 control-label">文章名：</label>
                             <div class="col-sm-8">
-                                <input id="${modelNameUpperCamel}Name"
-                                       name="${modelNameUpperCamel}Name" minlength="2" type="text"
+                                <input id="ArticleName"
+                                       name="ArticleName" minlength="2" type="text"
                                        maxlength="30" class="form-control">
                             </div>
                         </div>
@@ -98,12 +97,12 @@
                             <div class="col-sm-8">
                                 <label class="checkbox-inline">
                                     <label class="radio-inline">
-                                        <input type="radio" name="${modelNameUpperCamel}Status"
-                                               id="${modelNameUpperCamel}Start" value="1" checked> 是
+                                        <input type="radio" name="ArticleStatus"
+                                               id="ArticleStart" value="1" checked> 是
                                     </label>
                                     <label class="radio-inline">
-                                        <input type="radio" name="${modelNameUpperCamel}Status"
-                                               id="${modelNameUpperCamel}Stop" value="0"> 否
+                                        <input type="radio" name="ArticleStatus"
+                                               id="ArticleStop" value="0"> 否
                                     </label>
                                 </label>
                             </div>
@@ -116,7 +115,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
                     <button type="button" class="btn btn-primary"
-                            @click="save${modelNameUpperCamel}()">保存
+                            @click="saveArticle()">保存
                     </button>
                 </div>
 
@@ -135,7 +134,7 @@
 <script src="${basePath}/static/js/plugins/bootstrap-validator/language/zh_CN.js"></script>
 <script src="${basePath}/static/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
 <script src="${basePath}/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
-<script src="${basePath}/static/js/backend/${modelNameLowerCamel}List.js"></script>
+<script src="${basePath}/static/js/backend/articleList.js"></script>
 
 
 </body>

@@ -3,8 +3,8 @@ package com.yuntian.poeticlife;
 import com.alibaba.druid.stat.DruidStatManagerFacade;
 import com.alibaba.fastjson.JSON;
 import com.yuntian.poeticlife.cache.RedisUtil;
+import com.yuntian.poeticlife.dao.BackendOperaterMapper;
 import com.yuntian.poeticlife.model.entity.BackendOperater;
-import com.yuntian.poeticlife.model.entity.UserAccount;
 import com.yuntian.poeticlife.service.BackendOperaterService;
 
 import org.junit.Test;
@@ -23,7 +23,8 @@ public class BackendOperaterServiceTest extends BaseTest {
 
     @Resource
     private BackendOperaterService backendOperaterService;
-
+    @Resource
+    private BackendOperaterMapper backendOperaterMapper;
 
     @Resource
     private RedisUtil redisUtil;
@@ -44,7 +45,29 @@ public class BackendOperaterServiceTest extends BaseTest {
 
         log.error(JSON.toJSONString(list));
         log.error(JSON.toJSONString(DruidStatManagerFacade.getInstance().getDataSourceStatDataList()));
+
     }
 
+    @Test
+    public void  updateByPrimaryKey(){
+        BackendOperater m=new BackendOperater();
+        m.setId(5L);
+        m.setUpdateId(1L);
+        m.setAccountName("ceshi04");
+        m.setUserName("哈哈");
+        m.setEmail("944610721@qq.com");
+        int result= backendOperaterMapper.updateByPrimaryKey(m);
+        System.out.println(result);
+    }
 
+    @Test
+    public void  updateByPrimaryKeySelective(){
+        BackendOperater m=new BackendOperater();
+        m.setId(5L);
+        m.setUpdateId(1L);
+        m.setUserName("哈哈");
+        m.setEmail("944610721@qq.com");
+        int result= backendOperaterMapper.updateByPrimaryKeySelective(m);
+        System.out.println(result);
+    }
 }

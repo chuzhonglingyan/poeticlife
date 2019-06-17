@@ -3,6 +3,7 @@ package com.yuntian.poeticlife.controller;
 import com.yuntian.poeticlife.core.Result;
 import com.yuntian.poeticlife.core.ResultGenerator;
 import com.yuntian.poeticlife.model.dto.ScheduleJobDTO;
+import com.yuntian.poeticlife.model.dto.ScheduleJobLogDTO;
 import com.yuntian.poeticlife.model.entity.ScheduleJobLog;
 import com.yuntian.poeticlife.model.vo.PageInfoVo;
 import com.yuntian.poeticlife.service.ScheduleJobLogService;
@@ -32,7 +33,7 @@ public class ScheduleJobLogController extends BaseController {
 
 
     @PostMapping("/list")
-    public PageInfoVo<ScheduleJobLog> list(ScheduleJobDTO dto) {
+    public PageInfoVo<ScheduleJobLog> list(ScheduleJobLogDTO dto) {
         return scheduleJobLogService.queryListByPage(dto);
     }
 

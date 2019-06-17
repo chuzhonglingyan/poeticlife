@@ -3,8 +3,11 @@ package com.yuntian.poeticlife.service.impl;
 import com.yuntian.poeticlife.core.AbstractService;
 import com.yuntian.poeticlife.dao.MenuMapper;
 import com.yuntian.poeticlife.exception.BusinessException;
+import com.yuntian.poeticlife.model.dto.MenuDTO;
+import com.yuntian.poeticlife.model.entity.Article;
 import com.yuntian.poeticlife.model.entity.Menu;
 import com.yuntian.poeticlife.model.vo.MenuTreeVO;
+import com.yuntian.poeticlife.model.vo.PageInfoVo;
 import com.yuntian.poeticlife.service.MenuService;
 import com.yuntian.poeticlife.service.OperaterRoleService;
 import com.yuntian.poeticlife.service.RoleMenuService;
@@ -29,7 +32,7 @@ import tk.mybatis.mapper.entity.Example;
  * Created by CodeGenerator on 2019/02/26.
  */
 @Service("menuService")
-public class MenuServiceImpl extends AbstractService<Menu> implements MenuService {
+public class MenuServiceImpl extends AbstractService<MenuDTO,Menu> implements MenuService {
 
 
     @Resource
@@ -120,6 +123,26 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
         return findByCondition(condition);
     }
 
+    @Override
+    public PageInfoVo<Menu> queryListByPage(MenuDTO dto) {
+        return null;
+    }
+
+
+    @Override
+    public void saveByDTO(MenuDTO dto) {
+
+    }
+
+    @Override
+    public void deleteByDTO(MenuDTO dto) {
+
+    }
+
+    @Override
+    public void updateByDTO(MenuDTO dto) {
+
+    }
 
     @Override
     public void save(Menu model) {
@@ -130,7 +153,7 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
         AssertUtil.isNotBlank(model.getMenuCode(), "菜单权限不能为空");
         AssertUtil.isNotNull(model.getMenuType(), "菜单类型不能为空");
         AssertUtil.isNotNull(model.getcreateId(), "创建人不能为空");
-        AssertUtil.isNotNull(model.getupdateId(), "更新人不能为空");
+        AssertUtil.isNotNull(model.getUpdateId(), "更新人不能为空");
 
         if (model.getPid() == 0) {
             model.setMenuLevel((byte) 1);
@@ -145,15 +168,22 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
     }
 
     @Override
-    public void update(Menu model) {
+    public int update(Menu model) {
         AssertUtil.isNotNull(model.getId(), "菜单id不能为空");
         AssertUtil.isNotBlank(model.getMenuName(), "菜单名字不能为空");
         AssertUtil.isNotBlank(model.getMenuUrl(), "菜单值不能为空");
         AssertUtil.isNotBlank(model.getMenuCode(), "菜单权限不能为空");
         AssertUtil.isNotNull(model.getcreateId(), "创建人不能为空");
-        AssertUtil.isNotNull(model.getupdateId(), "更新人不能为空");
-        findById(model.getId());
-        super.update(model);
+        AssertUtil.isNotNull(model.getUpdateId(), "更新人不能为空");
+        Menu  menuTemp=findById(model.getId());
+        if (menuTemp==null){
+            BusinessException.throwMessage("该菜单不存在");
+        }
+        menuTemp.setMenuName(model.getMenuName());
+        menuTemp.setMenuUrl(model.getMenuUrl());
+        menuTemp.setMenuCode(model.getMenuCode());
+        menuTemp.setUpdateId(model.getUpdateId());
+        return super.update(menuTemp);
     }
 
 

@@ -210,7 +210,7 @@ public class BackendOperater implements Serializable {
      *
      * @return update_id - 更新人
      */
-    public Long getupdateId() {
+    public Long getUpdateId() {
         return updateId;
     }
 
@@ -219,7 +219,7 @@ public class BackendOperater implements Serializable {
      *
      * @param updateId 更新人
      */
-    public void setupdateId(Long updateId) {
+    public void setUpdateId(Long updateId) {
         this.updateId = updateId;
     }
 

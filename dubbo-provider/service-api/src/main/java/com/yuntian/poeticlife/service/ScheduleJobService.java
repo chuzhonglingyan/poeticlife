@@ -9,12 +9,11 @@ import com.yuntian.poeticlife.model.vo.PageInfoVo;
 /**
  * Created by CodeGenerator on 2019/03/17.
  */
-public interface ScheduleJobService extends Service<ScheduleJob> {
+public interface ScheduleJobService extends Service<ScheduleJobDTO,ScheduleJob> {
 
     int insertJob(ScheduleJob scheduleJob);
 
 
-    PageInfoVo<ScheduleJob> queryListByPage(ScheduleJobDTO dto);
 
     public void run(Long id) ;
 

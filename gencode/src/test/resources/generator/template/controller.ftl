@@ -3,56 +3,72 @@ import ${basePackage}.core.Result;
 import ${basePackage}.core.ResultGenerator;
 import ${basePackage}.model.entity.${modelNameUpperCamel};
 import ${basePackage}.service.${modelNameUpperCamel}Service;
-import com.github.pagehelper.PageHelper;
 import com.yuntian.poeticlife.model.vo.PageInfoVo;
-import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ResponseBody;
+import ${basePackage}.model.dto.${modelNameUpperCamel}DTO;
+import ${basePackage}.model.vo.${modelNameUpperCamel}VO;
 import javax.annotation.Resource;
-import java.util.List;
+
 
 /**
 * Created by ${author} on ${date}.
 */
-@RestController
+@Controller
 @RequestMapping("${baseRequestMapping}")
 public class ${modelNameUpperCamel}Controller extends BaseController{
 
     @Resource
     private ${modelNameUpperCamel}Service ${modelNameLowerCamel}Service;
 
+    @RequestMapping("/pageList")
+    public String pageList() {
+        return "backend/${modelNameLowerCamel}List";
+    }
+
     @PostMapping("/add")
-    public Result add(${modelNameUpperCamel} ${modelNameLowerCamel}) {
-        ${modelNameLowerCamel}Service.save(${modelNameLowerCamel});
+    @ResponseBody
+    public Result add(${modelNameUpperCamel}DTO dto) {
+        dto.setCreateId(getUserId());
+        dto.setUpdateId(getUserId());
+        ${modelNameLowerCamel}Service.saveByDTO(dto);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/delete")
-    public Result delete(@RequestParam Long id) {
-        ${modelNameLowerCamel}Service.deleteById(id);
+    @ResponseBody
+    public Result delete(${modelNameUpperCamel}DTO dto) {
+        dto.setCreateId(getUserId());
+        dto.setUpdateId(getUserId());
+        ${modelNameLowerCamel}Service.deleteByDTO(dto);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/update")
-    public Result update(${modelNameUpperCamel} ${modelNameLowerCamel}) {
-        ${modelNameLowerCamel}Service.update(${modelNameLowerCamel});
+    @ResponseBody
+    public Result update(${modelNameUpperCamel}DTO dto) {
+        dto.setCreateId(getUserId());
+        dto.setUpdateId(getUserId());
+        ${modelNameLowerCamel}Service.updateByDTO(dto);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/detail")
+    @ResponseBody
     public Result detail(@RequestParam Long id) {
         ${modelNameUpperCamel} ${modelNameLowerCamel} = ${modelNameLowerCamel}Service.findById(id);
         return ResultGenerator.genSuccessResult(${modelNameLowerCamel});
     }
 
+
     @PostMapping("/list")
-    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
-        PageHelper.startPage(page, size);
-        List<${modelNameUpperCamel}> childList = ${modelNameLowerCamel}Service.findAll();
-        PageInfoVo<${modelNameUpperCamel}> pageInfo = new PageInfoVo<>(new PageInfo<>(childList));
-        return ResultGenerator.genSuccessResult(pageInfo);
+    @ResponseBody
+    public PageInfoVo<${modelNameUpperCamel}VO> list(${modelNameUpperCamel}DTO dTO) {
+        return ${modelNameLowerCamel}Service.queryListByPage(dTO);
     }
+
+
 }

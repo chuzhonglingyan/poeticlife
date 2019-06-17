@@ -3,7 +3,7 @@ package com.yuntian.poeticlife.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yuntian.basecommon.util.PasswordUtil;
-import com.yuntian.basecommon.util.encrypt.use.MD5Util;
+import com.yuntian.poeticlife.model.dto.BackendOperaterDTO;
 import com.yuntian.poeticlife.util.AssertUtil;
 import com.yuntian.poeticlife.core.AbstractService;
 import com.yuntian.poeticlife.dao.BackendOperaterMapper;
@@ -11,7 +11,6 @@ import com.yuntian.poeticlife.exception.BusinessException;
 import com.yuntian.poeticlife.model.dto.OperaterDTO;
 import com.yuntian.poeticlife.model.entity.BackendOperater;
 import com.yuntian.poeticlife.model.entity.Menu;
-import com.yuntian.poeticlife.model.entity.OperaterRole;
 import com.yuntian.poeticlife.model.entity.Role;
 import com.yuntian.poeticlife.model.vo.MenuTreeVO;
 import com.yuntian.poeticlife.model.vo.PageInfoVo;
@@ -39,7 +38,7 @@ import tk.mybatis.mapper.entity.Example;
  * Created by CodeGenerator on 2019/02/23.
  */
 @Service("backendOperaterService")
-public class BackendOperaterServiceImpl extends AbstractService<BackendOperater> implements BackendOperaterService {
+public class BackendOperaterServiceImpl extends AbstractService<BackendOperaterDTO,BackendOperater> implements BackendOperaterService {
 
     @Resource
     private OperaterRoleService operaterRoleService;
@@ -51,13 +50,28 @@ public class BackendOperaterServiceImpl extends AbstractService<BackendOperater>
 
 
     @Override
+    public void saveByDTO(BackendOperaterDTO dto) {
+
+    }
+
+    @Override
+    public void deleteByDTO(BackendOperaterDTO dto) {
+
+    }
+
+    @Override
+    public void updateByDTO(BackendOperaterDTO dto) {
+
+    }
+
+    @Override
     public void save(BackendOperater model) {
         AssertUtil.isNotNull(model, "参数不能为空");
         AssertUtil.isNotNull(model.getAccountName(), "账号不能为空");
         AssertUtil.isNotNull(model.getUserName(), "用户名不能为空");
         AssertUtil.isNotNull(model.getEmail(), "邮箱不能为空");
         AssertUtil.isNotNull(model.getcreateId(), "创建人不能为空");
-        AssertUtil.isNotNull(model.getupdateId(), "更新人不能为空");
+        AssertUtil.isNotNull(model.getUpdateId(), "更新人不能为空");
         BackendOperater backendOperater = findOperaterByAccount(model.getAccountName());
         if (!Objects.isNull(backendOperater)) {
             BusinessException.throwMessage("已经存在该账号");
@@ -69,12 +83,12 @@ public class BackendOperaterServiceImpl extends AbstractService<BackendOperater>
 
 
     @Override
-    public void update(BackendOperater model) {
+    public int update(BackendOperater model) {
         AssertUtil.isNotNull(model, "参数不能为空");
         AssertUtil.isNotNull(model.getId(), "用户id不能为空");
         AssertUtil.isNotNull(model.getUserName(), "用户名不能为空");
         AssertUtil.isNotNull(model.getEmail(), "邮箱不能为空");
-        AssertUtil.isNotNull(model.getupdateId(), "更新人不能为空");
+        AssertUtil.isNotNull(model.getUpdateId(), "更新人不能为空");
 
         BackendOperater backendOperater = findById(model.getId());
         if (Objects.isNull(backendOperater)) {
@@ -85,7 +99,7 @@ public class BackendOperaterServiceImpl extends AbstractService<BackendOperater>
         }else {
             model.setPassWord(PasswordUtil.md5HexWithSalt(model.getPassWord()));
         }
-        super.update(model);
+        return super.update(model);
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -114,6 +128,11 @@ public class BackendOperaterServiceImpl extends AbstractService<BackendOperater>
         return null;
     }
 
+    @Override
+    public PageInfoVo<BackendOperater> queryListByPage(BackendOperaterDTO dto) {
+        return null;
+    }
+
 
     @Override
     public BackendOperater findOperaterByAccount(String accountName) {
@@ -134,7 +153,7 @@ public class BackendOperaterServiceImpl extends AbstractService<BackendOperater>
     public void isEnable(BackendOperater model) {
         AssertUtil.isNotNull(model, "参数不能为空");
         AssertUtil.isNotNull(model.getId(), "用户id不能为空");
-        AssertUtil.isNotNull(model.getupdateId(), "更新人不能为空");
+        AssertUtil.isNotNull(model.getUpdateId(), "更新人不能为空");
         model.setIsEnable((byte) 1);
         super.update(model);
     }
@@ -143,7 +162,7 @@ public class BackendOperaterServiceImpl extends AbstractService<BackendOperater>
     public void isStop(BackendOperater model) {
         AssertUtil.isNotNull(model, "参数不能为空");
         AssertUtil.isNotNull(model.getId(), "用户id不能为空");
-        AssertUtil.isNotNull(model.getupdateId(), "更新人不能为空");
+        AssertUtil.isNotNull(model.getUpdateId(), "更新人不能为空");
         model.setIsEnable((byte) 0);
         super.update(model);
     }

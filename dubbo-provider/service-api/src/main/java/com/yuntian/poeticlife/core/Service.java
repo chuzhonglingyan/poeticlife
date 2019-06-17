@@ -1,5 +1,7 @@
 package com.yuntian.poeticlife.core;
 
+import com.yuntian.poeticlife.model.vo.PageInfoVo;
+
 import org.apache.ibatis.exceptions.TooManyResultsException;
 
 import java.util.List;
@@ -9,7 +11,9 @@ import tk.mybatis.mapper.entity.Condition;
 /**
  * Service 层 基础接口，其他Service 接口 请继承该接口
  */
-public interface Service<T> {
+public interface Service<K,T> {
+
+
     void save(T model);//持久化
 
     void save(List<T> models);//批量持久化
@@ -20,7 +24,7 @@ public interface Service<T> {
 
     void deleteByIds(List<Long> ids);//批量刪除 eg：ids -> “1,2,3,4”
 
-    void update(T model);//更新
+    int update(T model);//更新
 
     T findById(Long id);//通过ID查找
 
@@ -36,4 +40,16 @@ public interface Service<T> {
     List<T> findByCondition(Condition condition);//根据条件查找
 
     List<T> findAll();//获取所有
+
+
+
+    PageInfoVo<T> queryListByPage(K dto);
+
+    void saveByDTO(K dto);
+
+    void deleteByDTO(K dto);
+
+    void updateByDTO(K dto);
+
+
 }

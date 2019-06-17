@@ -2,9 +2,7 @@ package com.yuntian.poeticlife.controller;
 import com.yuntian.poeticlife.core.Result;
 import com.yuntian.poeticlife.core.ResultGenerator;
 import com.yuntian.poeticlife.model.dto.OperaterRoleDTO;
-import com.yuntian.poeticlife.model.dto.RoleMenuDTO;
 import com.yuntian.poeticlife.model.entity.OperaterRole;
-import com.yuntian.poeticlife.model.vo.MenuVO;
 import com.yuntian.poeticlife.model.vo.RoleVO;
 import com.yuntian.poeticlife.service.OperaterRoleService;
 import com.github.pagehelper.PageHelper;
@@ -32,8 +30,8 @@ public class OperaterRoleController extends BaseController{
 
     @PostMapping("/saveRoleListByOperaterId")
     public Result saveRoleListByOperaterId(@RequestBody OperaterRoleDTO dto) {
-        dto.setcreateId(getUserId());
-        dto.setupdateId(getUserId());
+        dto.setCreateId(getUserId());
+        dto.setUpdateId(getUserId());
         operaterRoleService.saveRoleListByOperaterId(dto);
         return ResultGenerator.genSuccessResult();
     }

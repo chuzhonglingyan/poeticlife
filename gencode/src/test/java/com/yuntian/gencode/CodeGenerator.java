@@ -1,9 +1,20 @@
-package com.yuntian.poeticlife;
+package com.yuntian.gencode;
 
 import com.google.common.base.CaseFormat;
+
 import org.apache.commons.lang3.StringUtils;
 import org.mybatis.generator.api.MyBatisGenerator;
-import org.mybatis.generator.config.*;
+import org.mybatis.generator.config.Configuration;
+import org.mybatis.generator.config.Context;
+import org.mybatis.generator.config.GeneratedKey;
+import org.mybatis.generator.config.JDBCConnectionConfiguration;
+import org.mybatis.generator.config.JavaClientGeneratorConfiguration;
+import org.mybatis.generator.config.JavaModelGeneratorConfiguration;
+import org.mybatis.generator.config.ModelType;
+import org.mybatis.generator.config.PluginConfiguration;
+import org.mybatis.generator.config.PropertyRegistry;
+import org.mybatis.generator.config.SqlMapGeneratorConfiguration;
+import org.mybatis.generator.config.TableConfiguration;
 import org.mybatis.generator.internal.DefaultShellCallback;
 import java.io.File;
 import java.io.FileWriter;
@@ -15,8 +26,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import freemarker.template.TemplateExceptionHandler;
+import static com.yuntian.gencode.CodeGenUtil.*;
+import static com.yuntian.gencode.ProjectConstant.*;
 
-import static com.yuntian.poeticlife.core.ProjectConstant.*;
 
 
 /**
@@ -35,6 +47,9 @@ public class CodeGenerator {
     public static final String JAVA_PATH = "/src/main/java"; //java文件路径
     public static final String RESOURCES_PATH = "/src/main/resources";//资源文件路径
 
+    public static final String PACKAGE_PATH_DTO = packageConvertPath(DTO_PACKAGE);//生成的dto存放路径
+    public static final String PACKAGE_PATH_VO = packageConvertPath(VO_PACKAGE);//生成的vo存放路径
+    public static final String PACKAGE_PATH_DAO = packageConvertPath(MAPPER_PACKAGE);//生成的vo存放路径
     public static final String PACKAGE_PATH_SERVICE = packageConvertPath(SERVICE_PACKAGE);//生成的Service存放路径
     public static final String PACKAGE_PATH_SERVICE_IMPL = packageConvertPath(SERVICE_IMPL_PACKAGE);//生成的Service实现存放路径
     public static final String PACKAGE_PATH_CONTROLLER = packageConvertPath(CONTROLLER_PACKAGE);//生成的Controller存放路径
@@ -44,6 +59,7 @@ public class CodeGenerator {
 
 
     public static final String MODEL_PATH = PROJECT_PATH + SERVICE_API_PATH+ JAVA_PATH;
+    public static final String VO_PATH = PROJECT_PATH + SERVICE_API_PATH+ JAVA_PATH;
     public static final String MAPPER_PATH = PROJECT_PATH + SERVICE_PROVIDER_PATH+ RESOURCES_PATH;
     public static final String DAO_PATH = PROJECT_PATH + SERVICE_PROVIDER_PATH+ JAVA_PATH;
 
@@ -56,14 +72,14 @@ public class CodeGenerator {
     public static final String BACKEND_JS= PROJECT_PATH + BACKEND_PATH+ "/src/main/resources/static/js/backend/";
 
 
-    public static final String TEMPLATE_FILE_PATH = PROJECT_PATH + SERVICE_PROVIDER_PATH + "/src/test/resources/generator/template";//模板位置
+    public static final String TEMPLATE_FILE_PATH = PROJECT_PATH + TMPFILE_PATH + "/src/test/resources/generator/template";//模板位置
 
 
 
     public static void main(String[] args) {
-        genCode("dict");
-        genViewList("dict",null,"字典");
-        genJSList("dict",null,"字典");
+        genCode(new String[]{"article"},new String[]{"文章"});
+        genViewList("article",null,"文章");
+        genJSList("article",null,"文章");
         //genCodeByCustomModelName("输入表名","输入自定义Model名称");
     }
 
@@ -73,10 +89,11 @@ public class CodeGenerator {
      *
      * @param tableNames 数据表名称...
      */
-    public static void genCode(String... tableNames) {
-        for (String tableName : tableNames) {
-            genCodeByCustomModelName(tableName, null);
+    public static void genCode(String[] tableNames,String[] modelNameDescs) {
+        for (int i = 0; i < tableNames.length; i++) {
+            genCodeByCustomModelName(tableNames[i], null,modelNameDescs[i]);
         }
+
     }
 
     /**
@@ -86,14 +103,16 @@ public class CodeGenerator {
      * @param tableName 数据表名称
      * @param modelName 自定义的 Model 名称
      */
-    public static void genCodeByCustomModelName(String tableName, String modelName) {
-        genModelAndMapper(tableName, modelName);
-        genService(tableName, modelName);
-        genBackendController(tableName, modelName);
+    public static void genCodeByCustomModelName(String tableName, String modelName,String modelNameDesc) {
+        genVOAndDTO(tableName,modelName,modelNameDesc);
+        genModelAndMapper(tableName, modelName,modelNameDesc);
+        genDaoMapper(tableName,modelName,modelNameDesc);
+        genService(tableName, modelName,modelNameDesc);
+        genBackendController(tableName, modelName,modelNameDesc);
     }
 
 
-    public static void genModelAndMapper(String tableName, String modelName) {
+    public static void genModelAndMapper(String tableName, String modelName,String modelNameDes) {
         Context context = new Context(ModelType.FLAT);
         context.setId("Potato");
         context.setTargetRuntime("MyBatis3Simple");
@@ -143,7 +162,7 @@ public class CodeGenerator {
 
             boolean overwrite = true;
             DefaultShellCallback callback = new DefaultShellCallback(overwrite);
-            warnings = new ArrayList<String>();
+            warnings = new ArrayList<>();
             generator = new MyBatisGenerator(config, callback, warnings);
             generator.generate(null);
         } catch (Exception e) {
@@ -159,13 +178,69 @@ public class CodeGenerator {
         System.out.println(modelName + "Mapper.xml 生成成功");
     }
 
-    public static void genService(String tableName, String modelName) {
+
+    public static void genVOAndDTO(String tableName, String modelName,String modelNameDes) {
         try {
             freemarker.template.Configuration cfg = getConfiguration();
 
             Map<String, Object> data = new HashMap<>();
             data.put("date", DATE);
             data.put("author", AUTHOR);
+            String modelNameUpperCamel = StringUtils.isEmpty(modelName) ? tableNameConvertUpperCamel(tableName) : modelName;
+            data.put("modelNameUpperCamel", modelNameUpperCamel);
+            data.put("modelNameLowerCamel", tableNameConvertLowerCamel(tableName));
+            data.put("basePackage", BASE_PACKAGE);
+            File fileDTO = new File(MODEL_PATH + PACKAGE_PATH_DTO + modelNameUpperCamel + "DTO.java");
+            if (!fileDTO.getParentFile().exists()) {
+                fileDTO.getParentFile().mkdirs();
+            }
+            cfg.getTemplate("dto.ftl").process(data, new FileWriter(fileDTO));
+            System.out.println(modelNameUpperCamel + "DTO.java 生成成功");
+
+            File fileVO = new File(MODEL_PATH + PACKAGE_PATH_VO + modelNameUpperCamel + "VO.java");
+            if (!fileVO.getParentFile().exists()) {
+                fileVO.getParentFile().mkdirs();
+            }
+            cfg.getTemplate("vo.ftl").process(data, new FileWriter(fileVO));
+            System.out.println(modelNameUpperCamel + "VO.java 生成成功");
+        } catch (Exception e) {
+            throw new RuntimeException("生成DTO and VO 失败", e);
+        }
+    }
+
+    public static void genDaoMapper(String tableName, String modelName,String modelNameDes) {
+        try {
+            freemarker.template.Configuration cfg = getConfiguration();
+
+            Map<String, Object> data = new HashMap<>();
+            data.put("date", DATE);
+            data.put("author", AUTHOR);
+            String modelNameUpperCamel = StringUtils.isEmpty(modelName) ? tableNameConvertUpperCamel(tableName) : modelName;
+            data.put("modelNameUpperCamel", modelNameUpperCamel);
+            data.put("modelNameLowerCamel", tableNameConvertLowerCamel(tableName));
+            data.put("basePackage", BASE_PACKAGE);
+
+            File daoFile = new File(DAO_PATH + PACKAGE_PATH_DAO+ modelNameUpperCamel + "Mapper.java");
+            if (!daoFile.getParentFile().exists()) {
+                daoFile.getParentFile().mkdirs();
+            }
+            cfg.getTemplate("dao.ftl").process(data, new FileWriter(daoFile));
+            System.out.println(modelNameUpperCamel + "Mapper.java 生成成功");
+        } catch (Exception e) {
+            throw new RuntimeException("生成dao 失败", e);
+        }
+    }
+
+
+
+    public static void genService(String tableName, String modelName,String modelNameDesc) {
+        try {
+            freemarker.template.Configuration cfg = getConfiguration();
+
+            Map<String, Object> data = new HashMap<>();
+            data.put("date", DATE);
+            data.put("author", AUTHOR);
+            data.put("modelNameDesc", modelNameDesc);
             String modelNameUpperCamel = StringUtils.isEmpty(modelName) ? tableNameConvertUpperCamel(tableName) : modelName;
             data.put("modelNameUpperCamel", modelNameUpperCamel);
             data.put("modelNameLowerCamel", tableNameConvertLowerCamel(tableName));
@@ -191,7 +266,7 @@ public class CodeGenerator {
         }
     }
 
-    public static void genBackendController(String tableName, String modelName) {
+    public static void genBackendController(String tableName, String modelName,String modelNameDes) {
         try {
             freemarker.template.Configuration cfg = getConfiguration();
 
@@ -276,27 +351,6 @@ public class CodeGenerator {
         return cfg;
     }
 
-    private static String tableNameConvertLowerCamel(String tableName) {
-        return CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, tableName.toLowerCase());
-    }
 
-    private static String tableNameConvertUpperCamel(String tableName) {
-        return CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, tableName.toLowerCase());
-
-    }
-
-    private static String tableNameConvertMappingPath(String tableName) {
-        tableName = tableName.toLowerCase();//兼容使用大写的表名
-        return "/" + (tableName.contains("_") ? tableName.replaceAll("_", "/") : tableName);
-    }
-
-    private static String modelNameConvertMappingPath(String modelName) {
-        String tableName = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, modelName);
-        return tableNameConvertMappingPath(tableName);
-    }
-
-    private static String packageConvertPath(String packageName) {
-        return String.format("/%s/", packageName.contains(".") ? packageName.replaceAll("\\.", "/") : packageName);
-    }
 
 }

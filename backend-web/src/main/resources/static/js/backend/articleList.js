@@ -1,21 +1,21 @@
 var vm = new Vue({
-    el: '#${modelNameLowerCamel}List',
+    el: '#articleList',
     data: {
         url: {
-            queryUrl: baseURL + "/${modelNameLowerCamel}/list",
-            addUrl: baseURL + "/${modelNameLowerCamel}/add",
-            updateUrl: baseURL + "/${modelNameLowerCamel}/update",
-            isEnableUrl: baseURL + "/${modelNameLowerCamel}/isEnable",
-            isStopUrl: baseURL + "/${modelNameLowerCamel}/isStop",
-            deleteUrl: baseURL + "/${modelNameLowerCamel}/delete"
+            queryUrl: baseURL + "/article/list",
+            addUrl: baseURL + "/article/add",
+            updateUrl: baseURL + "/article/update",
+            isEnableUrl: baseURL + "/article/isEnable",
+            isStopUrl: baseURL + "/article/isStop",
+            deleteUrl: baseURL + "/article/delete"
         },
         validator: {},
         rowData:null,
-        add${modelNameLowerCamel}Modal:null
+        addarticleModal:null
     },
     methods: {
         queryData: function () {
-            var table = $('#${modelNameLowerCamel}Table');
+            var table = $('#articleTable');
             table.bootstrapTable('destroy');
             table.bootstrapTable({
                 url: this.url.queryUrl,      //请求后台的URL（*）
@@ -30,10 +30,9 @@ var vm = new Vue({
                 pageSize: 10,
                 striped: true, //每行表格的背景会显示灰白相间
                 queryParams: function (params) { //查询的参数
-                    var startPage = params.offset + 1;
                     return {
-                        "pageNum": startPage,
-                        "pageSize": params.limit
+                        pageNum: (params.offset / params.limit) + 1,
+                        pageSize: params.limit
                     };
                 },
                 columns: [{
@@ -43,12 +42,12 @@ var vm = new Vue({
                     },
                     align: 'center'
                 }, {
-                    field: '${modelNameLowerCamel}Name',
-                    title: "${modelNameDesc}名称",
+                    field: 'articleName',
+                    title: "文章名称",
                     align: 'center'
                 }, {
-                    field: '${modelNameLowerCamel}Status',
-                    title: "${modelNameDesc}状态",
+                    field: 'articleStatus',
+                    title: "文章状态",
                     align: 'center',
                     formatter: function (value, row, index) {
                         return formatStatus(value);
@@ -78,12 +77,12 @@ var vm = new Vue({
                     title: "操作",
                     formatter: function option(value, row, index) {
                         var str = "";
-                        str += "<button style='margin-left:15px' class='btn btn-xs btn-info' onclick='vm.edit${modelNameUpperCamel}(" + JSON.stringify(row) + ")'><i class=\"fa fa-pencil-square-o\" ></i>&nbsp;编辑</button> ";
-                        if (row.${modelNameLowerCamel}Status === 1) {
-                            str += "<button style='margin-left:15px' class='btn btn-xs btn-warning ' onclick='vm.freeze${modelNameUpperCamel}(" + row.id + ")'><i class=\"fa fa-ban\" ></i>禁用</button>";
+                        str += "<button style='margin-left:15px' class='btn btn-xs btn-info' onclick='vm.editArticle(" + JSON.stringify(row) + ")'><i class=\"fa fa-pencil-square-o\" ></i>&nbsp;编辑</button> ";
+                        if (row.articleStatus === 1) {
+                            str += "<button style='margin-left:15px' class='btn btn-xs btn-warning ' onclick='vm.freezeArticle(" + row.id + ")'><i class=\"fa fa-ban\" ></i>禁用</button>";
                         } else {
-                            str += "<button style='margin-left:15px' class='btn btn-xs btn-success ' onclick='vm.eable${modelNameUpperCamel}(" + row.id + ")'><i class=\"fa fa-play\" ></i>启用</button>";
-                            str += "<button style='margin-left:15px' class='btn btn-xs btn-danger ' onclick='vm.delete${modelNameUpperCamel}(" + row.id + ")'><i class=\"fa fa-trash-o\" ></i>&nbsp;删除</button>";
+                            str += "<button style='margin-left:15px' class='btn btn-xs btn-success ' onclick='vm.eableArticle(" + row.id + ")'><i class=\"fa fa-play\" ></i>启用</button>";
+                            str += "<button style='margin-left:15px' class='btn btn-xs btn-danger ' onclick='vm.deleteArticle(" + row.id + ")'><i class=\"fa fa-trash-o\" ></i>&nbsp;删除</button>";
                         }
                         return str;
                     },
@@ -99,7 +98,7 @@ var vm = new Vue({
                 }
             });
         },
-        eable${modelNameUpperCamel}: function (id) {
+        eableArticle: function (id) {
             postFormFull(vm.url.isEnableUrl,{"id":id},function (data) {
                 layer.msg("启用成功");
                 vm.queryData();
@@ -107,7 +106,7 @@ var vm = new Vue({
                 layer.msg(msg);
             })
         },
-        freeze${modelNameUpperCamel}: function (id) {
+        freezeArticle: function (id) {
             postFormFull(vm.url.isStopUrl,{"id":id},function (data) {
                 layer.msg("禁用成功");
                 vm.queryData();
@@ -115,21 +114,21 @@ var vm = new Vue({
                 layer.msg(msg);
             })
         },
-        edit${modelNameUpperCamel}: function (row) {
+        editArticle: function (row) {
             vm.rowData=row;
-            $('#${modelNameLowerCamel}Name').val(row.${modelNameUpperCamel}Name);
+            $('#articleName').val(row.ArticleName);
             $('#remark').val(row.remark);
-            var  ${modelNameLowerCamel}Status=row.${modelNameUpperCamel}Status;
-            $('input:radio[name="${modelNameLowerCamel}Status"][value='+${modelNameLowerCamel}Status+']').prop("checked", "checked");
-            setModalTitle( vm.add${modelNameUpperCamel}Modal,"编辑${modelNameDesc}");
-            showModal( vm.add${modelNameUpperCamel}Modal);
+            var  articleStatus=row.ArticleStatus;
+            $('input:radio[name="articleStatus"][value='+articleStatus+']').prop("checked", "checked");
+            setModalTitle( vm.addArticleModal,"编辑文章");
+            showModal( vm.addArticleModal);
         },
-        add${modelNameUpperCamel}: function () {
+        addArticle: function () {
             vm.rowData=null;
-            setModalTitle( vm.add${modelNameUpperCamel}Modal,"新增${modelNameDesc}");
-            showModal( vm.add${modelNameUpperCamel}Modal);
+            setModalTitle( vm.addArticleModal,"新增文章");
+            showModal( vm.addArticleModal);
         },
-        delete${modelNameUpperCamel}: function (id) {
+        deleteArticle: function (id) {
             //询问框
             layer.confirm('确定要删除？', {btn: ['确定', '取消']}, function () {
                 postFormFull(vm.url.deleteUrl,{"id":id},function (data) {
@@ -141,15 +140,15 @@ var vm = new Vue({
             }, function () {
             });
         },
-        save${modelNameUpperCamel}: function () {
-            var  paramFrom= $('#add${modelNameUpperCamel}Form').serialize();
+        saveArticle: function () {
+            var  paramFrom= $('#addArticleForm').serialize();
 
             vm.validator.validate();
             if (vm.validator.isValid()) {
                 if (isEmpty(vm.rowData)) {
                     postFormFull(vm.url.addUrl,paramFrom,function (data) {
                         layer.msg("新增成功");
-                        hideModal( vm.add${modelNameUpperCamel}Modal);
+                        hideModal( vm.addArticleModal);
                         vm.queryData();
                     },function (msg) {
                         layer.msg(msg);
@@ -158,7 +157,7 @@ var vm = new Vue({
                     var data = $.param({'id': vm.rowData.id}) + '&' + paramFrom;
                     postFormFull(vm.url.updateUrl,data,function (data) {
                         layer.msg("编辑成功");
-                        hideModal( vm.add${modelNameUpperCamel}Modal);
+                        hideModal( vm.addArticleModal);
                         vm.queryData();
                     },function (msg) {
                         layer.msg(msg);
@@ -172,7 +171,7 @@ var vm = new Vue({
     },
     mounted: function () {
         this.queryData();
-        this.add${modelNameUpperCamel}Modal=$('#add${modelNameUpperCamel}Modal');
+        this.addArticleModal=$('#addArticleModal');
         initModalListener();
     }
 });
@@ -181,22 +180,22 @@ var vm = new Vue({
 
 
 function initModalListener() {
-    var  add${modelNameUpperCamel}Modal= $("#add${modelNameUpperCamel}Modal");
-    showModalListener(add${modelNameUpperCamel}Modal,function () {
+    var  addArticleModal= $("#addArticleModal");
+    showModalListener(addArticleModal,function () {
         initValidForm();
-        vm.validator = $("#add${modelNameUpperCamel}Form").data("bootstrapValidator");
+        vm.validator = $("#addArticleForm").data("bootstrapValidator");
         console.debug("显示");
     });
 
-    hideModalListener(add${modelNameUpperCamel}Modal,function () {
+    hideModalListener(addArticleModal,function () {
         console.debug("消失");
-        $('#add${modelNameUpperCamel}Form')[0].reset();
+        $('#addArticleForm')[0].reset();
         vm.validator.destroy();
     })
 }
 
 function initValidForm() {
-    $('#add${modelNameUpperCamel}Form').bootstrapValidator({
+    $('#addArticleForm').bootstrapValidator({
         message: 'This value is not valid',
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',
@@ -204,11 +203,11 @@ function initValidForm() {
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-            ${modelNameUpperCamel}Name: {
-                message: '${modelNameDesc}验证失败',
+            ArticleName: {
+                message: '文章验证失败',
                 validators: {
                     notEmpty: {
-                        message: '${modelNameDesc}名不能为空'
+                        message: '文章名不能为空'
                     }
                 }
             },

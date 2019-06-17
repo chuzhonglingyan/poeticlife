@@ -1,5 +1,7 @@
 package com.yuntian.poeticlife.service.impl;
 
+import com.yuntian.poeticlife.model.entity.Article;
+import com.yuntian.poeticlife.model.vo.PageInfoVo;
 import com.yuntian.poeticlife.util.AssertUtil;
 import com.yuntian.poeticlife.util.CglibBeanCopierUtils;
 import com.yuntian.poeticlife.core.AbstractService;
@@ -28,7 +30,7 @@ import tk.mybatis.mapper.entity.Example;
  * Created by CodeGenerator on 2019/02/26.
  */
 @Service("operaterRoleService")
-public class OperaterRoleServiceImpl extends AbstractService<OperaterRole> implements OperaterRoleService {
+public class OperaterRoleServiceImpl extends AbstractService<OperaterRoleDTO,OperaterRole> implements OperaterRoleService {
     @Resource
     private OperaterRoleMapper operaterRoleMapper;
 
@@ -89,8 +91,8 @@ public class OperaterRoleServiceImpl extends AbstractService<OperaterRole> imple
                 OperaterRole operaterRole = new OperaterRole();
                 operaterRole.setOperaterId(dto.getOperaterId());
                 operaterRole.setRoleId(roleId);
-                operaterRole.setcreateId(dto.getcreateId());
-                operaterRole.setupdateId(dto.getupdateId());
+                operaterRole.setcreateId(dto.getCreateId());
+                operaterRole.setupdateId(dto.getUpdateId());
                 operaterRole.setCreateTime(new Date());
                 operaterRole.setUpdateTime(new Date());
                 operaterRoleList.add(operaterRole);
@@ -109,4 +111,23 @@ public class OperaterRoleServiceImpl extends AbstractService<OperaterRole> imple
     }
 
 
+    @Override
+    public PageInfoVo<OperaterRole> queryListByPage(OperaterRoleDTO dto) {
+        return null;
+    }
+
+    @Override
+    public void saveByDTO(OperaterRoleDTO dto) {
+
+    }
+
+    @Override
+    public void deleteByDTO(OperaterRoleDTO dto) {
+
+    }
+
+    @Override
+    public void updateByDTO(OperaterRoleDTO dto) {
+
+    }
 }

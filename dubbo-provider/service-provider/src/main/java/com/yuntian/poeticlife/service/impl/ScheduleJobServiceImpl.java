@@ -2,6 +2,8 @@ package com.yuntian.poeticlife.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.yuntian.poeticlife.model.dto.ArticleDTO;
+import com.yuntian.poeticlife.model.entity.Article;
 import com.yuntian.poeticlife.util.AssertUtil;
 import com.yuntian.poeticlife.core.AbstractService;
 import com.yuntian.poeticlife.dao.ScheduleJobMapper;
@@ -43,7 +45,7 @@ import tk.mybatis.mapper.entity.Example;
  * Created by CodeGenerator on 2019/03/17.
  */
 @Service("scheduleJobService")
-public class ScheduleJobServiceImpl extends AbstractService<ScheduleJob> implements ScheduleJobService {
+public class ScheduleJobServiceImpl extends AbstractService<ScheduleJobDTO,ScheduleJob> implements ScheduleJobService {
     //第一种方式
     private ExecutorService executor = Executors.newCachedThreadPool();
 
@@ -65,6 +67,21 @@ public class ScheduleJobServiceImpl extends AbstractService<ScheduleJob> impleme
                 schedulerUtil.start(scheduleJob);
             }
         }
+
+    }
+
+    @Override
+    public void saveByDTO(ScheduleJobDTO dto) {
+
+    }
+
+    @Override
+    public void deleteByDTO(ScheduleJobDTO dto) {
+
+    }
+
+    @Override
+    public void updateByDTO(ScheduleJobDTO dto) {
 
     }
 
@@ -117,7 +134,7 @@ public class ScheduleJobServiceImpl extends AbstractService<ScheduleJob> impleme
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void update(ScheduleJob model) {
+    public int update(ScheduleJob model) {
         AssertUtil.isNotNull(model.getId(), "更新id不能为空");
         AssertUtil.isNotNull(model.getGroupName(), "组名不能为空");
         AssertUtil.isNotNull(model.getBeanName(), "实体类不能为空");
@@ -126,13 +143,13 @@ public class ScheduleJobServiceImpl extends AbstractService<ScheduleJob> impleme
         AssertUtil.isNotNull(model.getupdateId(), "更新人不能为空");
 
         check(model.getBeanName(),model.getMethodName(),model.getParams());
-        super.update(model);
         try {
             schedulerUtil.updateTrigger(model);
         } catch (SchedulerException | ParseException e) {
             e.printStackTrace();
             BusinessException.throwMessage("更新定时任务信息发生异常");
         }
+        return super.update(model);
     }
 
 
@@ -152,17 +169,21 @@ public class ScheduleJobServiceImpl extends AbstractService<ScheduleJob> impleme
         return scheduleJobMapper.insertJob(scheduleJob);
     }
 
+
     @Override
     public PageInfoVo<ScheduleJob> queryListByPage(ScheduleJobDTO dto) {
         AssertUtil.isNotNull(dto, "参数不能为空");
         PageHelper.startPage(dto.getPageNum(), dto.getPageSize());
-        Condition condition = new Condition(ScheduleJob.class);
+        Condition condition = new Condition(Article.class);
         condition.orderBy("updateTime").desc();
         Example.Criteria criteria = condition.createCriteria();
         criteria.andEqualTo("isDelete", 0);
-        List<ScheduleJob> roleList = findByCondition(condition);
-        return new PageInfoVo<>(new PageInfo<>(roleList));
+        List<ScheduleJob> list = findByCondition(condition);
+        return new PageInfoVo<>(new PageInfo<>(list));
     }
+
+
+
 
     @Override
     public void run(Long id) {

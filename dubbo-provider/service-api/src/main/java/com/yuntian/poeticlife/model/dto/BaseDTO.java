@@ -59,19 +59,19 @@ public class BaseDTO  implements Serializable {
         this.id = id;
     }
 
-    public Long getcreateId() {
+    public Long getCreateId() {
         return createId;
     }
 
-    public void setcreateId(Long createId) {
+    public void setCreateId(Long createId) {
         this.createId = createId;
     }
 
-    public Long getupdateId() {
+    public Long getUpdateId() {
         return updateId;
     }
 
-    public void setupdateId(Long updateId) {
+    public void setUpdateId(Long updateId) {
         this.updateId = updateId;
     }
 }

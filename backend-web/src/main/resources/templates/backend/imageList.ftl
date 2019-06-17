@@ -36,7 +36,7 @@
 
                     <div class="ibox-content">
 
-                        <form Image="form" class="form-inline">
+                        <form role="form" class="form-inline">
                         <button class="btn btn-primary" type="button"
                                 @click="addImage()">新增图片</button>
 

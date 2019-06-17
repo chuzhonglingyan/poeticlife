@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by CodeGenerator on 2019/02/26.
  */
-public interface OperaterRoleService extends Service<OperaterRole> {
+public interface OperaterRoleService extends Service<OperaterRoleDTO,OperaterRole> {
 
 
     List<Long> getRoleIdListByOperaterId(Long operaterId);

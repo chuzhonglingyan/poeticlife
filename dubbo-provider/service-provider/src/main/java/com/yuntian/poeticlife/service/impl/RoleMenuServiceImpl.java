@@ -1,5 +1,7 @@
 package com.yuntian.poeticlife.service.impl;
 
+import com.yuntian.poeticlife.model.entity.Article;
+import com.yuntian.poeticlife.model.vo.PageInfoVo;
 import com.yuntian.poeticlife.util.AssertUtil;
 import com.yuntian.poeticlife.util.CglibBeanCopierUtils;
 import com.yuntian.poeticlife.core.AbstractService;
@@ -30,7 +32,7 @@ import tk.mybatis.mapper.entity.Example;
  * Created by CodeGenerator on 2019/02/26.
  */
 @Service("roleMenuService")
-public class RoleMenuServiceImpl extends AbstractService<RoleMenu> implements RoleMenuService {
+public class RoleMenuServiceImpl extends AbstractService<RoleMenuDTO,RoleMenu> implements RoleMenuService {
     @Resource
     private RoleMenuMapper roleMenuMapper;
 
@@ -98,8 +100,8 @@ public class RoleMenuServiceImpl extends AbstractService<RoleMenu> implements Ro
             roleMenu.setRoleId(roleMenuDTO.getRoleId());
             roleMenu.setMenuId(menuId);
             roleMenu.setIsChecked((byte) 1);
-            roleMenu.setcreateId(roleMenuDTO.getcreateId());
-            roleMenu.setupdateId(roleMenuDTO.getupdateId());
+            roleMenu.setcreateId(roleMenuDTO.getCreateId());
+            roleMenu.setupdateId(roleMenuDTO.getUpdateId());
             roleMenu.setCreateTime(new Date());
             roleMenu.setUpdateTime(new Date());
             roleMenuList.add(roleMenu);
@@ -109,12 +111,32 @@ public class RoleMenuServiceImpl extends AbstractService<RoleMenu> implements Ro
 
 
     @Override
+    public void saveByDTO(RoleMenuDTO dto) {
+
+    }
+
+    @Override
+    public void deleteByDTO(RoleMenuDTO dto) {
+
+    }
+
+    @Override
+    public void updateByDTO(RoleMenuDTO dto) {
+
+    }
+
+    @Override
     public void save(List<RoleMenu> models) {
         AssertUtil.isNotNull(models, "参数不能为空");
         for (RoleMenu roleMenu : models) {
             AssertUtil.isNotNull(roleMenu.getMenuId(), "菜单id不能为空");
         }
         super.save(models);
+    }
+
+    @Override
+    public PageInfoVo<RoleMenu> queryListByPage(RoleMenuDTO dto) {
+        return null;
     }
 
 

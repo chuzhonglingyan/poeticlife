@@ -3,7 +3,6 @@ package com.yuntian.poeticlife.controller;
 import com.yuntian.poeticlife.core.Result;
 import com.yuntian.poeticlife.core.ResultGenerator;
 import com.yuntian.poeticlife.model.dto.RoleMenuDTO;
-import com.yuntian.poeticlife.model.entity.Menu;
 import com.yuntian.poeticlife.model.vo.MenuVO;
 import com.yuntian.poeticlife.service.RoleMenuService;
 
@@ -30,8 +29,8 @@ public class RoleMenuController extends BaseController {
 
     @PostMapping("/saveMenuListByRoleId")
     public Result saveMenuIListByRoleId(@RequestBody RoleMenuDTO roleMenuDTO) {
-        roleMenuDTO.setcreateId(getUserId());
-        roleMenuDTO.setupdateId(getUserId());
+        roleMenuDTO.setCreateId(getUserId());
+        roleMenuDTO.setUpdateId(getUserId());
         roleMenuService.saveMenuListByRoleId(roleMenuDTO);
         return ResultGenerator.genSuccessResult();
     }

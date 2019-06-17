@@ -9,12 +9,14 @@ import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import tk.mybatis.mapper.entity.Condition;
 
 /**
  * 基于通用MyBatis Mapper插件的Service接口的实现
  */
-public abstract class AbstractService<T> implements Service<T> {
+public abstract class AbstractService<K,T> implements Service<K,T> {
 
     @Autowired
     protected Mapper<T> mapper;
@@ -23,8 +25,10 @@ public abstract class AbstractService<T> implements Service<T> {
 
     public AbstractService() {
         ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
-        modelClass = (Class<T>) pt.getActualTypeArguments()[0];
+        modelClass = (Class<T>) pt.getActualTypeArguments()[1];
     }
+
+
 
     public void save(T model) {
         mapper.insertSelective(model);
@@ -48,8 +52,8 @@ public abstract class AbstractService<T> implements Service<T> {
         deleteByIds(getIds(ids));
     }
 
-    public void update(T model) {
-        mapper.updateByPrimaryKey(model);
+    public int update(T model) {
+       return mapper.updateByPrimaryKeySelective(model);
     }
 
     public T findById(Long id) {
