@@ -6,6 +6,6 @@ import com.yuntian.poeticlife.model.entity.ScheduleJob;
 public interface ScheduleJobMapper extends Mapper<ScheduleJob> {
 
 
-    int insertJob(ScheduleJob scheduleJob);
+    int insertJob(ScheduleJob dto);
 
 }

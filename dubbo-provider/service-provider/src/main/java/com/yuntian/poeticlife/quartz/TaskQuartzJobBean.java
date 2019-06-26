@@ -61,8 +61,8 @@ public class TaskQuartzJobBean extends QuartzJobBean {
         scheduleJobLog.setJobId(scheduleJob.getId());
         scheduleJobLog.setBeanName(scheduleJob.getBeanName());
         scheduleJobLog.setMethodName(scheduleJob.getMethodName());
-        scheduleJobLog.setcreateId(1L);
-        scheduleJobLog.setupdateId(1L);
+        scheduleJobLog.setCreateId(1L);
+        scheduleJobLog.setUpdateId(1L);
         try {
 
             ScheduleCallTask callTask = new ScheduleCallTask(scheduleJob.getBeanName(), scheduleJob.getMethodName(), scheduleJob.getParams());

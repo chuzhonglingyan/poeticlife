@@ -4,7 +4,6 @@ import com.yuntian.poeticlife.core.AbstractService;
 import com.yuntian.poeticlife.dao.MenuMapper;
 import com.yuntian.poeticlife.exception.BusinessException;
 import com.yuntian.poeticlife.model.dto.MenuDTO;
-import com.yuntian.poeticlife.model.entity.Article;
 import com.yuntian.poeticlife.model.entity.Menu;
 import com.yuntian.poeticlife.model.vo.MenuTreeVO;
 import com.yuntian.poeticlife.model.vo.PageInfoVo;
@@ -32,14 +31,14 @@ import tk.mybatis.mapper.entity.Example;
  * Created by CodeGenerator on 2019/02/26.
  */
 @Service("menuService")
-public class MenuServiceImpl extends AbstractService<MenuDTO,Menu> implements MenuService {
-
+public class MenuServiceImpl extends AbstractService<MenuDTO, Menu> implements MenuService {
 
     @Resource
     private MenuMapper menuMapper;
 
     @Resource
     private OperaterRoleService operaterRoleService;
+
     @Resource
     private RoleMenuService roleMenuService;
 
@@ -56,6 +55,7 @@ public class MenuServiceImpl extends AbstractService<MenuDTO,Menu> implements Me
         }
         return null;
     }
+
 
 
     @Override
@@ -130,94 +130,74 @@ public class MenuServiceImpl extends AbstractService<MenuDTO,Menu> implements Me
 
 
     @Override
-    public void saveByDTO(MenuDTO dto) {
+    public void saveByDTO(Menu dto) {
+        AssertUtil.isNotNull(dto.getPid(), "父级id不能为空");
+        AssertUtil.isNotNull(dto.getPid() < 0, "父级id参数有问题");
+        AssertUtil.isNotBlank(dto.getMenuName(), "菜单名字不能为空");
+        AssertUtil.isNotBlank(dto.getMenuUrl(), "菜单值不能为空");
+        AssertUtil.isNotBlank(dto.getMenuCode(), "菜单权限不能为空");
+        AssertUtil.isNotNull(dto.getMenuType(), "菜单类型不能为空");
+        AssertUtil.isNotNull(dto.getcreateId(), "创建人不能为空");
+        AssertUtil.isNotNull(dto.getUpdateId(), "更新人不能为空");
 
-    }
-
-    @Override
-    public void deleteByDTO(MenuDTO dto) {
-
-    }
-
-    @Override
-    public void updateByDTO(MenuDTO dto) {
-
-    }
-
-    @Override
-    public void save(Menu model) {
-        AssertUtil.isNotNull(model.getPid(), "父级id不能为空");
-        AssertUtil.isNotNull(model.getPid() < 0, "父级id参数有问题");
-        AssertUtil.isNotBlank(model.getMenuName(), "菜单名字不能为空");
-        AssertUtil.isNotBlank(model.getMenuUrl(), "菜单值不能为空");
-        AssertUtil.isNotBlank(model.getMenuCode(), "菜单权限不能为空");
-        AssertUtil.isNotNull(model.getMenuType(), "菜单类型不能为空");
-        AssertUtil.isNotNull(model.getcreateId(), "创建人不能为空");
-        AssertUtil.isNotNull(model.getUpdateId(), "更新人不能为空");
-
-        if (model.getPid() == 0) {
-            model.setMenuLevel((byte) 1);
+        if (dto.getPid() == 0) {
+            dto.setMenuLevel((byte) 1);
         } else {
-            Menu parentMenu = findById(model.getPid());
-            model.setMenuLevel((byte) (parentMenu.getMenuLevel() + 1));
+            Menu parentMenu = findById(dto.getPid());
+            dto.setMenuLevel((byte) (parentMenu.getMenuLevel() + 1));
             if (parentMenu.getMenuType() == 2) {
                 BusinessException.throwMessage("操作类型菜单不能添加子级菜单");
             }
         }
-        super.save(model);
+        save(dto);
     }
 
+
+
     @Override
-    public int update(Menu model) {
-        AssertUtil.isNotNull(model.getId(), "菜单id不能为空");
-        AssertUtil.isNotBlank(model.getMenuName(), "菜单名字不能为空");
-        AssertUtil.isNotBlank(model.getMenuUrl(), "菜单值不能为空");
-        AssertUtil.isNotBlank(model.getMenuCode(), "菜单权限不能为空");
-        AssertUtil.isNotNull(model.getcreateId(), "创建人不能为空");
-        AssertUtil.isNotNull(model.getUpdateId(), "更新人不能为空");
-        Menu  menuTemp=findById(model.getId());
+    public void updateByDTO(Menu dto) {
+        AssertUtil.isNotNull(dto.getId(), "菜单id不能为空");
+        AssertUtil.isNotBlank(dto.getMenuName(), "菜单名字不能为空");
+        AssertUtil.isNotBlank(dto.getMenuUrl(), "菜单值不能为空");
+        AssertUtil.isNotBlank(dto.getMenuCode(), "菜单权限不能为空");
+        AssertUtil.isNotNull(dto.getUpdateId(), "更新人不能为空");
+        Menu  menuTemp=findById(dto.getId());
         if (menuTemp==null){
             BusinessException.throwMessage("该菜单不存在");
         }
-        menuTemp.setMenuName(model.getMenuName());
-        menuTemp.setMenuUrl(model.getMenuUrl());
-        menuTemp.setMenuCode(model.getMenuCode());
-        menuTemp.setUpdateId(model.getUpdateId());
-        return super.update(menuTemp);
+        int count=update(dto);
+        if(count!=1){
+            BusinessException.throwMessage("更新该菜单失败,请刷新页面");
+        }
     }
-
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void deleteById(Long id) {
-        Menu menuVO = findById(id);
-        if (Objects.isNull(menuVO)) {
+    public void deleteByDTO(Menu dto) {
+        Menu Menu = findById(dto.getId());
+        if (Objects.isNull(Menu)) {
             BusinessException.throwMessage("菜单不存在，请刷新页面");
         }
-        if (menuVO.getMenuStatus() == 1) {
+        if (Menu.getMenuStatus() == 1) {
             BusinessException.throwMessage("菜单处于冻结状态，无法删除.");
         }
-        List<Menu> list = findChildMenusById(id);
+        List<Menu> list = findChildMenusById(dto.getId());
         AssertUtil.isEmpty(list, "存在子菜单，不能删除");
-        menuVO.setIsDelete((byte) 1);
-        super.update(menuVO);
+        Menu.setIsDelete((byte) 1);
+        super.update(dto);
     }
 
 
     @Override
-    public void isEnableMenu(Long id) {
-        Menu menu = new Menu();
-        menu.setId(id);
-        menu.setMenuStatus((byte) 1);
-        super.update(menu);
+    public void isEnable(Menu dto) {
+        dto.setMenuStatus((byte) 1);
+        super.update(dto);
     }
 
     @Override
-    public void isStopMenu(Long id) {
-        Menu menu = new Menu();
-        menu.setId(id);
-        menu.setMenuStatus((byte) 0);
-        super.update(menu);
+    public void isStop(Menu dto) {
+        dto.setMenuStatus((byte) 0);
+        super.update(dto);
     }
 
     @Override
@@ -237,18 +217,19 @@ public class MenuServiceImpl extends AbstractService<MenuDTO,Menu> implements Me
     private void getTreeMenu(List<MenuTreeVO> list) {
         for (MenuTreeVO menuTreeVO : list) {
             for (MenuTreeVO child : list) {
-                List<MenuTreeVO> menuVOList;
+                List<MenuTreeVO> MenuList;
                 if (menuTreeVO.getChildList() == null) {
-                    menuVOList = new ArrayList<>();
-                    menuTreeVO.setChildList(menuVOList);
+                    MenuList = new ArrayList<>();
+                    menuTreeVO.setChildList(MenuList);
                 } else {
-                    menuVOList = menuTreeVO.getChildList();
+                    MenuList = menuTreeVO.getChildList();
                 }
                 if (menuTreeVO.getId().equals(child.getPid())) {
-                    menuVOList.add(child);
+                    MenuList.add(child);
                 }
             }
         }
     }
+
 
 }

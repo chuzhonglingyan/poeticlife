@@ -1,17 +1,11 @@
 package com.yuntian.poeticlife;
 
 import com.yuntian.poeticlife.model.entity.ScheduleJob;
-import com.yuntian.poeticlife.quartz.QuartJobTask;
 import com.yuntian.poeticlife.quartz.SchedulerUtil;
 import com.yuntian.poeticlife.service.ScheduleJobService;
 
 import org.junit.Test;
-import org.quartz.JobDetail;
-import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
-import org.quartz.SchedulerFactory;
-import org.quartz.Trigger;
-import org.quartz.impl.StdSchedulerFactory;
 
 import java.text.ParseException;
 
@@ -37,8 +31,8 @@ public class ScheduleJobTest extends BaseTest {
         model.setMethodName("test");
         model.setGroupName("test");
         model.setCronExpression("0 0/1 * * * ?");
-        model.setcreateId(1L);
-        model.setupdateId(1L);
+        model.setCreateId(1L);
+        model.setUpdateId(1L);
         scheduleJobService.save(model);
 
     }

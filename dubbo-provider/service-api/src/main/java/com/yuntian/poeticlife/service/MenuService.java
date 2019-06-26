@@ -11,9 +11,9 @@ import java.util.List;
 /**
  * Created by CodeGenerator on 2019/02/26.
  */
-public interface MenuService extends Service<MenuDTO,Menu> {
+public interface MenuService extends Service<MenuDTO, Menu> {
 
-    public List<Menu> findEnableMenus();
+    List<Menu> findEnableMenus();
 
     List<Menu> findChildMenusById(Long id);
 
@@ -21,12 +21,12 @@ public interface MenuService extends Service<MenuDTO,Menu> {
 
     Menu findEnableMenuById(Long id);
 
+    void isEnable(Menu dto);
 
-    void isEnableMenu(Long id);
+    void isStop(Menu dto);
 
-    void isStopMenu(Long id);
 
-    public List<MenuTreeVO> getMenuTreeVOList(List<Menu> menuList);
+    List<MenuTreeVO> getMenuTreeVOList(List<Menu> menuList);
 
 
 }

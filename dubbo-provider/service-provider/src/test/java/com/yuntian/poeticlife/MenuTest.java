@@ -1,7 +1,6 @@
 package com.yuntian.poeticlife;
 
 import com.alibaba.fastjson.JSON;
-import com.yuntian.poeticlife.model.dto.MenuDTO;
 import com.yuntian.poeticlife.model.entity.Menu;
 import com.yuntian.poeticlife.model.vo.MenuTreeVO;
 import com.yuntian.poeticlife.service.MenuService;
@@ -31,7 +30,7 @@ public class MenuTest extends BaseTest {
 
     @Test
     public void test() {
-        MenuDTO menu = new MenuDTO();
+        Menu menu = new Menu();
 
         menu.setPid(4L);
         menu.setMenuLevel((byte) 2);
@@ -72,15 +71,15 @@ public class MenuTest extends BaseTest {
     public List<MenuTreeVO> getTreeMenu(List<MenuTreeVO> list) {
         for (MenuTreeVO menuTreeVO : list) {
             for (MenuTreeVO child : list) {
-                List<MenuTreeVO> menuVOList;
+                List<MenuTreeVO> MenuList;
                 if (menuTreeVO.getChildList() == null) {
-                    menuVOList = new ArrayList<>();
-                    menuTreeVO.setChildList(menuVOList);
+                    MenuList = new ArrayList<>();
+                    menuTreeVO.setChildList(MenuList);
                 } else {
-                    menuVOList = menuTreeVO.getChildList();
+                    MenuList = menuTreeVO.getChildList();
                 }
                 if (menuTreeVO.getId().equals(child.getPid())) {
-                    menuVOList.add(child);
+                    MenuList.add(child);
                 }
             }
         }

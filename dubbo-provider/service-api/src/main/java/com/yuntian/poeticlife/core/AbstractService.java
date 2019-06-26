@@ -2,14 +2,14 @@ package com.yuntian.poeticlife.core;
 
 
 import com.yuntian.poeticlife.exception.BusinessException;
+import com.yuntian.poeticlife.model.vo.PageInfoVo;
+
 import org.apache.ibatis.exceptions.TooManyResultsException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
-
-import javax.annotation.Resource;
 
 import tk.mybatis.mapper.entity.Condition;
 
@@ -30,8 +30,8 @@ public abstract class AbstractService<K,T> implements Service<K,T> {
 
 
 
-    public void save(T model) {
-        mapper.insertSelective(model);
+    public int save(T model) {
+       return mapper.insertSelective(model);
     }
 
 
@@ -102,4 +102,27 @@ public abstract class AbstractService<K,T> implements Service<K,T> {
     public List<T> findAll() {
         return mapper.selectAll();
     }
+
+    @Override
+    public void saveByDTO(T dto) {
+
+    }
+
+    @Override
+    public void updateByDTO(T dto) {
+
+    }
+
+    @Override
+    public void deleteByDTO(T dto) {
+
+    }
+
+
+    @Override
+    public PageInfoVo<T> queryListByPage(K dto) {
+        return null;
+    }
+
+
 }

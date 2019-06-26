@@ -1,7 +1,6 @@
 package com.yuntian.poeticlife.config.shiro;
 
 import com.yuntian.basecommon.util.PasswordUtil;
-import com.yuntian.poeticlife.exception.BusinessException;
 import com.yuntian.poeticlife.model.entity.BackendOperater;
 import com.yuntian.poeticlife.model.entity.Menu;
 import com.yuntian.poeticlife.service.BackendOperaterService;

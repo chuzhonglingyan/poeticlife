@@ -30,10 +30,9 @@ var vm = new Vue({
                 pageSize: 10,
                 striped: true, //每行表格的背景会显示灰白相间
                 queryParams: function (params) { //查询的参数
-                    var startPage = params.offset + 1;
                     return {
-                        "pageNum": startPage,
-                        "pageSize": params.limit
+                        pageNum: (params.offset / params.limit) + 1,
+                        pageSize: params.limit
                     };
                 },
                 columns: [{
@@ -119,7 +118,7 @@ var vm = new Vue({
             vm.rowData=row;
             $('#imageName').val(row.ImageName);
             $('#remark').val(row.remark);
-            var  imageStatus=row.status;
+            var  imageStatus=row.ImageStatus;
             $('input:radio[name="imageStatus"][value='+imageStatus+']').prop("checked", "checked");
             setModalTitle( vm.addImageModal,"编辑图片");
             showModal( vm.addImageModal);

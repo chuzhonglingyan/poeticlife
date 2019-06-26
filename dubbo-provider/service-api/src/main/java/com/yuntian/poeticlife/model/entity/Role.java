@@ -129,7 +129,7 @@ public class Role implements Serializable {
      *
      * @return create_id - 创建人
      */
-    public Long getcreateId() {
+    public Long getCreateId() {
         return createId;
     }
 
@@ -138,7 +138,7 @@ public class Role implements Serializable {
      *
      * @param createId 创建人
      */
-    public void setcreateId(Long createId) {
+    public void setCreateId(Long createId) {
         this.createId = createId;
     }
 
@@ -165,7 +165,7 @@ public class Role implements Serializable {
      *
      * @return update_id - 更新人
      */
-    public Long getupdateId() {
+    public Long getUpdateId() {
         return updateId;
     }
 
@@ -174,7 +174,7 @@ public class Role implements Serializable {
      *
      * @param updateId 更新人
      */
-    public void setupdateId(Long updateId) {
+    public void setUpdateId(Long updateId) {
         this.updateId = updateId;
     }
 

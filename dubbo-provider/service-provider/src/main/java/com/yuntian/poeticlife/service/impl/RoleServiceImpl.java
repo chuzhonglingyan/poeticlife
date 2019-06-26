@@ -2,8 +2,6 @@ package com.yuntian.poeticlife.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.yuntian.poeticlife.model.entity.Article;
-import com.yuntian.poeticlife.util.AssertUtil;
 import com.yuntian.poeticlife.core.AbstractService;
 import com.yuntian.poeticlife.dao.RoleMapper;
 import com.yuntian.poeticlife.exception.BusinessException;
@@ -13,13 +11,18 @@ import com.yuntian.poeticlife.model.vo.PageInfoVo;
 import com.yuntian.poeticlife.service.OperaterRoleService;
 import com.yuntian.poeticlife.service.RoleMenuService;
 import com.yuntian.poeticlife.service.RoleService;
+import com.yuntian.poeticlife.util.AssertUtil;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Objects;
+
 import javax.annotation.Resource;
+
 import tk.mybatis.mapper.entity.Condition;
 import tk.mybatis.mapper.entity.Example;
 
@@ -28,7 +31,7 @@ import tk.mybatis.mapper.entity.Example;
  * Created by CodeGenerator on 2019/02/26.
  */
 @Service("roleService")
-public class RoleServiceImpl extends AbstractService<RoleDTO,Role> implements RoleService {
+public class RoleServiceImpl extends AbstractService<RoleDTO, Role> implements RoleService {
 
     @Resource
     private RoleMapper roleMapper;
@@ -40,7 +43,7 @@ public class RoleServiceImpl extends AbstractService<RoleDTO,Role> implements Ro
     private OperaterRoleService operaterRoleService;
 
     @Override
-    public List<Role>  findEnableRoleList() {
+    public List<Role> findEnableList() {
         Condition condition = new Condition(Role.class);
         Example.Criteria criteria = condition.createCriteria();
         criteria.andEqualTo("isDelete", 0);
@@ -68,83 +71,65 @@ public class RoleServiceImpl extends AbstractService<RoleDTO,Role> implements Ro
     }
 
     @Override
-    public void saveByDTO(RoleDTO dto) {
-
-    }
-
-    @Override
-    public void deleteByDTO(RoleDTO dto) {
-
-    }
-
-    @Override
-    public void updateByDTO(RoleDTO dto) {
-
-    }
-
-    @Override
-    public void save(Role model) {
-        AssertUtil.isNotNull(model, "参数不能为空");
-        AssertUtil.isNotNull(model.getRoleName(), "角色名不能为空");
-        AssertUtil.isNotNull(model.getcreateId(), "创建人不能为空");
-        AssertUtil.isNotNull(model.getupdateId(), "更新人不能为空");
-        String roleName = StringUtils.trim(model.getRoleName());
-        model.setRoleName(roleName);
-        Role role = findRoleByName(model.getRoleName());
+    public void saveByDTO(Role dto) {
+        AssertUtil.isNotNull(dto, "参数不能为空");
+        AssertUtil.isNotNull(dto.getRoleName(), "角色名不能为空");
+        AssertUtil.isNotNull(dto.getCreateId(), "创建人不能为空");
+        AssertUtil.isNotNull(dto.getUpdateId(), "更新人不能为空");
+        String roleName = StringUtils.trim(dto.getRoleName());
+        dto.setRoleName(roleName);
+        Role role = findRoleByName(dto.getRoleName());
         if (!Objects.isNull(role)) {
             BusinessException.throwMessage("已经存在该角色");
         }
-        super.save(model);
+        super.save(dto);
     }
 
 
     @Override
-    public int update(Role model) {
-        AssertUtil.isNotNull(model, "参数不能为空");
-        AssertUtil.isNotNull(model.getId(), "角色id不能为空");
-        AssertUtil.isNotNull(model.getRoleName(), "角色名不能为空");
-        AssertUtil.isNotNull(model.getupdateId(), "更新人不能为空");
-        Role role = findById(model.getId());
+    public void updateByDTO(Role dto) {
+        AssertUtil.isNotNull(dto, "参数不能为空");
+        AssertUtil.isNotNull(dto.getId(), "角色id不能为空");
+        AssertUtil.isNotNull(dto.getRoleName(), "角色名不能为空");
+        AssertUtil.isNotNull(dto.getUpdateId(), "更新人不能为空");
+        Role role = findById(dto.getId());
         if (Objects.isNull(role)) {
             BusinessException.throwMessage("不存在该角色,请刷新页面");
         }
-       return super.update(model);
     }
 
 
     @Override
-    public void isEnable(Role model) {
-        AssertUtil.isNotNull(model, "参数不能为空");
-        AssertUtil.isNotNull(model.getId(), "角色id不能为空");
-        AssertUtil.isNotNull(model.getupdateId(), "更新人不能为空");
-        model.setRoleStatus(1);
-        super.update(model);
+    public void isEnable(Role dto) {
+        AssertUtil.isNotNull(dto, "参数不能为空");
+        AssertUtil.isNotNull(dto.getId(), "角色id不能为空");
+        AssertUtil.isNotNull(dto.getUpdateId(), "更新人不能为空");
+        dto.setRoleStatus(1);
+        super.update(dto);
     }
 
     @Override
-    public void isStop(Role model) {
-        AssertUtil.isNotNull(model, "参数不能为空");
-        AssertUtil.isNotNull(model.getId(), "角色id不能为空");
-        AssertUtil.isNotNull(model.getupdateId(), "更新人不能为空");
-
-        List<Long> operaterIdList= operaterRoleService.getOperaterIdListByRoleId(model.getId());
-        if (CollectionUtils.isNotEmpty(operaterIdList)){
+    public void isStop(Role dto) {
+        AssertUtil.isNotNull(dto, "参数不能为空");
+        AssertUtil.isNotNull(dto.getId(), "角色id不能为空");
+        AssertUtil.isNotNull(dto.getUpdateId(), "更新人不能为空");
+        List<Long> operaterIdList = operaterRoleService.getOperaterIdListByRoleId(dto.getId());
+        if (CollectionUtils.isNotEmpty(operaterIdList)) {
             BusinessException.throwMessage("角色下关联着用户,不能禁用");
         }
-        model.setRoleStatus(0);
-        super.update(model);
+        dto.setRoleStatus(0);
+        super.update(dto);
     }
-
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void deleteById(Long id) {
-        Role role = findById(id);
+    public void deleteByDTO(Role dto) {
+        Role role = findById(dto.getId());
         if (Objects.isNull(role)) {
             BusinessException.throwMessage("角色不存在，请刷新页面");
         }
-        List<Long> operaterIdList= operaterRoleService.getOperaterIdListByRoleId(id);
-        if (CollectionUtils.isNotEmpty(operaterIdList)){
+        List<Long> operaterIdList = operaterRoleService.getOperaterIdListByRoleId(dto.getId());
+        if (CollectionUtils.isNotEmpty(operaterIdList)) {
             BusinessException.throwMessage("角色下关联着用户,不能删除");
         }
         roleMenuService.deleteByRoleId(role.getId());

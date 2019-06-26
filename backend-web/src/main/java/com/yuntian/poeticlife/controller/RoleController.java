@@ -25,10 +25,10 @@ public class RoleController extends BaseController {
     private RoleService roleService;
 
     @PostMapping("/add")
-    public Result add(Role role) {
-        role.setcreateId(getUserId());
-        role.setupdateId(getUserId());
-        roleService.save(role);
+    public Result add(Role dto) {
+        dto.setCreateId(getUserId());
+        dto.setUpdateId(getUserId());
+        roleService.save(dto);
         return ResultGenerator.genSuccessResult();
     }
 
@@ -39,24 +39,24 @@ public class RoleController extends BaseController {
     }
 
     @PostMapping("/update")
-    public Result update(Role role) {
-        role.setupdateId(getUserId());
-        roleService.update(role);
+    public Result update(Role dto) {
+        dto.setUpdateId(getUserId());
+        roleService.update(dto);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/isEnable")
-    public Result isEnable(Role role) {
-        role.setupdateId(getUserId());
-        roleService.isEnable(role);
+    public Result isEnable(Role dto) {
+        dto.setUpdateId(getUserId());
+        roleService.isEnable(dto);
         return ResultGenerator.genSuccessResult();
     }
 
 
     @PostMapping("/isStop")
-    public Result isStop(Role role) {
-        role.setupdateId(getUserId());
-        roleService.isStop(role);
+    public Result isStop(Role dto) {
+        dto.setUpdateId(getUserId());
+        roleService.isStop(dto);
         return ResultGenerator.genSuccessResult();
     }
 

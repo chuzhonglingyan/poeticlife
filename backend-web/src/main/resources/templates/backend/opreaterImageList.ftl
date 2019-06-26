@@ -6,7 +6,7 @@
 </head>
 
 <body class="gray-bg">
-<div id="dictList">
+<div id="opreaterImageList">
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
@@ -14,7 +14,7 @@
                 <div class="ibox float-e-margins">
 
                     <div class="ibox-title">
-                        <h5>字典管理</h5>
+                        <h5>用户图片管理</h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -38,10 +38,10 @@
 
                         <form role="form" class="form-inline">
                         <button class="btn btn-primary" type="button"
-                                @click="addDict()">新增字典</button>
+                                @click="addOpreaterImage()">新增用户图片</button>
 
                         <div class="input-group pull-right">
-                            <input type="text" placeholder="请输入字典名"
+                            <input type="text" placeholder="请输入用户图片名"
                                    class="input-sm form-control">
                             <span class="input-group-btn">
                                         <button type="button"
@@ -52,7 +52,7 @@
                         </form>
 
                         <div class="table-responsive" style="margin-top: 10px">
-                            <table id="dictTable"
+                            <table id="opreaterImageTable"
                                    class="table table-hover "></table>
                         </div>
                     </div>
@@ -63,24 +63,24 @@
     </div>
 
 
-    <div class="modal inmodal" id="addDictModal"
-         tabindex="-1" Dict="dialog" aria-hidden="true">
+    <div class="modal inmodal" id="addOpreaterImageModal"
+         tabindex="-1" OpreaterImage="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content animated bounceInRight">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">
                     <span aria-hidden="true">×</span><span class="sr-only">关闭</span>
                 </button>
-                <h5 class="modal-title">新增字典</h5>
+                <h5 class="modal-title">新增用户图片</h5>
             </div>
             <small>
                 <div class="modal-body">
-                    <form class="form-horizontal " id="addDictForm">
+                    <form class="form-horizontal " id="addOpreaterImageForm">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">字典名：</label>
+                            <label class="col-sm-3 control-label">用户图片名：</label>
                             <div class="col-sm-8">
-                                <input id="DictName"
-                                       name="DictName" minlength="2" type="text"
+                                <input id="OpreaterImageName"
+                                       name="OpreaterImageName" minlength="2" type="text"
                                        maxlength="30" class="form-control">
                             </div>
                         </div>
@@ -97,12 +97,12 @@
                             <div class="col-sm-8">
                                 <label class="checkbox-inline">
                                     <label class="radio-inline">
-                                        <input type="radio" name="DictStatus"
-                                               id="DictStart" value="1" checked> 是
+                                        <input type="radio" name="OpreaterImageStatus"
+                                               id="OpreaterImageStart" value="1" checked> 是
                                     </label>
                                     <label class="radio-inline">
-                                        <input type="radio" name="DictStatus"
-                                               id="DictStop" value="0"> 否
+                                        <input type="radio" name="OpreaterImageStatus"
+                                               id="OpreaterImageStop" value="0"> 否
                                     </label>
                                 </label>
                             </div>
@@ -115,7 +115,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
                     <button type="button" class="btn btn-primary"
-                            @click="saveDict()">保存
+                            @click="saveOpreaterImage()">保存
                     </button>
                 </div>
 
@@ -134,7 +134,7 @@
 <script src="${basePath}/static/js/plugins/bootstrap-validator/language/zh_CN.js"></script>
 <script src="${basePath}/static/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
 <script src="${basePath}/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
-<script src="${basePath}/static/js/backend/dictList.js"></script>
+<script src="${basePath}/static/js/backend/opreaterImageList.js"></script>
 
 
 </body>

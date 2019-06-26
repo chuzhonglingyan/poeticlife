@@ -271,39 +271,19 @@ public class ScheduleJobLog implements Serializable {
         this.updateTime = updateTime;
     }
 
-    /**
-     * 获取创建人
-     *
-     * @return create_id - 创建人
-     */
-    public Long getcreateId() {
+    public Long getCreateId() {
         return createId;
     }
 
-    /**
-     * 设置创建人
-     *
-     * @param createId 创建人
-     */
-    public void setcreateId(Long createId) {
+    public void setCreateId(Long createId) {
         this.createId = createId;
     }
 
-    /**
-     * 获取修改人
-     *
-     * @return update_id - 修改人
-     */
-    public Long getupdateId() {
+    public Long getUpdateId() {
         return updateId;
     }
 
-    /**
-     * 设置修改人
-     *
-     * @param updateId 修改人
-     */
-    public void setupdateId(Long updateId) {
+    public void setUpdateId(Long updateId) {
         this.updateId = updateId;
     }
 }

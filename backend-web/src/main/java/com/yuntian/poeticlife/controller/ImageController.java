@@ -3,59 +3,72 @@ import com.yuntian.poeticlife.core.Result;
 import com.yuntian.poeticlife.core.ResultGenerator;
 import com.yuntian.poeticlife.model.entity.Image;
 import com.yuntian.poeticlife.service.ImageService;
-import com.github.pagehelper.PageHelper;
 import com.yuntian.poeticlife.model.vo.PageInfoVo;
-import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ResponseBody;
+import com.yuntian.poeticlife.model.dto.ImageDTO;
+import com.yuntian.poeticlife.model.vo.ImageVO;
 import javax.annotation.Resource;
-import java.util.List;
+
 
 /**
-* Created by CodeGenerator on 2019/06/06.
+* Created by CodeGenerator on 2019/06/17.
 */
-@RestController
+@Controller
 @RequestMapping("/image")
 public class ImageController extends BaseController{
 
     @Resource
     private ImageService imageService;
 
-
-
+    @RequestMapping("/pageList")
+    public String pageList() {
+        return "backend/imageList";
+    }
 
     @PostMapping("/add")
-    public Result add(Image image) {
-        imageService.save(image);
+    @ResponseBody
+    public Result add(ImageVO dto) {
+        dto.setCreateId(getUserId());
+        dto.setUpdateId(getUserId());
+        imageService.saveByDTO(dto);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/delete")
-    public Result delete(@RequestParam Long id) {
-        imageService.deleteById(id);
+    @ResponseBody
+    public Result delete(ImageVO dto) {
+        dto.setCreateId(getUserId());
+        dto.setUpdateId(getUserId());
+        imageService.deleteByDTO(dto);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/update")
-    public Result update(Image image) {
-        imageService.update(image);
+    @ResponseBody
+    public Result update(ImageVO dto) {
+        dto.setCreateId(getUserId());
+        dto.setUpdateId(getUserId());
+        imageService.updateByDTO(dto);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/detail")
+    @ResponseBody
     public Result detail(@RequestParam Long id) {
         Image image = imageService.findById(id);
         return ResultGenerator.genSuccessResult(image);
     }
 
+
     @PostMapping("/list")
-    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
-        PageHelper.startPage(page, size);
-        List<Image> childList = imageService.findAll();
-        PageInfoVo<Image> pageInfo = new PageInfoVo<>(new PageInfo<>(childList));
-        return ResultGenerator.genSuccessResult(pageInfo);
+    @ResponseBody
+    public PageInfoVo<ImageVO> list(ImageDTO dTO) {
+        return imageService.queryListByPage(dTO);
     }
+
+
 }

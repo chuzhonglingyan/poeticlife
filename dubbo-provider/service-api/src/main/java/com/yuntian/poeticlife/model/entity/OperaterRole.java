@@ -100,21 +100,19 @@ public class OperaterRole implements Serializable {
         this.roleId = roleId;
     }
 
-    /**
-     * 获取创建人
-     *
-     * @return create_id - 创建人
-     */
-    public Long getcreateId() {
+    public Long getUpdateId() {
+        return updateId;
+    }
+
+    public void setUpdateId(Long updateId) {
+        this.updateId = updateId;
+    }
+
+    public Long getCreateId() {
         return createId;
     }
 
-    /**
-     * 设置创建人
-     *
-     * @param createId 创建人
-     */
-    public void setcreateId(Long createId) {
+    public void setCreateId(Long createId) {
         this.createId = createId;
     }
 

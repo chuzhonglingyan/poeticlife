@@ -3,12 +3,10 @@ package com.yuntian.poeticlife.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yuntian.basecommon.util.PasswordUtil;
-import com.yuntian.poeticlife.model.dto.BackendOperaterDTO;
-import com.yuntian.poeticlife.util.AssertUtil;
 import com.yuntian.poeticlife.core.AbstractService;
 import com.yuntian.poeticlife.dao.BackendOperaterMapper;
 import com.yuntian.poeticlife.exception.BusinessException;
-import com.yuntian.poeticlife.model.dto.OperaterDTO;
+import com.yuntian.poeticlife.model.dto.BackendOperaterDTO;
 import com.yuntian.poeticlife.model.entity.BackendOperater;
 import com.yuntian.poeticlife.model.entity.Menu;
 import com.yuntian.poeticlife.model.entity.Role;
@@ -18,6 +16,7 @@ import com.yuntian.poeticlife.service.BackendOperaterService;
 import com.yuntian.poeticlife.service.MenuService;
 import com.yuntian.poeticlife.service.OperaterRoleService;
 import com.yuntian.poeticlife.service.RoleService;
+import com.yuntian.poeticlife.util.AssertUtil;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -38,98 +37,95 @@ import tk.mybatis.mapper.entity.Example;
  * Created by CodeGenerator on 2019/02/23.
  */
 @Service("backendOperaterService")
-public class BackendOperaterServiceImpl extends AbstractService<BackendOperaterDTO,BackendOperater> implements BackendOperaterService {
+public class BackendOperaterServiceImpl extends AbstractService<BackendOperaterDTO, BackendOperater> implements BackendOperaterService {
 
     @Resource
     private OperaterRoleService operaterRoleService;
+
     @Resource
     private RoleService roleService;
 
     @Resource
     private BackendOperaterMapper backendOperaterMapper;
 
+    @Resource
+    private MenuService menuService;
+
 
     @Override
-    public void saveByDTO(BackendOperaterDTO dto) {
-
+    public PageInfoVo<BackendOperater> queryListByPage(BackendOperaterDTO dto) {
+        AssertUtil.isNotNull(dto, "参数不能为空");
+        PageHelper.startPage(dto.getPageNum(), dto.getPageSize());
+        Condition condition = new Condition(BackendOperater.class);
+        condition.orderBy("updateTime").desc();
+        Example.Criteria criteria = condition.createCriteria();
+        criteria.andEqualTo("isDelete", 0);
+        List<BackendOperater> list = findByCondition(condition);
+        return new PageInfoVo<>(new PageInfo<>(list));
     }
 
-    @Override
-    public void deleteByDTO(BackendOperaterDTO dto) {
-
-    }
 
     @Override
-    public void updateByDTO(BackendOperaterDTO dto) {
-
-    }
-
-    @Override
-    public void save(BackendOperater model) {
-        AssertUtil.isNotNull(model, "参数不能为空");
-        AssertUtil.isNotNull(model.getAccountName(), "账号不能为空");
-        AssertUtil.isNotNull(model.getUserName(), "用户名不能为空");
-        AssertUtil.isNotNull(model.getEmail(), "邮箱不能为空");
-        AssertUtil.isNotNull(model.getcreateId(), "创建人不能为空");
-        AssertUtil.isNotNull(model.getUpdateId(), "更新人不能为空");
-        BackendOperater backendOperater = findOperaterByAccount(model.getAccountName());
+    public void saveByDTO(BackendOperater dto) {
+        AssertUtil.isNotNull(dto, "参数不能为空");
+        AssertUtil.isNotNull(dto.getAccountName(), "账号不能为空");
+        AssertUtil.isNotNull(dto.getUserName(), "用户名不能为空");
+        AssertUtil.isNotNull(dto.getEmail(), "邮箱不能为空");
+        AssertUtil.isNotNull(dto.getcreateId(), "创建人不能为空");
+        AssertUtil.isNotNull(dto.getUpdateId(), "更新人不能为空");
+        BackendOperater backendOperater = findOperaterByAccount(dto.getAccountName());
         if (!Objects.isNull(backendOperater)) {
             BusinessException.throwMessage("已经存在该账号");
         }
         //设置，默认密码
-        model.setPassWord(PasswordUtil.md5HexWithSalt("123456"));
-        super.save(model);
+        dto.setPassWord(PasswordUtil.md5HexWithSalt("123456"));
+        save(dto);
     }
 
 
     @Override
-    public int update(BackendOperater model) {
-        AssertUtil.isNotNull(model, "参数不能为空");
-        AssertUtil.isNotNull(model.getId(), "用户id不能为空");
-        AssertUtil.isNotNull(model.getUserName(), "用户名不能为空");
-        AssertUtil.isNotNull(model.getEmail(), "邮箱不能为空");
-        AssertUtil.isNotNull(model.getUpdateId(), "更新人不能为空");
-
-        BackendOperater backendOperater = findById(model.getId());
+    public void updateByDTO(BackendOperater dto) {
+        AssertUtil.isNotNull(dto, "参数不能为空");
+        AssertUtil.isNotNull(dto.getId(), "用户id不能为空");
+        AssertUtil.isNotNull(dto.getUpdateId(), "更新人不能为空");
+        BackendOperater backendOperater = findById(dto.getId());
         if (Objects.isNull(backendOperater)) {
-            BusinessException.throwMessage("不存在该用户,请刷新页面");
+            BusinessException.throwMessage("不存在该用户");
         }
-        if (StringUtils.isBlank(model.getPassWord())){
-            model.setPassWord(null);
-        }else {
-            model.setPassWord(PasswordUtil.md5HexWithSalt(model.getPassWord()));
+        if (StringUtils.isBlank(dto.getPassWord())) {
+            dto.setPassWord(null);
+        } else {
+            dto.setPassWord(PasswordUtil.md5HexWithSalt(dto.getPassWord()));
         }
-        return super.update(model);
+        int count = update(dto);
+        if (count != 1) {
+            BusinessException.throwMessage("更新该用户失败,请刷新页面");
+        }
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void deleteById(Long id) {
-        BackendOperater backendOperater = findById(id);
-        if (Objects.isNull(backendOperater)) {
-            BusinessException.throwMessage("用户不存在，请刷新页面");
+    public void deleteByDTO(BackendOperater dto) {
+        AssertUtil.isNotNull(dto, "参数不能为空");
+        AssertUtil.isNotNull(dto.getId(), "文章id不能为空");
+        dto.setIsDelete((byte) 1);
+        int count = update(dto);
+        if (count != 1) {
+            BusinessException.throwMessage("删除该用户失败,请刷新页面");
         }
-        //todo 要删除和用户的关联关系
-        backendOperater.setIsDelete((byte) 1);
-        super.update(backendOperater);
     }
 
 
     @Override
     public BackendOperater findById(Long id) {
-        Condition condition = new Condition(Role.class);
+        Condition condition = new Condition(BackendOperater.class);
         Example.Criteria criteria = condition.createCriteria();
         criteria.andEqualTo("id", id);
         criteria.andEqualTo("isDelete", 0);
-        List<BackendOperater> roleList = findByCondition(condition);
-        if (CollectionUtils.isNotEmpty(roleList)) {
-            return roleList.get(0);
+        List<BackendOperater> list = findByCondition(condition);
+        if (CollectionUtils.isNotEmpty(list)) {
+            return list.get(0);
         }
-        return null;
-    }
-
-    @Override
-    public PageInfoVo<BackendOperater> queryListByPage(BackendOperaterDTO dto) {
         return null;
     }
 
@@ -148,60 +144,44 @@ public class BackendOperaterServiceImpl extends AbstractService<BackendOperaterD
     }
 
 
-
     @Override
-    public void isEnable(BackendOperater model) {
-        AssertUtil.isNotNull(model, "参数不能为空");
-        AssertUtil.isNotNull(model.getId(), "用户id不能为空");
-        AssertUtil.isNotNull(model.getUpdateId(), "更新人不能为空");
-        model.setIsEnable((byte) 1);
-        super.update(model);
-    }
-
-    @Override
-    public void isStop(BackendOperater model) {
-        AssertUtil.isNotNull(model, "参数不能为空");
-        AssertUtil.isNotNull(model.getId(), "用户id不能为空");
-        AssertUtil.isNotNull(model.getUpdateId(), "更新人不能为空");
-        model.setIsEnable((byte) 0);
-        super.update(model);
-    }
-
-    @Override
-    public PageInfoVo<BackendOperater> queryRoleListByPage(OperaterDTO dto) {
+    public void isEnable(BackendOperater dto) {
         AssertUtil.isNotNull(dto, "参数不能为空");
-        PageHelper.startPage(dto.getPageNum(), dto.getPageSize());
-        Condition condition = new Condition(BackendOperater.class);
-        condition.orderBy("updateTime").desc();
-        Example.Criteria criteria = condition.createCriteria();
-        criteria.andEqualTo("isDelete", 0);
-        List<BackendOperater> list = findByCondition(condition);
-        return new PageInfoVo<>(new PageInfo<>(list));
+        AssertUtil.isNotNull(dto.getId(), "用户id不能为空");
+        AssertUtil.isNotNull(dto.getUpdateId(), "更新人不能为空");
+        dto.setIsEnable((byte) 1);
+        updateByDTO(dto);
+    }
+
+    @Override
+    public void isStop(BackendOperater dto) {
+        AssertUtil.isNotNull(dto, "参数不能为空");
+        AssertUtil.isNotNull(dto.getId(), "用户id不能为空");
+        AssertUtil.isNotNull(dto.getUpdateId(), "更新人不能为空");
+        dto.setIsEnable((byte) 0);
+        updateByDTO(dto);
     }
 
 
     @Override
     public String getRole(Long operaterId) {
-        List<Long> list=operaterRoleService.getRoleIdListByOperaterId(operaterId);
-        if (CollectionUtils.isNotEmpty(list)){
+        List<Long> list = operaterRoleService.getRoleIdListByOperaterId(operaterId);
+        if (CollectionUtils.isNotEmpty(list)) {
             Role role = roleService.findBy("id", list.get(0));
-            return  role.getRole();
+            return role.getRole();
         }
         return null;
     }
 
     @Override
     public Long getRoleId(Long operaterId) {
-        List<Long> list=operaterRoleService.getRoleIdListByOperaterId(operaterId);
-        if (CollectionUtils.isNotEmpty(list)){
+        List<Long> list = operaterRoleService.getRoleIdListByOperaterId(operaterId);
+        if (CollectionUtils.isNotEmpty(list)) {
             Role role = roleService.findBy("id", list.get(0));
-            return  role.getId();
+            return role.getId();
         }
         return null;
     }
-
-    @Resource
-    private MenuService menuService;
 
 
     @Override
@@ -211,9 +191,9 @@ public class BackendOperaterServiceImpl extends AbstractService<BackendOperaterD
 
     @Override
     public List<MenuTreeVO> getMenuTreeVOListByOperater(Long operaterId) {
-        List<Menu> menuList= getNavMenuListByOperater(operaterId);
-        if (CollectionUtils.isEmpty(menuList)){
-            return  new ArrayList<>();
+        List<Menu> menuList = getNavMenuListByOperater(operaterId);
+        if (CollectionUtils.isEmpty(menuList)) {
+            return new ArrayList<>();
         }
         return menuService.getMenuTreeVOList(menuList);
     }

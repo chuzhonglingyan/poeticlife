@@ -14,7 +14,7 @@ import tk.mybatis.mapper.entity.Condition;
 public interface Service<K,T> {
 
 
-    void save(T model);//持久化
+    int save(T model);//持久化
 
     void save(List<T> models);//批量持久化
 
@@ -45,11 +45,11 @@ public interface Service<K,T> {
 
     PageInfoVo<T> queryListByPage(K dto);
 
-    void saveByDTO(K dto);
+    void saveByDTO(T dto);
 
-    void deleteByDTO(K dto);
+    void deleteByDTO(T dto);
 
-    void updateByDTO(K dto);
+    void updateByDTO(T dto);
 
 
 }

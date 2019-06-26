@@ -1,9 +1,5 @@
 package com.yuntian.poeticlife.service.impl;
 
-import com.yuntian.poeticlife.model.entity.Article;
-import com.yuntian.poeticlife.model.vo.PageInfoVo;
-import com.yuntian.poeticlife.util.AssertUtil;
-import com.yuntian.poeticlife.util.CglibBeanCopierUtils;
 import com.yuntian.poeticlife.core.AbstractService;
 import com.yuntian.poeticlife.dao.RoleMenuMapper;
 import com.yuntian.poeticlife.model.dto.RoleMenuDTO;
@@ -12,6 +8,8 @@ import com.yuntian.poeticlife.model.entity.RoleMenu;
 import com.yuntian.poeticlife.model.vo.MenuVO;
 import com.yuntian.poeticlife.service.MenuService;
 import com.yuntian.poeticlife.service.RoleMenuService;
+import com.yuntian.poeticlife.util.AssertUtil;
+import com.yuntian.poeticlife.util.CglibBeanCopierUtils;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +30,7 @@ import tk.mybatis.mapper.entity.Example;
  * Created by CodeGenerator on 2019/02/26.
  */
 @Service("roleMenuService")
-public class RoleMenuServiceImpl extends AbstractService<RoleMenuDTO,RoleMenu> implements RoleMenuService {
+public class RoleMenuServiceImpl extends AbstractService<RoleMenuDTO, RoleMenu> implements RoleMenuService {
     @Resource
     private RoleMenuMapper roleMenuMapper;
 
@@ -51,19 +49,17 @@ public class RoleMenuServiceImpl extends AbstractService<RoleMenuDTO,RoleMenu> i
     @Override
     public List<MenuVO> getMenuListByRoleId(Long roleId) {
         List<Long> menuIdList = getMenuIdListByRoleId(roleId);
-        List<MenuVO> menuVOList = new ArrayList<>();
         List<Menu> menuList=menuService.findEnableMenus();
+        Map<Long, Menu> MenuMap = menuList.stream().collect(Collectors.toMap(Menu::getId, a -> a,(k1, k2)->k1));
 
-        for (Menu menu: menuList) {
-            MenuVO menuVO=new MenuVO();
-            CglibBeanCopierUtils.copyProperties(menu,menuVO);
-            menuVOList.add(menuVO);
-        }
-        Map<Long, MenuVO> menuVOMap = menuVOList.stream().collect(Collectors.toMap(MenuVO::getId, a -> a,(k1, k2)->k1));
+        List<MenuVO> menuVOList=new ArrayList<>();
         for (Long menuId: menuIdList) {
-            if (menuVOMap.containsKey(menuId)){
-                MenuVO menu=menuVOMap.get(menuId);
-                menu.setCheck(true);
+            if (MenuMap.containsKey(menuId)){
+                Menu menu=MenuMap.get(menuId);
+                MenuVO menuVO=new MenuVO();
+                CglibBeanCopierUtils.copyProperties(menu,menuVO);
+                menuVO.setCheck(true);
+                menuVOList.add(menuVO);
             }
         }
         return menuVOList;
@@ -109,22 +105,6 @@ public class RoleMenuServiceImpl extends AbstractService<RoleMenuDTO,RoleMenu> i
         save(roleMenuList);
     }
 
-
-    @Override
-    public void saveByDTO(RoleMenuDTO dto) {
-
-    }
-
-    @Override
-    public void deleteByDTO(RoleMenuDTO dto) {
-
-    }
-
-    @Override
-    public void updateByDTO(RoleMenuDTO dto) {
-
-    }
-
     @Override
     public void save(List<RoleMenu> models) {
         AssertUtil.isNotNull(models, "参数不能为空");
@@ -133,11 +113,5 @@ public class RoleMenuServiceImpl extends AbstractService<RoleMenuDTO,RoleMenu> i
         }
         super.save(models);
     }
-
-    @Override
-    public PageInfoVo<RoleMenu> queryListByPage(RoleMenuDTO dto) {
-        return null;
-    }
-
 
 }

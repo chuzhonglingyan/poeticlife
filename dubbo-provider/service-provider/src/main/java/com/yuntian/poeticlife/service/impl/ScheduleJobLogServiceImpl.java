@@ -9,14 +9,9 @@ import com.yuntian.poeticlife.model.entity.ScheduleJobLog;
 import com.yuntian.poeticlife.model.vo.PageInfoVo;
 import com.yuntian.poeticlife.service.ScheduleJobLogService;
 import com.yuntian.poeticlife.util.AssertUtil;
-
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
-
 import javax.annotation.Resource;
-
 import tk.mybatis.mapper.entity.Condition;
 import tk.mybatis.mapper.entity.Example;
 
@@ -25,26 +20,21 @@ import tk.mybatis.mapper.entity.Example;
  * Created by CodeGenerator on 2019/03/17.
  */
 @Service("scheduleJobLogService")
-public class ScheduleJobLogServiceImpl extends AbstractService<ScheduleJobLogDTO,ScheduleJobLog> implements ScheduleJobLogService {
+public class ScheduleJobLogServiceImpl extends AbstractService<ScheduleJobLogDTO, ScheduleJobLog> implements ScheduleJobLogService {
 
     @Resource
     private ScheduleJobLogMapper scheduleJobLogMapper;
 
 
     @Override
-    public void saveByDTO(ScheduleJobLogDTO dto) {
-
+    public void saveByDTO(ScheduleJobLog dto) {
+        AssertUtil.isNotNull(dto.getIp(), "ip不能为空");
+        AssertUtil.isNotNull(dto.getJobId(), "任务id不能为空");
+        AssertUtil.isNotNull(dto.getBeanName(), "实体类不能为空");
+        AssertUtil.isNotBlank(dto.getMethodName(), "方法不能为空");
+        super.save(dto);
     }
 
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public void save(ScheduleJobLog model) {
-        AssertUtil.isNotNull(model.getIp(), "ip不能为空");
-        AssertUtil.isNotNull(model.getJobId(), "任务id不能为空");
-        AssertUtil.isNotNull(model.getBeanName(), "实体类不能为空");
-        AssertUtil.isNotBlank(model.getMethodName(), "方法不能为空");
-        super.save(model);
-    }
 
     @Override
     public PageInfoVo<ScheduleJobLog> queryListByPage(ScheduleJobLogDTO dto) {
@@ -57,16 +47,6 @@ public class ScheduleJobLogServiceImpl extends AbstractService<ScheduleJobLogDTO
         criteria.andEqualTo("jobId", dto.getJobId());
         List<ScheduleJobLog> roleList = findByCondition(condition);
         return new PageInfoVo<>(new PageInfo<>(roleList));
-    }
-
-    @Override
-    public void deleteByDTO(ScheduleJobLogDTO dto) {
-
-    }
-
-    @Override
-    public void updateByDTO(ScheduleJobLogDTO dto) {
-
     }
 
 

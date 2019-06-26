@@ -2,7 +2,7 @@ package com.yuntian.poeticlife.controller;
 
 import com.yuntian.poeticlife.core.Result;
 import com.yuntian.poeticlife.core.ResultGenerator;
-import com.yuntian.poeticlife.model.dto.OperaterDTO;
+import com.yuntian.poeticlife.model.dto.BackendOperaterDTO;
 import com.yuntian.poeticlife.model.entity.BackendOperater;
 import com.yuntian.poeticlife.model.vo.MenuTreeVO;
 import com.yuntian.poeticlife.model.vo.PageInfoVo;
@@ -31,10 +31,10 @@ public class BackendOperaterController extends BaseController {
     private BackendOperaterService backendOperaterService;
 
     @PostMapping("/add")
-    public Result add(BackendOperater backendOperater) {
-        backendOperater.setcreateId(getUserId());
-        backendOperater.setUpdateId(getUserId());
-        backendOperaterService.save(backendOperater);
+    public Result add(BackendOperater dto) {
+        dto.setCreateId(getUserId());
+        dto.setUpdateId(getUserId());
+        backendOperaterService.save(dto);
         return ResultGenerator.genSuccessResult();
     }
 
@@ -46,24 +46,24 @@ public class BackendOperaterController extends BaseController {
 
     @RequiresPermissions(value = {"operater:update"})
     @PostMapping("/update")
-    public Result update(BackendOperater backendOperater) {
-        backendOperater.setUpdateId(getUserId());
-        backendOperaterService.update(backendOperater);
+    public Result update(BackendOperater dto) {
+        dto.setUpdateId(getUserId());
+        backendOperaterService.update(dto);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/isEnable")
-    public Result isEnable(BackendOperater backendOperater) {
-        backendOperater.setUpdateId(getUserId());
-        backendOperaterService.isEnable(backendOperater);
+    public Result isEnable(BackendOperater dto) {
+        dto.setUpdateId(getUserId());
+        backendOperaterService.isEnable(dto);
         return ResultGenerator.genSuccessResult();
     }
 
 
     @PostMapping("/isStop")
-    public Result isStop(BackendOperater backendOperater) {
-        backendOperater.setUpdateId(getUserId());
-        backendOperaterService.isStop(backendOperater);
+    public Result isStop(BackendOperater dto) {
+        dto.setUpdateId(getUserId());
+        backendOperaterService.isStop(dto);
         return ResultGenerator.genSuccessResult();
     }
 
@@ -75,9 +75,8 @@ public class BackendOperaterController extends BaseController {
     }
 
     @RequestMapping(value = "/list", method = {RequestMethod.GET, RequestMethod.POST})
-    public PageInfoVo<BackendOperater> list(OperaterDTO dto) {
-        PageInfoVo<BackendOperater> pageInfo = backendOperaterService.queryRoleListByPage(dto);
-        return pageInfo;
+    public PageInfoVo<BackendOperater> list(BackendOperaterDTO dto) {
+        return backendOperaterService.queryListByPage(dto);
     }
 
 

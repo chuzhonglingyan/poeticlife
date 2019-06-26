@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ${basePackage}.model.dto.${modelNameUpperCamel}DTO;
-import ${basePackage}.model.vo.${modelNameUpperCamel}VO;
 import javax.annotation.Resource;
-
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 
 /**
 * Created by ${author} on ${date}.
@@ -29,33 +28,37 @@ public class ${modelNameUpperCamel}Controller extends BaseController{
         return "backend/${modelNameLowerCamel}List";
     }
 
+    @RequiresPermissions(value = {"${modelNameLowerCamel}:add"})
     @PostMapping("/add")
     @ResponseBody
-    public Result add(${modelNameUpperCamel}DTO dto) {
+    public Result add(${modelNameUpperCamel} dto) {
         dto.setCreateId(getUserId());
         dto.setUpdateId(getUserId());
         ${modelNameLowerCamel}Service.saveByDTO(dto);
         return ResultGenerator.genSuccessResult();
     }
 
+    @RequiresPermissions(value = {"${modelNameLowerCamel}:delete"})
     @PostMapping("/delete")
     @ResponseBody
-    public Result delete(${modelNameUpperCamel}DTO dto) {
+    public Result delete(${modelNameUpperCamel} dto) {
         dto.setCreateId(getUserId());
         dto.setUpdateId(getUserId());
         ${modelNameLowerCamel}Service.deleteByDTO(dto);
         return ResultGenerator.genSuccessResult();
     }
 
+    @RequiresPermissions(value = {"${modelNameLowerCamel}:update"})
     @PostMapping("/update")
     @ResponseBody
-    public Result update(${modelNameUpperCamel}DTO dto) {
+    public Result update(${modelNameUpperCamel} dto) {
         dto.setCreateId(getUserId());
         dto.setUpdateId(getUserId());
         ${modelNameLowerCamel}Service.updateByDTO(dto);
         return ResultGenerator.genSuccessResult();
     }
 
+    @RequiresPermissions(value = {"${modelNameLowerCamel}:view"})
     @PostMapping("/detail")
     @ResponseBody
     public Result detail(@RequestParam Long id) {
@@ -66,7 +69,7 @@ public class ${modelNameUpperCamel}Controller extends BaseController{
 
     @PostMapping("/list")
     @ResponseBody
-    public PageInfoVo<${modelNameUpperCamel}VO> list(${modelNameUpperCamel}DTO dTO) {
+    public PageInfoVo<${modelNameUpperCamel}> list(${modelNameUpperCamel}DTO dTO) {
         return ${modelNameLowerCamel}Service.queryListByPage(dTO);
     }
 

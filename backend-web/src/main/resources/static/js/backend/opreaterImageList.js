@@ -1,21 +1,21 @@
 var vm = new Vue({
-    el: '#dictList',
+    el: '#opreaterImageList',
     data: {
         url: {
-            queryUrl: baseURL + "/dict/list",
-            addUrl: baseURL + "/dict/add",
-            updateUrl: baseURL + "/dict/update",
-            isEnableUrl: baseURL + "/dict/isEnable",
-            isStopUrl: baseURL + "/dict/isStop",
-            deleteUrl: baseURL + "/dict/delete"
+            queryUrl: baseURL + "/opreaterImage/list",
+            addUrl: baseURL + "/opreaterImage/add",
+            updateUrl: baseURL + "/opreaterImage/update",
+            isEnableUrl: baseURL + "/opreaterImage/isEnable",
+            isStopUrl: baseURL + "/opreaterImage/isStop",
+            deleteUrl: baseURL + "/opreaterImage/delete"
         },
         validator: {},
         rowData:null,
-        adddictModal:null
+        addopreaterImageModal:null
     },
     methods: {
         queryData: function () {
-            var table = $('#dictTable');
+            var table = $('#opreaterImageTable');
             table.bootstrapTable('destroy');
             table.bootstrapTable({
                 url: this.url.queryUrl,      //请求后台的URL（*）
@@ -42,12 +42,12 @@ var vm = new Vue({
                     },
                     align: 'center'
                 }, {
-                    field: 'dictName',
-                    title: "字典名称",
+                    field: 'opreaterImageName',
+                    title: "用户图片名称",
                     align: 'center'
                 }, {
-                    field: 'dictStatus',
-                    title: "字典状态",
+                    field: 'opreaterImageStatus',
+                    title: "用户图片状态",
                     align: 'center',
                     formatter: function (value, row, index) {
                         return formatStatus(value);
@@ -77,12 +77,12 @@ var vm = new Vue({
                     title: "操作",
                     formatter: function option(value, row, index) {
                         var str = "";
-                        str += "<button style='margin-left:15px' class='btn btn-xs btn-info' onclick='vm.editDict(" + JSON.stringify(row) + ")'><i class=\"fa fa-pencil-square-o\" ></i>&nbsp;编辑</button> ";
-                        if (row.dictStatus === 1) {
-                            str += "<button style='margin-left:15px' class='btn btn-xs btn-warning ' onclick='vm.freezeDict(" + row.id + ")'><i class=\"fa fa-ban\" ></i>禁用</button>";
+                        str += "<button style='margin-left:15px' class='btn btn-xs btn-info' onclick='vm.editOpreaterImage(" + JSON.stringify(row) + ")'><i class=\"fa fa-pencil-square-o\" ></i>&nbsp;编辑</button> ";
+                        if (row.opreaterImageStatus === 1) {
+                            str += "<button style='margin-left:15px' class='btn btn-xs btn-warning ' onclick='vm.freezeOpreaterImage(" + row.id + ")'><i class=\"fa fa-ban\" ></i>禁用</button>";
                         } else {
-                            str += "<button style='margin-left:15px' class='btn btn-xs btn-success ' onclick='vm.eableDict(" + row.id + ")'><i class=\"fa fa-play\" ></i>启用</button>";
-                            str += "<button style='margin-left:15px' class='btn btn-xs btn-danger ' onclick='vm.deleteDict(" + row.id + ")'><i class=\"fa fa-trash-o\" ></i>&nbsp;删除</button>";
+                            str += "<button style='margin-left:15px' class='btn btn-xs btn-success ' onclick='vm.eableOpreaterImage(" + row.id + ")'><i class=\"fa fa-play\" ></i>启用</button>";
+                            str += "<button style='margin-left:15px' class='btn btn-xs btn-danger ' onclick='vm.deleteOpreaterImage(" + row.id + ")'><i class=\"fa fa-trash-o\" ></i>&nbsp;删除</button>";
                         }
                         return str;
                     },
@@ -98,7 +98,7 @@ var vm = new Vue({
                 }
             });
         },
-        eableDict: function (id) {
+        eableOpreaterImage: function (id) {
             postFormFull(vm.url.isEnableUrl,{"id":id},function (data) {
                 layer.msg("启用成功");
                 vm.queryData();
@@ -106,7 +106,7 @@ var vm = new Vue({
                 layer.msg(msg);
             })
         },
-        freezeDict: function (id) {
+        freezeOpreaterImage: function (id) {
             postFormFull(vm.url.isStopUrl,{"id":id},function (data) {
                 layer.msg("禁用成功");
                 vm.queryData();
@@ -114,21 +114,21 @@ var vm = new Vue({
                 layer.msg(msg);
             })
         },
-        editDict: function (row) {
+        editOpreaterImage: function (row) {
             vm.rowData=row;
-            $('#dictName').val(row.DictName);
+            $('#opreaterImageName').val(row.OpreaterImageName);
             $('#remark').val(row.remark);
-            var  dictStatus=row.DictStatus;
-            $('input:radio[name="dictStatus"][value='+dictStatus+']').prop("checked", "checked");
-            setModalTitle( vm.addDictModal,"编辑字典");
-            showModal( vm.addDictModal);
+            var  opreaterImageStatus=row.OpreaterImageStatus;
+            $('input:radio[name="opreaterImageStatus"][value='+opreaterImageStatus+']').prop("checked", "checked");
+            setModalTitle( vm.addOpreaterImageModal,"编辑用户图片");
+            showModal( vm.addOpreaterImageModal);
         },
-        addDict: function () {
+        addOpreaterImage: function () {
             vm.rowData=null;
-            setModalTitle( vm.addDictModal,"新增字典");
-            showModal( vm.addDictModal);
+            setModalTitle( vm.addOpreaterImageModal,"新增用户图片");
+            showModal( vm.addOpreaterImageModal);
         },
-        deleteDict: function (id) {
+        deleteOpreaterImage: function (id) {
             //询问框
             layer.confirm('确定要删除？', {btn: ['确定', '取消']}, function () {
                 postFormFull(vm.url.deleteUrl,{"id":id},function (data) {
@@ -140,15 +140,15 @@ var vm = new Vue({
             }, function () {
             });
         },
-        saveDict: function () {
-            var  paramFrom= $('#addDictForm').serialize();
+        saveOpreaterImage: function () {
+            var  paramFrom= $('#addOpreaterImageForm').serialize();
 
             vm.validator.validate();
             if (vm.validator.isValid()) {
                 if (isEmpty(vm.rowData)) {
                     postFormFull(vm.url.addUrl,paramFrom,function (data) {
                         layer.msg("新增成功");
-                        hideModal( vm.addDictModal);
+                        hideModal( vm.addOpreaterImageModal);
                         vm.queryData();
                     },function (msg) {
                         layer.msg(msg);
@@ -157,7 +157,7 @@ var vm = new Vue({
                     var data = $.param({'id': vm.rowData.id}) + '&' + paramFrom;
                     postFormFull(vm.url.updateUrl,data,function (data) {
                         layer.msg("编辑成功");
-                        hideModal( vm.addDictModal);
+                        hideModal( vm.addOpreaterImageModal);
                         vm.queryData();
                     },function (msg) {
                         layer.msg(msg);
@@ -171,7 +171,7 @@ var vm = new Vue({
     },
     mounted: function () {
         this.queryData();
-        this.addDictModal=$('#addDictModal');
+        this.addOpreaterImageModal=$('#addOpreaterImageModal');
         initModalListener();
     }
 });
@@ -180,22 +180,22 @@ var vm = new Vue({
 
 
 function initModalListener() {
-    var  addDictModal= $("#addDictModal");
-    showModalListener(addDictModal,function () {
+    var  addOpreaterImageModal= $("#addOpreaterImageModal");
+    showModalListener(addOpreaterImageModal,function () {
         initValidForm();
-        vm.validator = $("#addDictForm").data("bootstrapValidator");
+        vm.validator = $("#addOpreaterImageForm").data("bootstrapValidator");
         console.debug("显示");
     });
 
-    hideModalListener(addDictModal,function () {
+    hideModalListener(addOpreaterImageModal,function () {
         console.debug("消失");
-        $('#addDictForm')[0].reset();
+        $('#addOpreaterImageForm')[0].reset();
         vm.validator.destroy();
     })
 }
 
 function initValidForm() {
-    $('#addDictForm').bootstrapValidator({
+    $('#addOpreaterImageForm').bootstrapValidator({
         message: 'This value is not valid',
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',
@@ -203,11 +203,11 @@ function initValidForm() {
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-            DictName: {
-                message: '字典验证失败',
+            OpreaterImageName: {
+                message: '用户图片验证失败',
                 validators: {
                     notEmpty: {
-                        message: '字典名不能为空'
+                        message: '用户图片名不能为空'
                     }
                 }
             },

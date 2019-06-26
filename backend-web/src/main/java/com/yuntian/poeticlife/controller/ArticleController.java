@@ -10,12 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.yuntian.poeticlife.model.dto.ArticleDTO;
-import com.yuntian.poeticlife.model.vo.ArticleVO;
 import javax.annotation.Resource;
-
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 
 /**
-* Created by CodeGenerator on 2019/06/13.
+* Created by CodeGenerator on 2019/06/26.
 */
 @Controller
 @RequestMapping("/article")
@@ -29,34 +28,37 @@ public class ArticleController extends BaseController{
         return "backend/articleList";
     }
 
+    @RequiresPermissions(value = {"article:add"})
     @PostMapping("/add")
     @ResponseBody
-    public Result add(ArticleDTO dto) {
+    public Result add(Article dto) {
         dto.setCreateId(getUserId());
         dto.setUpdateId(getUserId());
         articleService.saveByDTO(dto);
         return ResultGenerator.genSuccessResult();
     }
 
+    @RequiresPermissions(value = {"article:delete"})
     @PostMapping("/delete")
     @ResponseBody
-    public Result delete(ArticleDTO dto) {
+    public Result delete(Article dto) {
         dto.setCreateId(getUserId());
         dto.setUpdateId(getUserId());
         articleService.deleteByDTO(dto);
         return ResultGenerator.genSuccessResult();
     }
 
+    @RequiresPermissions(value = {"article:update"})
     @PostMapping("/update")
     @ResponseBody
-    public Result update(ArticleDTO dto) {
+    public Result update(Article dto) {
         dto.setCreateId(getUserId());
         dto.setUpdateId(getUserId());
         articleService.updateByDTO(dto);
-
         return ResultGenerator.genSuccessResult();
     }
 
+    @RequiresPermissions(value = {"article:view"})
     @PostMapping("/detail")
     @ResponseBody
     public Result detail(@RequestParam Long id) {
@@ -67,7 +69,7 @@ public class ArticleController extends BaseController{
 
     @PostMapping("/list")
     @ResponseBody
-    public PageInfoVo<ArticleVO> list(ArticleDTO dTO) {
+    public PageInfoVo<Article> list(ArticleDTO dTO) {
         return articleService.queryListByPage(dTO);
     }
 

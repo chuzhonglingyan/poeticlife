@@ -113,7 +113,7 @@ public class OpreaterImage {
      *
      * @return create_id - 创建人
      */
-    public Long getcreateId() {
+    public Long getCreateId() {
         return createId;
     }
 
@@ -122,7 +122,7 @@ public class OpreaterImage {
      *
      * @param createId 创建人
      */
-    public void setcreateId(Long createId) {
+    public void setCreateId(Long createId) {
         this.createId = createId;
     }
 
@@ -149,7 +149,7 @@ public class OpreaterImage {
      *
      * @return update_id - 更新人
      */
-    public Long getupdateId() {
+    public Long getUpdateId() {
         return updateId;
     }
 
@@ -158,7 +158,7 @@ public class OpreaterImage {
      *
      * @param updateId 更新人
      */
-    public void setupdateId(Long updateId) {
+    public void setUpdateId(Long updateId) {
         this.updateId = updateId;
     }
 

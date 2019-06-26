@@ -195,7 +195,7 @@ public class Dict {
      *
      * @return create_id - 创建人ID
      */
-    public Long getcreateId() {
+    public Long getCreateId() {
         return createId;
     }
 
@@ -204,7 +204,7 @@ public class Dict {
      *
      * @param createId 创建人ID
      */
-    public void setcreateId(Long createId) {
+    public void setCreateId(Long createId) {
         this.createId = createId;
     }
 
@@ -231,7 +231,7 @@ public class Dict {
      *
      * @return update_id - 更新人ID
      */
-    public Long getupdateId() {
+    public Long getUpdateId() {
         return updateId;
     }
 
@@ -240,7 +240,7 @@ public class Dict {
      *
      * @param updateId 更新人ID
      */
-    public void setupdateId(Long updateId) {
+    public void setUpdateId(Long updateId) {
         this.updateId = updateId;
     }
 }

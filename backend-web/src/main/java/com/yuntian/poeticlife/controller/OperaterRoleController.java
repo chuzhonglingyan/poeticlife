@@ -1,28 +1,30 @@
 package com.yuntian.poeticlife.controller;
+
 import com.yuntian.poeticlife.core.Result;
 import com.yuntian.poeticlife.core.ResultGenerator;
 import com.yuntian.poeticlife.model.dto.OperaterRoleDTO;
 import com.yuntian.poeticlife.model.entity.OperaterRole;
+import com.yuntian.poeticlife.model.vo.PageInfoVo;
 import com.yuntian.poeticlife.model.vo.RoleVO;
 import com.yuntian.poeticlife.service.OperaterRoleService;
-import com.github.pagehelper.PageHelper;
-import com.yuntian.poeticlife.model.vo.PageInfoVo;
-import com.github.pagehelper.PageInfo;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 /**
-* Created by CodeGenerator on 2019/02/26.
-*/
+ * Created by CodeGenerator on 2019/02/26.
+ */
 @RestController
 @RequestMapping("/operater/role")
-public class OperaterRoleController extends BaseController{
+public class OperaterRoleController extends BaseController {
 
     @Resource
     private OperaterRoleService operaterRoleService;
@@ -43,19 +45,17 @@ public class OperaterRoleController extends BaseController{
     }
 
 
-
     @PostMapping("/getRoleListByOperaterId")
-    public  List<RoleVO>  getRoleListByOperaterId(@RequestParam Long operaterId) {
-        List<RoleVO> roleVOList = operaterRoleService.getRoleListByOperaterId(operaterId);
-        return roleVOList;
+    public List<RoleVO> getRoleListByOperaterId(@RequestParam Long operaterId) {
+        return operaterRoleService.getRoleListByOperaterId(operaterId);
     }
 
 
     @PostMapping("/list")
-    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
-        PageHelper.startPage(page, size);
-        List<OperaterRole> list = operaterRoleService.findAll();
-        PageInfoVo<OperaterRole> pageInfo = new PageInfoVo<>(new PageInfo<>(list));
-        return ResultGenerator.genSuccessResult(pageInfo);
+    @ResponseBody
+    public PageInfoVo<OperaterRole> list(OperaterRoleDTO dTO) {
+        return operaterRoleService.queryListByPage(dTO);
     }
+
+
 }

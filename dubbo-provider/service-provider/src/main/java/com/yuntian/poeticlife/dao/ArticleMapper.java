@@ -4,7 +4,7 @@ import com.yuntian.poeticlife.core.Mapper;
 
 
 /**
- * Created by CodeGenerator on 2019/06/13.
+ * Created by CodeGenerator on 2019/06/26.
  */
 public interface ArticleMapper extends Mapper<ArticleVO> {
 

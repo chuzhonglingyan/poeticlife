@@ -1,9 +1,9 @@
 package com.yuntian.poeticlife.model.dto;
 
+import java.io.Serializable;
 /**
- * @Auther: yuntian
- * @Date: 2019/6/12 0012 20:38
- * @Description:
+ * Created by CodeGenerator on 2019/06/17.
  */
-public class OpreaterImageDTO extends BaseDTO {
+public class OpreaterImageDTO extends BaseDTO implements Serializable{
+
 }

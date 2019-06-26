@@ -284,7 +284,7 @@ public class ScheduleJob implements Serializable {
      *
      * @param createId 创建人ID
      */
-    public void setcreateId(Long createId) {
+    public void setCreateId(Long createId) {
         this.createId = createId;
     }
 
@@ -302,7 +302,7 @@ public class ScheduleJob implements Serializable {
      *
      * @param updateId 修改人ID
      */
-    public void setupdateId(Long updateId) {
+    public void setUpdateId(Long updateId) {
         this.updateId = updateId;
     }
 

@@ -1,9 +1,5 @@
 package com.yuntian.poeticlife.service.impl;
 
-import com.yuntian.poeticlife.model.entity.Article;
-import com.yuntian.poeticlife.model.vo.PageInfoVo;
-import com.yuntian.poeticlife.util.AssertUtil;
-import com.yuntian.poeticlife.util.CglibBeanCopierUtils;
 import com.yuntian.poeticlife.core.AbstractService;
 import com.yuntian.poeticlife.dao.OperaterRoleMapper;
 import com.yuntian.poeticlife.model.dto.OperaterRoleDTO;
@@ -12,9 +8,13 @@ import com.yuntian.poeticlife.model.entity.Role;
 import com.yuntian.poeticlife.model.vo.RoleVO;
 import com.yuntian.poeticlife.service.OperaterRoleService;
 import com.yuntian.poeticlife.service.RoleService;
+import com.yuntian.poeticlife.util.AssertUtil;
+import com.yuntian.poeticlife.util.CglibBeanCopierUtils;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
+
 import tk.mybatis.mapper.entity.Condition;
 import tk.mybatis.mapper.entity.Example;
 
@@ -30,13 +31,33 @@ import tk.mybatis.mapper.entity.Example;
  * Created by CodeGenerator on 2019/02/26.
  */
 @Service("operaterRoleService")
-public class OperaterRoleServiceImpl extends AbstractService<OperaterRoleDTO,OperaterRole> implements OperaterRoleService {
+public class OperaterRoleServiceImpl extends AbstractService<OperaterRoleDTO, OperaterRole> implements OperaterRoleService {
+
     @Resource
     private OperaterRoleMapper operaterRoleMapper;
 
     @Resource
     private RoleService roleService;
 
+
+    @Override
+    public List<RoleVO> getRoleListByOperaterId(Long operaterId) {
+        List<Long> roleIdList = getRoleIdListByOperaterId(operaterId);
+        List<Role> roleList = roleService.findEnableList();
+        Map<Long, Role> roleMap = roleList.stream().collect(Collectors.toMap(Role::getId, a -> a, (k1, k2) -> k1));
+
+        List<RoleVO> roleVOList=new ArrayList<>();
+        for (Long roleId : roleIdList) {
+            if (roleMap.containsKey(roleId)) {
+                Role role = roleMap.get(roleId);
+                RoleVO roleVO=new RoleVO();
+                CglibBeanCopierUtils.copyProperties(role,roleVO);
+                roleVO.setCheck(true);
+                roleVOList.add(roleVO);
+            }
+        }
+        return roleVOList;
+    }
 
     @Override
     public List<Long> getRoleIdListByOperaterId(Long operaterId) {
@@ -47,26 +68,6 @@ public class OperaterRoleServiceImpl extends AbstractService<OperaterRoleDTO,Ope
         return list.stream().map(OperaterRole::getRoleId).collect(Collectors.toList());
     }
 
-    @Override
-    public List<RoleVO> getRoleListByOperaterId(Long operaterId) {
-        List<Long> roleIdList = getRoleIdListByOperaterId(operaterId);
-        List<RoleVO> roleVOList = new ArrayList<>();
-        List<Role> roleList = roleService.findEnableRoleList();
-
-        for (Role role : roleList) {
-            RoleVO roleVO = new RoleVO();
-            CglibBeanCopierUtils.copyProperties(role,roleVO);
-            roleVOList.add(roleVO);
-        }
-        Map<Long, RoleVO> roleVOMap = roleVOList.stream().collect(Collectors.toMap(RoleVO::getId, a -> a,(k1,k2)->k1));
-        for (Long roleId : roleIdList) {
-            if (roleVOMap.containsKey(roleId)) {
-                RoleVO roleVO = roleVOMap.get(roleId);
-                roleVO.setCheck(true);
-            }
-        }
-        return roleVOList;
-    }
 
     @Override
     public List<Long> getOperaterIdListByRoleId(Long roleId) {
@@ -76,6 +77,7 @@ public class OperaterRoleServiceImpl extends AbstractService<OperaterRoleDTO,Ope
         List<OperaterRole> list = findByCondition(condition);
         return list.stream().map(OperaterRole::getOperaterId).collect(Collectors.toList());
     }
+
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -91,7 +93,7 @@ public class OperaterRoleServiceImpl extends AbstractService<OperaterRoleDTO,Ope
                 OperaterRole operaterRole = new OperaterRole();
                 operaterRole.setOperaterId(dto.getOperaterId());
                 operaterRole.setRoleId(roleId);
-                operaterRole.setcreateId(dto.getCreateId());
+                operaterRole.setCreateId(dto.getCreateId());
                 operaterRole.setupdateId(dto.getUpdateId());
                 operaterRole.setCreateTime(new Date());
                 operaterRole.setUpdateTime(new Date());
@@ -111,23 +113,4 @@ public class OperaterRoleServiceImpl extends AbstractService<OperaterRoleDTO,Ope
     }
 
 
-    @Override
-    public PageInfoVo<OperaterRole> queryListByPage(OperaterRoleDTO dto) {
-        return null;
-    }
-
-    @Override
-    public void saveByDTO(OperaterRoleDTO dto) {
-
-    }
-
-    @Override
-    public void deleteByDTO(OperaterRoleDTO dto) {
-
-    }
-
-    @Override
-    public void updateByDTO(OperaterRoleDTO dto) {
-
-    }
 }

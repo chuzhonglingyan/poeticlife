@@ -1,6 +1,7 @@
 package com.yuntian.poeticlife.service.impl;
 
 import com.yuntian.poeticlife.model.entity.Image;
+import com.yuntian.poeticlife.model.vo.ImageVO;
 import com.yuntian.poeticlife.service.ImageService;
 
 import org.junit.After;
@@ -31,7 +32,7 @@ public class ImageServiceImplTest {
 
     @Test
     public void save() {
-        Image image=new Image();
+        ImageVO image=new ImageVO();
 
         image.setImageModule((byte) 0);
 
@@ -39,8 +40,8 @@ public class ImageServiceImplTest {
         image.setImageType((byte) 0);
         image.setImageSize("");
         image.setImageMd5("");
-        image.setcreateId(0L);
-        image.setupdateId(0L);
+        image.setCreateId(0L);
+        image.setUpdateId(0L);
         imageService.save(image);
     }
 

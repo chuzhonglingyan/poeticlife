@@ -11,18 +11,17 @@ import com.yuntian.poeticlife.model.vo.PageInfoVo;
  */
 public interface ScheduleJobService extends Service<ScheduleJobDTO,ScheduleJob> {
 
-    int insertJob(ScheduleJob scheduleJob);
+    int insertJob(ScheduleJob dto);
+
+
+    public void run(ScheduleJob dto) ;
 
 
 
-    public void run(Long id) ;
+    public void resume(ScheduleJob dto) ;
 
 
-
-    public void resume(Long id) ;
-
-
-    public void pause(Long id) ;
+    public void pause(ScheduleJob dto) ;
 
 
 }
